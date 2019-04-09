@@ -4,9 +4,9 @@ React4xp starter with examples, for Enonic XP7.0.
 
 This starter imports [a library](https://github.com/enonic/lib-react4xp-runtime) and a few companion NPM packages, that transpiles and serves JSX-format React components from Enonic XP 7.
 
-Includes build setup and some example parts that can be added and viewed in Content Studio, showing React components in different setups that get props from XP data.
+Includes build setup and some example parts that can be added and viewed in Content Studio, showing React components in different setups that get props from XP data. A  standalone HTML example is also included in `src/main/resources/webapp/webapp.es6`.
 
-Meant to demonstrate how to use React with XP, as well as kickstarting a React4xp project of your own!
+Meant to demonstrate how to use React with XP, as well as help you kickstart a React4xp project of your own!
 
 ## Install
 

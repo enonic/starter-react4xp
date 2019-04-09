@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Enonic XP</title>
+	</head>
+
+	<body class="xp-page">
+		<main data-portal-region="main" class="xp-region">
+			<th:block data-th-if="${mainRegion}">
+				<th:block data-th-each="component : ${mainRegion.components}">
+					<th:block data-portal-component="${component.path}"></th:block>
+				</th:block>
+			</th:block>
+		</main>
+	</body>
+</html>

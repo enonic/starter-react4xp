@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part>
+	<display-name>Complex: controlled config, several and wrapped shared components, inserted into a pre-rendered view</display-name>
+	<form>
+        <input name="greetee" type="TextLine">
+            <label>Who should we greet first?</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>world</default>
+        </input>
+        <input name="greetee2" type="TextLine">
+            <label>And after that?</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>the second world</default>
+        </input>
+    </form>
+</part>

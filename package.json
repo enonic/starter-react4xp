@@ -1,0 +1,46 @@
+{
+    "name": "react4xp",
+    "version": "0.1.0",
+    "description": "React4xp starter with examples, for Enonic XP7.0",
+    "scripts": {
+        "rm": "node_modules/rimraf/bin.js build",
+        "rebuild": "npm run rm; npm i; ./gradlew build",
+        "deploy": "./gradlew deploy --info",
+        "watch": "./gradlew deploy --info -t",
+        "babel:xp": "./gradlew babelXP",
+        "rebuild:r4xp": "npm run rm; node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.js --progress",
+        "watch:r4xp": "node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.js --progress --watch",
+        "rebuild:r4xp-ext": "npm run rm; node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.externals.js --progress",
+        "watch:r4xp-ext": "node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.externals.js --progress --watch",
+        "rebuild:r4xp-core": "npm run rm; node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.frontCore.js --progress",
+        "watch:r4xp-core": "node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.frontCore.js --progress --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/enonic/starter-react4xp.git"
+    },
+    "author": "",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/enonic/starter-react4xp/issues"
+    },
+    "homepage": "https://github.com/enonic/starter-react4xp#readme",
+    "dependencies": {
+        "babel-cli": "^6.26.0",
+        "react-dom": "^16.8.6",
+        "react4xp-build-components": "^0.3.3",
+        "react4xp-buildconstants": "^0.7.1",
+        "react4xp-runtime-externals": "^0.3.1"
+    },
+    "devDependencies": {},
+    "babel": {
+        "presets": [
+            "es2015",
+            "react",
+            "stage-0"
+        ],
+        "plugins": [
+            "transform-object-rest-spread"
+        ]
+    }
+}

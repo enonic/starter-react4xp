@@ -14,8 +14,6 @@ First, follow the setup description for [Enonic XP 7.0](https://developer.enonic
 
 Run:
 ```bash
-> npm i
-
 > enonic project deploy
 ```
 

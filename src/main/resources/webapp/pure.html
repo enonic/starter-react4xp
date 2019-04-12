@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>React4xp standalone page 2</title>
+    <title>Pure Standalone | React4xp Starter</title>
+    <link rel="icon"
+          type="image/png"
+          href="/_/asset/com.enonic.app.react4xp/application.png">
+    <style>
+        * {
+            font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+        }
+    </style>
 
     <!-- OPTION 1: You can get React and ReactDOM from CDN like this, if you want to skip the react4xp-runtime-externals step in build.gradle:
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
@@ -16,11 +24,19 @@
 
 </head>
 <body>
-    <h1>TESTING 2... TESTING 2...</h1>
-    <p>Is this thing still on? OK, here comes another React4xp rendering:</p>
+    <div>
+        <img type="image/png" src="/_/asset/com.enonic.app.react4xp/application.png" height="80" width="80">
+        <h1>React4xp Starter: Standalone HTML</h1>
+    </div>
+    <p><strong>Completely standalone client-side rendering</strong></p>
+    <p>No data inserted from the controller, the client only uses the source HTML document and React4xp services.</p>
+    <p>Here goes:</p>
 
     <div id="simple_target"></div>
     <div id="complex_target"></div>
+
+    <a href="?">Back to the controlled version...</a>
+
     <script>
 
             // Actual rendering:
@@ -33,7 +49,7 @@
 
                     'site/parts/complex/complex': {
                         targetId: 'complex_target',
-                        props: { greetee: "otherworld" },
+                        props: { greetee: "clickable world" },
                     },
                 },
 
@@ -41,5 +57,6 @@
                 function() { console.log("This is inserted and called after rendering the SimpleGreeter."); }
             );
     </script>
+
     </body>
 </html>

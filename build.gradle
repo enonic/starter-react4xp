@@ -57,7 +57,7 @@ def CONFIG = {}
 def REACT4XP_OVERRIDES = '{' +
         '"outputFileName": "' + ROOT + '/' + REACT4XP_CONFIG_FILE + '"' +
         ', "BUILD_ENV": "production"' +
-        ', "verbose":true' +
+        //', "verbose":true' +
         '}'
 
 // Build the master config JSON file and the copy:

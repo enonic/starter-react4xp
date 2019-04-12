@@ -24,8 +24,8 @@ class InnerGreeter extends React.Component {
             <h1>
                 <span onClick={() => this.moreGreetings()}
                       style={{cursor: "pointer"}}
-                      className="greeting">{this.state.greetings}</span>
-                <span onClick={() => this.moreTargets()}
+                      className="greeting">{this.state.greetings}
+                </span> <span onClick={() => this.moreTargets()}
                       style={{cursor: "pointer"}}
                       className="target">{this.state.targets}</span>
                 !

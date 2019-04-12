@@ -57,7 +57,7 @@ def CONFIG = {}
 def REACT4XP_OVERRIDES = '{' +
         '"outputFileName": "' + ROOT + '/' + REACT4XP_CONFIG_FILE + '"' +
         ', "BUILD_ENV": "production"' +
-        //', "verbose":true' +
+        ', "verbose":true' +
         '}'
 
 // Build the master config JSON file and the copy:
@@ -83,19 +83,7 @@ task config_react4xp(type: NodeTask) {
     }
 }
 config_react4xp.dependsOn += 'npmInstall'
-
-
-task babelXP(type: NodeTask) {
-    script = file('node_modules/babel-cli/bin/babel.js')
-    args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
-
-    inputs.dir 'src/main/resources'
-    outputs.dir("build/resources/main")
-}
-babelXP.dependsOn += 'config_react4xp'
-babelXP.dependsOn += 'processResources'
-
-jar.dependsOn += 'babelXP'
+config_react4xp.dependsOn += 'processResources'
 
 
 // Compile:
@@ -110,8 +98,8 @@ task webpack_react4xp(type: NodeTask) {
             //'--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',  	// <-- Activate this line to roll your own nashorn polyfill instead of the included one. See react4xp-runtime-nashornpolyfills docs.
             '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  		// <-- This line supplies dependencies declared in the EXTERNALS config constant - see the react4xp-runtime-externals docs. If you remove this line, you can/must add react@16 and react-dom@16 on all your HTML pages yourself - e.g. from a CDN.
 
-            '--env.REACT4XP_CONFIG_FILE=' + ROOT + '/' + REACT4XP_CONFIG_FILE, 			// <-- Tells all of the steps here where to find the master config file
-            '--progress', '--color'  								// <-- Just pretty
+            '--env.REACT4XP_CONFIG_FILE=' + ROOT + '/' + REACT4XP_CONFIG_FILE, 			    // <-- Tells all of the steps here where to find the master config file
+            '--progress', '--color'  								                        // <-- Just pretty
     ]
 
     inputs.file(REACT4XP_CONFIG_FILE)
@@ -120,4 +108,16 @@ task webpack_react4xp(type: NodeTask) {
 }
 webpack_react4xp.dependsOn += 'config_react4xp'
 
+
+task babelXP(type: NodeTask) {
+    script = file('node_modules/babel-cli/bin/babel.js')
+    args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
+
+    inputs.dir 'src/main/resources'
+    outputs.dir("build/resources/main")
+}
+babelXP.dependsOn += 'config_react4xp'
+
+
 jar.dependsOn += 'webpack_react4xp'
+jar.dependsOn += 'babelXP'

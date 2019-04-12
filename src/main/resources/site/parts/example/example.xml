@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part>
-	<display-name>Client-rendered simple example</display-name>
+	<display-name>Simple example</display-name>
+    <description>Simple client-side-rendered (renderSafe) example from local react component: example.jsx</description>
 	<form>
         <input name="greetee" type="TextLine">
             <label>Who should we greet?</label>

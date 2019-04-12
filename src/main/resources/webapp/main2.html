@@ -20,7 +20,7 @@
     <p>Is this thing still on? OK, here comes another React4xp rendering:</p>
 
     <div id="simple_target"></div>
-    <div id="reduxed_target"></div>
+    <div id="complex_target"></div>
     <script>
 
             // Actual rendering:
@@ -28,21 +28,13 @@
                 {
                     SimpleGreeter: {
                         targetId: 'simple_target',
-                        props: {worldOrSomething: "worldie"}
+                        props: { greetee: "world"}
                     },
 
-                    'site/parts/clientReduxed/clientReduxed': {
-                        targetId: 'reduxed_target',
-                        props: {
-                            react4xpId: "yup",
-                            greetings: {
-                                greetingsCount: 1,
-                                greeteeCount: 1,
-                                greetee: "different world"
-                            },
-                        },
+                    'site/parts/complex/complex': {
+                        targetId: 'complex_target',
+                        props: { greetee: "otherworld" },
                     },
-
                 },
 
                 // Demo callback:

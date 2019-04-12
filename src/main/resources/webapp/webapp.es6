@@ -4,22 +4,23 @@ const thymeleaf = require('/lib/thymeleaf');
 
 const dependencies = require('/lib/enonic/react4xp/dependencies');
 
-const view1 = resolve('main.html');
-
-const view2 = resolve('main1.html');
+const view1 = resolve('main1.html');
+const view2 = resolve('main2.html');
 
 exports.get = req => {
 
-    //*
-    const model = {
-        urls: dependencies.getAllUrls('SimpleGreeter')
-    };
-    model.urls.push(`/_/service/${app.name}/react4xp/SimpleGreeter`);
-    //*/
+    // Default rendering is a semi-serverside: client-side rendering, inserting all urls for dependencies and entries with thymeleaf from the model.
+    // Add a "?pure" URL parameter to see a completely standalone client rendering, getting nothing from the controller, only using the services
+    const secondary = (req.params && req.params["2"]);
+
+    const model = (!secondary) ?
+        {
+            urls: [...dependencies.getAllUrls('SimpleGreeter'), `/_/service/${app.name}/react4xp/SimpleGreeter`]
+        } :
+        {};
+
+    const view = (secondary) ? view1 : view2;
 
     return {
-        body: thymeleaf.render(view1, model)   // <-- Semi-serverside: client-side rendering, inserting all urls for dependencies and entries with thymeleaf from the model.
-
-        //body: thymeleaf.render(view2, {})       // <-- Pure client-side standalone, completely rendered from HTML that only needs to know the client service url, and uses that to fetch all scripts from services
-    }
+        body: thymeleaf.render(view, model)}
 };

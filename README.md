@@ -1,5 +1,7 @@
 # starter-react4xp
 
+Beta: 0.2.0
+
 React4xp starter with examples, for Enonic XP7.0.
 
 This starter imports [a library](https://github.com/enonic/lib-react4xp-runtime) and a few companion NPM packages, that transpiles and serves JSX-format React components from Enonic XP 7.
@@ -16,6 +18,19 @@ Run:
 ```bash
 > enonic project deploy
 ```
+
+## The examples
+
+Once you have it installed, you can run XP. Two standalone HTML examples are ready to see out of the box - open the Application Admin tool in XP, mark React4xp Example Starter and scroll down to the link below **Web App**. There, you should see a link, something like [localhost:8080/app/com.enonic.app.react4xp](localhost:8080/app/com.enonic.app.react4xp) depending on your setup.
+
+For using the component examples in this starter, open Content Studio. Create a website, and connect it to the React4xp app. Select the default page controller. Now you can edit the site item, and drag the four parts into the page below the static header. They don't look like much, but should provide usable code examples of how to hook up any part with any react component.
+
+## Versions and compatibility:
+
+| Version / tag    | Minimum XP version |
+| ---------------- | ---------- |
+| 0.2.0            | 7.0.0  |
+| 0.1.0            | 6.15.0 |
 
 ## Future development
 

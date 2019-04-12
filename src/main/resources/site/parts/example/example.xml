@@ -2,11 +2,11 @@
 <part>
 	<display-name>Simple example</display-name>
     <description>Simple client-side-rendered (renderSafe) example from local react component: example.jsx</description>
-	<form>
+	<config>
         <input name="greetee" type="TextLine">
             <label>Who should we greet?</label>
             <occurrences minimum="1" maximum="1"/>
             <default>world</default>
         </input>
-    </form>
+    </config>
 </part>

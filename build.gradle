@@ -38,7 +38,7 @@ repositories {
     xp.enonicRepo()
 }
 
-
+import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
 
@@ -56,13 +56,13 @@ def CONFIG = {}
 def REACT4XP_OVERRIDES = '{' +
         '"outputFileName": "' + ROOT + '/' + REACT4XP_CONFIG_FILE + '"' +
         ', "BUILD_ENV": "production"' +
-        ', "verbose":true' +
+        // ', "verbose":true' +
         '}'
 
 // Build the master config JSON file and the copy:
 task config_react4xp(type: NodeTask) {
     script = file('node_modules/react4xp-buildconstants/cli.js')
-    args = [ ROOT, REACT4XP_OVERRIDES ]
+    args = [ ROOT, JsonOutput.toJson(REACT4XP_OVERRIDES) ]
 
     // After the above script has run and created the config file, use the constructed values from the script to update the configuration of the next task(s):
     doLast {

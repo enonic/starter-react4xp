@@ -1,6 +1,6 @@
 # starter-react4xp
 
-Beta: 0.2.0
+Beta: 0.2.1
 
 React4xp starter with examples, for Enonic XP7.0.
 
@@ -27,10 +27,14 @@ For using the component examples in this starter, open Content Studio. Create a 
 
 ## Versions and compatibility:
 
-| Version / tag    | Minimum XP version |
-| ---------------- | ---------- |
-| 0.2.0            | 7.0.0  |
-| 0.1.0            | 6.15.0 |
+Recent updates, versions 0.1.1 and 0.2.1, fixed a bug: the starter now builds in windows. If you're a windows user, 0.1.0 and 0.2.0 might be painful.  
+
+| Version / tag    | Minimum XP version | Notes |
+| ---------------- | ---------- | --------------|
+| 0.2.1            | 7.0.0-RC1  | |
+| 0.2.0            | 7.0.0-RC1 | Not windows  |
+| 0.1.1            | 6.15.0 | |
+| 0.1.0            | 6.15.0 | Not windows |
 
 ## Future development
 
@@ -38,9 +42,7 @@ This is a first-release beta. We will keep working on this intensely, but feel f
  
 Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are [very much welcome](https://github.com/enonic/starter-react4xp/issues) - it will hugely help us build great React support in XP!
 
-### Issues and known technical bugs
-  - Most importantly: **Windows testing has been scarce!** This version might break in Windows in unknown ways, or not build at all. Use with caution. OSX seems solid so far.
-  
+### Issues and known bugs
   - If there are no JSX components to transpile below the folders `src/main/react4xp/_components` nor `src/main/resources/site`, it seems the starter won't build.
 
 ### Priority improvements

@@ -1,6 +1,6 @@
 {
     "name": "react4xp",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "React4xp starter with examples, for Enonic XP7.0",
     "scripts": {
         "rm": "node_modules/rimraf/bin.js build",
@@ -28,8 +28,8 @@
     "dependencies": {
         "babel-cli": "^6.26.0",
         "react-dom": "^16.8.6",
-        "react4xp-build-components": "^0.3.3",
-        "react4xp-buildconstants": "^0.7.1",
+        "react4xp-build-components": "^0.3.4",
+        "react4xp-buildconstants": "^0.7.2",
         "react4xp-runtime-externals": "^0.3.1"
     },
     "devDependencies": {},

@@ -39,10 +39,8 @@ repositories {
     xp.enonicRepo()
 }
 
-
+import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-
-
 
 // Config file name for buildtime. Note that the runtime needs a copy of it in the folder of the react4xp lib - a location predicted by the constants defined in the config file itself. This is magically handled by the react4xp-buildconstants script package:
 def REACT4XP_CONFIG_FILE = "build/react4xp_constants.json"
@@ -63,7 +61,7 @@ def REACT4XP_OVERRIDES = '{' +
 // Build the master config JSON file and the copy:
 task config_react4xp(type: NodeTask) {
     script = file('node_modules/react4xp-buildconstants/cli.js')
-    args = [ ROOT, REACT4XP_OVERRIDES ]
+    args = [ ROOT, JsonOutput.toJson(REACT4XP_OVERRIDES) ]
 
     // After the above script has run and created the config file, use the constructed values from the script to update the configuration of the next task(s):
     doLast {

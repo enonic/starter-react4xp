@@ -1,6 +1,6 @@
 # starter-react4xp
 
-Beta: 0.1.0
+Beta: 0.1.1
 
 React4xp starter with examples, for Enonic XP 6.15.x. 
 
@@ -38,10 +38,14 @@ For using the component examples in this starter, open Content Studio. Create a 
 
 ## Versions and compatibility:
 
-| Version / tag    | Minimum XP version |
-| ---------------- | ---------- |
-| 0.2.0            | 7.0.0  |
-| 0.1.0            | 6.15.0 |
+Recent updates, versions 0.1.1 and 0.2.1, fixed a bug: the starter now builds in windows. If you're a windows user, 0.1.0 and 0.2.0 might be painful.  
+
+| Version / tag    | Minimum XP version | Notes |
+| ---------------- | ---------- | --------------|
+| 0.2.1            | 7.0.0-RC1  | |
+| 0.2.0            | 7.0.0-RC1 | Not windows  |
+| 0.1.1            | 6.15.0 | |
+| 0.1.0            | 6.15.0 | Not windows |
 
 ## Future development
 

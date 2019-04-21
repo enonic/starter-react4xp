@@ -5,27 +5,32 @@
     <title>Pure Standalone | React4xp Starter</title>
     <link rel="icon"
           type="image/svg"
-          href="/_/asset/com.enonic.app.react4xp/react4xp.svg">
+          data-th-href="${portal.assetUrl({'_path=react4xp/react4xp.svg'})}"
+          href="/_/asset/com.enonic.app.react4xp/react4xp/react4xp.svg">
     <style>
         * {
             font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
         }
     </style>
 
-    <!-- OPTION 1: You can get React and ReactDOM from CDN like this, if you want to skip the react4xp-runtime-externals step in build.gradle:
+    <!-- OPTION 1: You can get React and ReactDOM from CDN like this, if you want to skip the react4xp-runtime-externals step in build.gradle: -->
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> -->
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 
-    <!-- OPTION 2: Cook your own externals -->
-    <script src="/_/service/com.enonic.app.react4xp/react4xp-externals"></script>
+    <!-- OPTION 2: React and ReactDOM are also available as a chunk from this service (if the react4xp-build-externals step is included in build.gradle):
+    <script data-th-src="${portal.serviceUrl({'_service=react4xp-externals'})}" src="/_/service/com.enonic.app.react4xp/react4xp-externals"></script> -->
 
     <!-- This is needed either way: -->
-    <script src="/_/service/com.enonic.app.react4xp/react4xp-client"></script>
+    <script data-th-src="${portal.serviceUrl({'_service=react4xp-client'})}" src="/_/service/com.enonic.app.react4xp/react4xp-client"></script>
 
 </head>
 <body>
     <div>
-        <img type="image/svg" src="/_/asset/com.enonic.app.react4xp/react4xp.svg" height="80" width="60">
+        <img type="image/svg"
+             data-th-src="${portal.assetUrl({'_path=react4xp/react4xp.svg'})}"
+             src="/_/asset/com.enonic.app.react4xp/react4xp/react4xp.svg"
+             height="80"
+             width="60">
         <h1>React4xp Starter: Standalone HTML</h1>
     </div>
     <p><strong>Completely standalone client-side rendering</strong></p>

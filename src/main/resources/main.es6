@@ -2,6 +2,7 @@
 // <domain:port>/webapp/com.enonic.app.react4xp gives
 
 const thymeleaf = require('/lib/thymeleaf');
+const portal = require('/lib/xp/portal');
 
 const dependencies = require('/lib/enonic/react4xp/dependencies');
 
@@ -16,7 +17,10 @@ exports.get = req => {
 
     // Without a "?pure" parameter, some dependency URLs are inserted:
     const model = (!pure) ?
-        { urls: [...dependencies.getAllUrls('SimpleGreeter'), `/_/service/${app.name}/react4xp/SimpleGreeter`] } :
+        { urls: [
+            ...dependencies.getAllUrls('SimpleGreeter'),
+            portal.serviceUrl({service: 'react4xp/SimpleGreeter'})
+        ]} :
         {};
 
     // Decides the HTML view depending on the "?pure" parameter.

@@ -6,7 +6,7 @@
     <link rel="icon"
           type="image/svg"
           data-th-href="${portal.assetUrl({'_path=react4xp/react4xp.svg'})}"
-          href="/_/asset/com.enonic.app.react4xp/react4xp/react4xp.svg">
+          data-old-href="/_/asset/com.enonic.app.react4xp/react4xp/react4xp.svg">
     <style>
         * {
             font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
@@ -21,14 +21,14 @@
     <script data-th-src="${portal.serviceUrl({'_service=react4xp-externals'})}" src="/_/service/com.enonic.app.react4xp/react4xp-externals"></script> -->
 
     <!-- This is needed either way: -->
-    <script data-th-src="${portal.serviceUrl({'_service=react4xp-client'})}" src="/_/service/com.enonic.app.react4xp/react4xp-client"></script>
+    <script data-th-src="${portal.serviceUrl({'_service=react4xp-client'})}" data-old-src="/_/service/com.enonic.app.react4xp/react4xp-client"></script>
 
 </head>
 <body>
     <div>
         <img type="image/svg"
              data-th-src="${portal.assetUrl({'_path=react4xp/react4xp.svg'})}"
-             src="/_/asset/com.enonic.app.react4xp/react4xp/react4xp.svg"
+             data-old-src="/_/asset/com.enonic.app.react4xp/react4xp/react4xp.svg"
              height="80"
              width="60">
         <h1>React4xp Starter: Standalone HTML</h1>

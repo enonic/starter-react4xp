@@ -29,7 +29,7 @@
         "babel-cli": "^6.26.0",
         "react-dom": "^16.8.6",
         "react4xp-build-components": "^0.3.4",
-        "react4xp-buildconstants": "^0.7.2",
+        "react4xp-buildconstants": "^0.7.3",
         "react4xp-runtime-externals": "^0.3.1"
     },
     "devDependencies": {},

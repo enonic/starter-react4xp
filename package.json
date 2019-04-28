@@ -19,7 +19,7 @@
         "type": "git",
         "url": "git+https://github.com/enonic/starter-react4xp.git"
     },
-    "author": "",
+    "author": "Espen Norderud",
     "license": "Apache-2.0",
     "bugs": {
         "url": "https://github.com/enonic/starter-react4xp/issues"

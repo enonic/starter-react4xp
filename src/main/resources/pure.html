@@ -23,6 +23,8 @@
     <!-- This is needed either way: -->
     <script data-th-src="${portal.serviceUrl({'_service=react4xp-client'})}" data-old-src="/_/service/com.enonic.app.react4xp/react4xp-client"></script>
 
+
+
 </head>
 <body>
     <div>
@@ -42,9 +44,11 @@
 
     <a href="?">Back to the controlled version...</a>
 
-    <script>
+    <!-- Sets a global variable used by React4xp.CLIENT.renderWithDependencies below - the root path to the used services. Can be set anywhere before renderWithDependencies is called: -->
+    <script data-th-text="|var SERVICE_URL_ROOT=`${portal.serviceUrl({'_service='})}`;|"></script>
 
-            // Actual rendering:
+    <!-- Actual rendering call: -->
+    <script>
             React4xp.CLIENT.renderWithDependencies(
                 {
                     SimpleGreeter: {
@@ -60,6 +64,9 @@
 
                 // Demo callback:
                 function() { console.log("This is inserted and called after rendering the SimpleGreeter."); }
+
+                // Instead of setting the global variable SERVICE_URL_ROOT like above, the service root path can also be inserted as a third renderWithDependencies argument here, like so:
+                // ,"${portal.serviceUrl({'_service='})}"
             );
     </script>
 

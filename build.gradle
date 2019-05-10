@@ -28,7 +28,7 @@ dependencies {
     //include "com.enonic.xp:lib-repo:${xpVersion}"
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
 
-    include 'com.enonic.lib:lib-react4xp:0.2.2'
+    include 'com.enonic.lib:lib-react4xp:0.2.3'
     include 'com.enonic.lib:landingpage:1.0.0'
 }
 
@@ -62,6 +62,9 @@ def REACT4XP_OVERRIDES = '{' +
 
 // Build the master config JSON file and the copy:
 task config_react4xp(type: NodeTask) {
+    group 'React4xp'
+    description 'Build the master config JSON file and its copy'
+
     script = file('node_modules/react4xp-buildconstants/cli.js')
     args = [ ROOT, JsonOutput.toJson(REACT4XP_OVERRIDES) ]
 
@@ -88,6 +91,9 @@ config_react4xp.dependsOn += 'processResources'
 
 // Compile:
 task webpack_react4xp(type: NodeTask) {
+    group 'React4xp'
+    description 'Run the imported react4xp webpack scripts that compile the components and externals (as well as client and nashorn polyfills if needed)'
+
     script = file('node_modules/webpack/bin/webpack.js')
     args = [
             // 1 MANDATORY STEP:
@@ -110,6 +116,9 @@ webpack_react4xp.dependsOn += 'config_react4xp'
 
 
 task babelXP(type: NodeTask) {
+    group 'React4xp'
+    description 'Compile XP components from ES6, ignoring JSX components'
+
     script = file('node_modules/babel-cli/bin/babel.js')
     args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
 

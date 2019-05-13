@@ -1,6 +1,6 @@
 # starter-react4xp
 
-Beta: 0.1.1
+Beta: 0.1.2
 
 React4xp starter with examples, for Enonic XP 6.15.x. 
 
@@ -44,7 +44,8 @@ Recent updates, versions 0.1.1 and 0.2.1, fixed a bug: the starter now builds in
 | ---------------- | ---------- | --------------|
 | 0.2.1            | 7.0.0-RC1  | |
 | 0.2.0            | 7.0.0-RC1 | Not windows  |
-| 0.1.1            | 6.15.0 | |
+| 0.1.2            | 6.15.0 | Build structure|
+| 0.1.1            | 6.15.0 | Windows support|
 | 0.1.0            | 6.15.0 | Not windows |
 
 ## Future development

@@ -24,10 +24,16 @@ exports.get = function(request) {
 
     const reactComp = new React4xp('mySubfolder/ContainerGreeter')
         .setId(hardcodedId)
-        .setProps({ greetee: localComponent.config.greetee1 });
+        .setProps({
+            greeting: localComponent.config.greeting,
+            greetee: localComponent.config.greetee1
+        });
 
     const importedComp = new React4xp(localComponent)
-        .setProps({ greetee: localComponent.config.greetee2 })
+        .setProps({
+            greeting: localComponent.config.greeting,
+            greetee: localComponent.config.greetee2
+        })
         .setId("this-is-a-dynamic-unique-id").uniqueId(true);
 
     body = reactComp.renderSSRIntoContainer(body);

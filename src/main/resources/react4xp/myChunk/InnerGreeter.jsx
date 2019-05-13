@@ -4,14 +4,14 @@ class InnerGreeter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            greetings: "Hello",
+            greetings: props.greeting,
             targets: props.greetee,
         }
     };
 
     // Adds one greeting
     moreGreetings = () => {
-        this.setState({greetings: this.state.greetings + " hello"});
+        this.setState({greetings: this.state.greetings + " " + this.state.greetings});
     };
 
     // Doubles the targets

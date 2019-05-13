@@ -28,7 +28,7 @@ dependencies {
     //include "com.enonic.xp:lib-repo:${xpVersion}"
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
 
-    include 'com.enonic.lib:lib_react4xp_runtime:0.2.1'
+    include 'com.enonic.lib:lib-react4xp:0.2.3'
     include 'com.enonic.lib:landingpage:1.0.0'
 }
 
@@ -56,11 +56,15 @@ def CONFIG = {}
 def REACT4XP_OVERRIDES = '{' +
         '"outputFileName": "' + ROOT + '/' + REACT4XP_CONFIG_FILE + '"' +
         ', "BUILD_ENV": "production"' +
-        // ', "verbose":true' +
-        '}'
+        ', "R4X_TARGETSUBDIR": "assets/react4xp"' +
+        ', "verbose":true' +
+    '}'
 
 // Build the master config JSON file and the copy:
 task config_react4xp(type: NodeTask) {
+    group 'React4xp'
+    description 'Build the master config JSON file and its copy'
+
     script = file('node_modules/react4xp-buildconstants/cli.js')
     args = [ ROOT, JsonOutput.toJson(REACT4XP_OVERRIDES) ]
 
@@ -87,15 +91,18 @@ config_react4xp.dependsOn += 'processResources'
 
 // Compile:
 task webpack_react4xp(type: NodeTask) {
+    group 'React4xp'
+    description 'Run the imported react4xp webpack scripts that compile the components and externals (as well as client and nashorn polyfills if needed)'
+
     script = file('node_modules/webpack/bin/webpack.js')
     args = [
             // 1 MANDATORY STEP:
             '--config', 'node_modules/react4xp-build-components/webpack.config.js',			// <-- This step compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
 
             // 3 OPTIONAL STEPS:
-            //'--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   		// <-- Activate this line to override the included clientside wrapper (included in lib-react4xp-runtime) - see the react4xp-runtime-client docs.
+            //'--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   		    // <-- Activate this line to override the included clientside wrapper (included in lib-react4xp-runtime) - see the react4xp-runtime-client docs.
             //'--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',  	// <-- Activate this line to roll your own nashorn polyfill instead of the included one. See react4xp-runtime-nashornpolyfills docs.
-            '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  		// <-- This line supplies dependencies declared in the EXTERNALS config constant - see the react4xp-runtime-externals docs. If you remove this line, you can/must add react@16 and react-dom@16 on all your HTML pages yourself - e.g. from a CDN.
+            '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  		    // <-- This line supplies dependencies declared in the EXTERNALS config constant to both frontend and backend - see the react4xp-runtime-externals docs. IMPORTANT: If you remove this line, you can/must add react@16 and react-dom@16 on all your HTML pages yourself (e.g. from a CDN) AND supply React and ReactDOM to the server-side rendering engine through nashornpoyfills.
 
             '--env.REACT4XP_CONFIG_FILE=' + ROOT + '/' + REACT4XP_CONFIG_FILE, 			    // <-- Tells all of the steps here where to find the master config file
             '--progress', '--color'  								                        // <-- Just pretty
@@ -109,6 +116,9 @@ webpack_react4xp.dependsOn += 'config_react4xp'
 
 
 task babelXP(type: NodeTask) {
+    group 'React4xp'
+    description 'Compile XP components from ES6, ignoring JSX components'
+
     script = file('node_modules/babel-cli/bin/babel.js')
     args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
 

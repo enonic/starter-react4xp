@@ -1,4 +1,4 @@
-// Server-side rendered independent react component src/main/react4xp/_components/SimpleGreeter.jsx
+// Server-side rendered independent react component src/main/react4xp/_entries/SimpleGreeter.jsx
 
 const portal = require('/lib/xp/portal');
 const React4xp = require('/lib/enonic/react4xp');

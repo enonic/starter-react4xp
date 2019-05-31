@@ -1,7 +1,16 @@
 // Two standalone (independent of XP components) webapps in one:
-// <domain:port>/webapp/com.enonic.app.react4xp gives
+//
+// <domain:port>/app/<app-key> demonstrates the use of inserted.html that gets an array <urls> from this controller,
+// which contains all required URLs for rendering, and uses thymeleaf to insert them into the page.
+//
+// <domain:port>/app/<app-key>?pure is standalone, doesn't get any data from this controller, but resolves its own URLs.
+// This is done using XP's view functions in this case, but the URLs can strictly speaking come from any source - the
+// important thing is to point to the React4xp services.
+//
+// (depending on your setup <domain:port>/app/<app-key> can be e.g. http://localhost:8080/app/com.enonic.app.react4xp )
 
 const thymeleaf = require('/lib/thymeleaf');
+const portal = require('/lib/xp/portal');
 
 const dependencies = require('/lib/enonic/react4xp/dependencies');
 
@@ -16,7 +25,10 @@ exports.get = req => {
 
     // Without a "?pure" parameter, some dependency URLs are inserted:
     const model = (!pure) ?
-        { urls: [...dependencies.getAllUrls('SimpleGreeter'), `/_/service/${app.name}/react4xp/SimpleGreeter`] } :
+        { urls: [
+            ...dependencies.getAllUrls('SimpleGreeter'),
+            portal.serviceUrl({service: 'react4xp/SimpleGreeter'})
+        ]} :
         {};
 
     // Decides the HTML view depending on the "?pure" parameter.

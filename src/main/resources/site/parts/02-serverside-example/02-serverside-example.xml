@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part>
-	<display-name>Hydrated Example</display-name>
+	<display-name>02 - Server-Side Example</display-name>
     <description>Server-side rendered react component from another XP part: example/example.jsx</description>
 	<form>
         <input name="greetee" type="TextLine">
-            <label>Who should we greet?</label>
+            <label>What should be our greeting (after 'Hello')?</label>
             <occurrences minimum="1" maximum="1"/>
-            <default>world</default>
+            <default>from the server side</default>
         </input>
     </form>
 </part>

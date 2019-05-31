@@ -78,7 +78,7 @@ task config_react4xp(type: NodeTask) {
             outputs.dir(CONFIG.BUILD_R4X)
         }
         tasks['babelXP'].configure {
-            args = [CONFIG.SRC_MAIN, "--out-dir", CONFIG.BUILD_MAIN, "--ignore", "**/*.jsx"]  // <-- Still ignoring JSX in the XP structure
+            args = ["src/main/resources", "--out-dir", CONFIG.BUILD_MAIN, "--ignore", "**/*.jsx"]  // <-- Still ignoring JSX in the XP structure
             outputs.dir(CONFIG.BUILD_MAIN)
         }
     }

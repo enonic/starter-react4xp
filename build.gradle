@@ -127,3 +127,39 @@ babelXP.dependsOn += 'config_react4xp'
 
 jar.dependsOn += 'webpack_react4xp'
 jar.dependsOn += 'babelXP'
+
+
+
+////////////////////////////////////////////////////////////////////////  Watchers that go well with running XP in "--dev" mode (e.g. "enonic sandbox start react4xpSandbox1 --dev"). Both can be run separately or at the same time. 
+
+task watch_react(type: NodeTask) {
+    group 'React4xp'
+    description 'Same as the webpack_react4xp task (compile react files), but with with "--watch" flag and without proceeding to the jar task and deployment'
+
+    script = file('node_modules/webpack/bin/webpack.js')
+    args = [
+            // 1 MANDATORY STEP:
+            '--config', 'node_modules/react4xp-build-components/webpack.config.js',
+
+            // 3 OPTIONAL STEPS:
+            //'--config', 'node_modules/react4xp-runtime-client/webpack.config.js',
+            //'--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',
+            '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',
+
+            '--env.REACT4XP_CONFIG_FILE=' + ROOT + '/' + REACT4XP_CONFIG_FILE,
+            '--progress', '--color', '--watch'
+    ]
+}
+watch_react.dependsOn += 'config_react4xp'
+
+task watch_xp(type: NodeTask) {
+    group 'React4xp'
+    description 'Same as the babelXP task (compile XP es6 files), but with with "--watch" flag and without proceeding to the jar task and deployment'
+
+    script = file('node_modules/babel-cli/bin/babel.js')
+    args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx", "--watch"]      // <-- Ignoring JSX in the XP structure is important!
+
+    inputs.dir 'src/main/resources'
+    outputs.dir("build/resources/main")
+}
+watch_xp.dependsOn += 'config_react4xp'

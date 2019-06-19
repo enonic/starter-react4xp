@@ -9,11 +9,7 @@
         "watch": "./gradlew deploy --info -t",
         "babel:xp": "./gradlew babelXP",
         "rebuild:r4xp": "npm run rm; node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.js --progress",
-        "watch:r4xp": "node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.js --progress --watch",
-        "rebuild:r4xp-ext": "npm run rm; node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.externals.js --progress",
-        "watch:r4xp-ext": "node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.externals.js --progress --watch",
-        "rebuild:r4xp-core": "npm run rm; node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.frontCore.js --progress",
-        "watch:r4xp-core": "node_modules/webpack/bin/webpack.js --config webpack.config.react4xp.frontCore.js --progress --watch"
+        "watch:r4xp": "node_modules/webpack/bin/webpack.js --config node_modules/react4xp-build-components/webpack.config.js --progress --watch"
     },
     "repository": {
         "type": "git",

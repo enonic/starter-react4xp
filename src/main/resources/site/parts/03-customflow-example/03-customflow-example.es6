@@ -1,4 +1,4 @@
-// .render / .renderSafe are actually just shorthand methods. This example replaces them with a different, more explicit syntax.
+// .render / .renderSafe are just shorthand methods. This example replaces them with a more explicit syntax.
 // This syntax provides more fine-grained control and opportunity for logic steps when creating the React component.
 // We'll construct a data-holding React4xp object (reactComp) and use it for rendering the body and the necessary page contributions.
 // Other variations:

@@ -1,6 +1,6 @@
 // Variations of 01-minimal-example:
 // - React server-side rendering (.render instead of .renderSafe)...
-// - ...into a chosen container element (serverside-example-container) in a thymeleaf template (02-serverside-example.html)...
+// - ...into a chosen container element (#serverside-example-container) that's already in a thymeleaf template (02-serverside-example.html)...
 // - ...using a jsxPath (see the docs) to refer to a React component from another XP part (01-minimal-example/01-minimal-example.jsx)...
 // - ...and uses props to insert XP editorial data from the part's config (what comes after "Hello") into the React component.
 
@@ -14,6 +14,7 @@ const view = resolve('02-serverside-example.html');
 exports.get = function(request) {
     const component = portal.getComponent();
 
+    // Request is still used to determine viewing mode. But .render
     return React4xp.render(
         request,
         {

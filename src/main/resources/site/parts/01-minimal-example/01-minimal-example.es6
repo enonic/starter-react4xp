@@ -10,6 +10,8 @@ exports.get = function(request) {
     const component = portal.getComponent();
     const props = { greetee: "world" };
 
-    // request is used to determine viewing mode
+    // request is used to determine viewing mode. RenderSafe will aim for client-side rendering outside of XP Content Studio's edit mode, and attempt
+    // non-hydrated SSR for the edit mode (falling back to a placeholder if SSR fails).
+    // Component is used to extrapolate a container/react-component ID and the path to target the jsx file in the same part folder, with the same name.
     return React4xp.renderSafe(request, { component, props });
 };

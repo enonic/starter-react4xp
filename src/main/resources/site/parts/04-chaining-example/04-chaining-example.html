@@ -1,0 +1,6 @@
+<div class="chaining-example" style="border: 1px dotted darkred; margin: 5px; padding: 5px; color: darkred">
+    <h2>04 - Chaining Example</h2>
+    <p>The first target container exists in the HTML, but has the component's ID inserted:</p>
+    <div data-th-id="${targetContainerIdFromController}"></div>
+    <p>The second target container is not part of the HTML yet (before rendering, this is the last element). Since a matching-id container isn't found, <em>importedComp.renderTargetContainer(body)</em> creates one at the end of the HTML:</p>
+</div>

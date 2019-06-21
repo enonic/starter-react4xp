@@ -2,7 +2,7 @@
 
 React4xp starter, beta version 0.2.3, for Enonic **XP7**. 
 
-**See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!**
+<strong style="color:darkgreen">See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!</strong>
 
 Enonic XP6-compatible code is at the [XP6_master branch](https://github.com/enonic/starter-react4xp/tree/XP6_master). Code examples: see the [examples branch](https://github.com/enonic/starter-react4xp/tree/examples).
 

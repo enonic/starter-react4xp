@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<part>
-	<display-name>01 - Minimal Example</display-name>
-    <description>Simple client-side-rendered (renderSafe) example from local react component: 01-minimal-example.jsx</description>
-	<form>
-    </form>
-</part>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part>
+<display-name>Hello React</display-name>
+<description>First example: simple react component where the JSX entry is local to the part: hello-react.jsx</description>
+<form />
+</part>

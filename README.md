@@ -12,6 +12,17 @@ Enonic XP6-compatible code is at the [XP6_master branch](https://github.com/enon
 
 This starter provides the building blocks for client- and serverside React support in Enonic XP: a build setup with [a library](https://github.com/enonic/lib-react4xp) and a few [companion NPM packages](https://github.com/enonic/lib-react4xp#npm-package-overview). This compiles and serves JSX-format React components from Enonic XP 7.
 
+To make it easier to get started, a simple example part with react rendering and a barebone page controller is included. 
+
+Easy setup: 
+
+- Start XP
+- Enter Content Studio
+- Add a Site. Give it a display name and activate this starter app. 
+- Select the "Default Page" page controller
+- You now see a drag and drop region. Insert a part.
+- In the dropdown menu, choose the "Hello React" part.
+
 
 ## Versions and compatibility
 

@@ -27,7 +27,7 @@
     "react-dom": "^16.8.6",
     "react4xp-build-components": "^0.3.6",
     "react4xp-buildconstants": "^0.7.4",
-    "react4xp-runtime-externals": "^0.3.2"
+    "react4xp-runtime-externals": "^0.3.3"
   },
   "devDependencies": {
     "babel-loader": "^7.1.5",

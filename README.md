@@ -1,6 +1,6 @@
 # starter-react4xp
 
-React4xp starter, beta version 0.2.3, for Enonic **XP7**. 
+React4xp starter, beta version 0.2.4, for Enonic **XP7**. 
 
 <strong style="color:darkgreen">See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!</strong>
 
@@ -28,7 +28,7 @@ Easy setup:
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 0.2.3            | 7.0.0  | Beta release for XP7 |
+| 0.2.4            | 7.0.0  | Beta release for XP7 |
 | 0.1.3            | 6.15.0 | Beta release for XP6 |
 
 Earlier versions can be found, but are differently structured and may be buggy and/or painful.

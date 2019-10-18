@@ -82,6 +82,11 @@ task config_react4xp(type: NodeTask) {
         }
     }
 }
+
+npmInstall.inputs.file("package.json")
+npmInstall.inputs.file("package-lock.json")
+npmInstall.outputs.dir('node_modules')
+
 config_react4xp.dependsOn += 'npmInstall'
 config_react4xp.dependsOn += 'processResources'
 
@@ -98,10 +103,9 @@ task webpack_react4xp(type: NodeTask) {
 
             // 3 OPTIONAL STEPS:
             //'--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   		    // <-- Activate this line to override the included clientside wrapper (included in lib-react4xp-runtime) - see the react4xp-runtime-client docs.
-            //'--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',  	// <-- Activate this line to roll your own nashorn polyfill instead of the included one. See react4xp-runtime-nashornpolyfills docs.
             '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  		    // <-- This line supplies dependencies declared in the EXTERNALS config constant - see the react4xp-runtime-externals docs.
 
-            '--env.REACT4XP_CONFIG_FILE=' + REACT4XP_CONFIG_FILE, 			        // <-- Tells all of the steps here where to find the master config file
+            '--env.REACT4XP_CONFIG_FILE=' + REACT4XP_CONFIG_FILE, 			                    // <-- Tells all of the steps here where to find the master config file
             '--progress', '--color'  								                            // <-- Just pretty
     ]
 

@@ -29,7 +29,7 @@ dependencies {
     include "com.enonic.lib:lib-mustache:2.0.0"
     include "com.enonic.lib:lib-util:2.0.0"
 
-    include 'com.enonic.lib:lib-react4xp:0.3.6'
+    include 'com.enonic.lib:lib-react4xp:0.3.7'
 }
 
 repositories {
@@ -53,6 +53,7 @@ def CONFIG = {}
 // Override config values to taste with a JSON-parseable string. See the react4xp-buildconstants docs:
 def REACT4XP_OVERRIDES = '{' +
         '"outputFileName": "' + ROOT + '/' + REACT4XP_CONFIG_FILE + '"' +
+        // ', "NASHORNPOLYFILLS_SOURCE": "src/main/resources/extraNashornPolyfills.es6"' +     // <-- Example. To add your own custom nashorn polyfillse: make this file, uncomment this line and uncomment this line below:  '--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',
         //', "BUILD_ENV": "production"' +
         // ', "verbose":true' +
         '}'
@@ -101,9 +102,10 @@ task webpack_react4xp(type: NodeTask) {
             // 1 MANDATORY STEP:
             '--config', 'node_modules/react4xp-build-components/webpack.config.js',			    // <-- This step compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
 
-            // 3 OPTIONAL STEPS:
+            // 3 OPTIONAL STEPS. UNCOMMENT TO ACTIVATE:
             //'--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   		    // <-- Activate this line to override the included clientside wrapper (included in lib-react4xp-runtime) - see the react4xp-runtime-client docs.
             '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  		    // <-- This line supplies dependencies declared in the EXTERNALS config constant - see the react4xp-runtime-externals docs.
+            //'--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',   // <-- This line adds custom nashorn polyfill code if the default ones aren't enough for server-side rendering your react components. IMPORTANT: add a file with source code somewhere in this project, and add a NASHORNPOLYFILLS_SOURCE attribute to the REACT4XP_OVERRIDES above here. NASHORNPOLYFILLS_SOURCE should be a full filename with extension, and path relative to this project folder.
 
             '--env.REACT4XP_CONFIG_FILE=' + REACT4XP_CONFIG_FILE, 			                    // <-- Tells all of the steps here where to find the master config file
             '--progress', '--color'  								                            // <-- Just pretty

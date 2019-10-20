@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part>
+	<display-name>Chaining</display-name>
+    <description>Fourth example: multiple react components, chaining, nesting, hydration</description>
+	<form />
+</part>

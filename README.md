@@ -38,4 +38,4 @@ Earlier versions can be found, but may be differently structured and/or buggy/pa
 **Being a first-release beta**, we will keep working on this intensely. For now there are a couple of [known issues](https://github.com/enonic/lib-react4xp/issues) we are looking into. Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are **very welcome here** - it will hugely help us improve the React support in XP!
 
 ### Some notes:
-  - The SSR enging caches the react components on the first rendering, making subsequent server-side renderings of the same component very fast - even with different props. However, initializing the rendering engine after restarting the server or redeploying the app, is pretty slow: on the scale of several seconds.
+  - The SSR engine caches the react components on the first rendering, making subsequent server-side renderings of the same component very fast - even with different props. However, initializing the rendering engine after restarting the server or redeploying the app, is pretty slow: on the scale of several seconds.

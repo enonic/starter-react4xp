@@ -2,9 +2,11 @@
 
 React4xp starter, beta version 0.1.8, for Enonic **XP 6**. 
 
-<strong style="color:darkgreen">See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!</strong>
+<strong style="color:darkgreen">See [the React4xp tutorial](https://developer.enonic.com/templates/react4xp) for an introduction.</strong> That introduction is oriented toward XP 7, but the differences between the XP 6 and XP 7 versions are minor and mostly focused on the setup process and the build config. So the vast majority of that intro can be used for this starter as well. 
 
-Enonic XP6-compatible code is at the [XP6_master branch](https://github.com/enonic/starter-react4xp/tree/XP6_master). Code examples: see the [examples branch](https://github.com/enonic/starter-react4xp/tree/examples).
+To see the XP 6 setup with the same examples as the tutorial, check out the [XP6_examples branch](https://github.com/enonic/starter-react4xp/tree/XP6_examples).
+
+If you're looking for the XP 7-compatible code, it's found at the [master branch](https://github.com/enonic/starter-react4xp/tree/master). XP 7 code examples: see the [examples branch](https://github.com/enonic/starter-react4xp/tree/examples).
 
 ---
 
@@ -14,8 +16,9 @@ This starter provides the building blocks for client- and serverside React suppo
 
 To make it easier to get started, a simple example part with react rendering and a barebone page controller is included. 
 
-Easy setup: 
+## Setting up the included React part in Content Studio:
 
+- Download and build this starter in the regular XP 6 way
 - Start XP
 - Enter Content Studio
 - Add a Site. Give it a display name and activate this starter app. 
@@ -35,11 +38,7 @@ Earlier versions can be found, but may be differently structured and/or buggy/pa
 
 ## Future development
 
-**Being a first-release beta**, we will keep working on this intensely. For now there are a couple of known issues we are looking into.
- 
-Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are [very much welcome](https://github.com/enonic/starter-react4xp/issues)! It will hugely help us improve the React support in XP!
+**Being a first-release beta**, we will keep working on this intensely. For now there are a couple of [known issues](https://github.com/enonic/lib-react4xp/issues) we are looking into. Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are **very welcome here** - it will hugely help us improve the React support in XP!
 
-### Issues and priority improvements
-  - SSR is cached on the first rendering, making subsequent server-side renderings of the same component very fast (even with different props). However, the server-side render engine initialization is pretty slow, on the scale of several seconds.
-  - Simplifying the NPM imports and the complex build setup in `build.gradle`. Should be wrapped in fewer components.  
-  - Supporting XP layouts, not just parts and pages.
+### Some notes:
+  - The SSR engine caches the react components on the first rendering, making subsequent server-side renderings of the same component very fast - even with different props. However, initializing the rendering engine after restarting the server or redeploying the app, is pretty slow: on the scale of several seconds.

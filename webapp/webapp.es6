@@ -26,9 +26,9 @@ exports.get = req => {
     // Without a "?pure" parameter, some dependency URLs are inserted:
     const model = (!pure) ?
         { urls: [
-                ...dependencies.getAllUrls('ColorThing'),
-                portal.serviceUrl({service: 'react4xp/ColorThing'})
-            ]} :
+            ...dependencies.getAllUrls('ColorThing'),
+            portal.serviceUrl({service: 'react4xp/ColorThing'})
+        ]} :
         {};
 
     // Decides the HTML view depending on the "?pure" parameter.

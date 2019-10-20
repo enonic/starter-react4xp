@@ -34,22 +34,22 @@
 
         <!-- Actual rendering call: -->
         <script>
-            React4xp.CLIENT.renderWithDependencies(
-                {
-                    ColorThing: {
-                        targetId: 'color_thing',
-                        props: { color: "purple"}
+                React4xp.CLIENT.renderWithDependencies(
+                    {
+                        ColorThing: {
+                            targetId: 'color_thing',
+                            props: { color: "purple"}
+                        },
+
+                        'site/parts/chaining/chaining': {
+                            targetId: 'clickable_thing',
+                            props: { first: "Come On!", second: "Click Me Already!" },
+                        },
                     },
 
-                    'site/parts/chaining/chaining': {
-                        targetId: 'clickable_thing',
-                        props: { first: "Come On!", second: "Click Me Already!" },
-                    },
-                },
-
-                // Demo callback:
-                function() { console.log("This callback is inserted and called after rendering."); }
-            );
+                    // Demo callback:
+                    function() { console.log("This callback is inserted and called after rendering."); }
+                );
         </script>
 
     </body>

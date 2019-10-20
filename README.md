@@ -1,62 +1,45 @@
 # starter-react4xp
 
-Beta: 0.1.0
+React4xp starter, beta version 0.1.8, for Enonic **XP 6**. 
 
-React4xp starter with examples, for Enonic XP 6.15.x. 
+<strong style="color:darkgreen">See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!</strong>
 
-This starter imports [a library](https://github.com/enonic/lib-react4xp-runtime) and a few companion NPM packages, that transpiles and serves JSX-format React components from Enonic XP 6.15+. Refer to that lib for documentation on how to use React4xp.
+Enonic XP6-compatible code is at the [XP6_master branch](https://github.com/enonic/starter-react4xp/tree/XP6_master). Code examples: see the [examples branch](https://github.com/enonic/starter-react4xp/tree/examples).
 
-Includes build setup and some example parts that can be added and viewed in Content Studio, showing React components in different setups that get props from XP data. Two standalone HTML examples are also included in `src/main/resources/main.es6`.
+---
 
-Meant to demonstrate how to use React with XP, as well as help you kickstart a React4xp project of your own!
+## Quick overview
 
-##Usage
-To get started, use the toolbox script to initiate your project:
+This starter provides the building blocks for client- and serverside React support in Enonic XP: a build setup with [a library](https://github.com/enonic/lib-react4xp) and a few [companion NPM packages](https://github.com/enonic/lib-react4xp#npm-package-overview). This compiles and serves JSX-format React components from Enonic XP 7.
 
-```bash
-~ $ $XP_INSTALL/toolbox/toolbox.sh init-project -n com.example.name -d new-folder-name -r starter-react4xp
-```
+To make it easier to get started, a simple example part with react rendering and a barebone page controller is included. 
+
+Easy setup: 
+
+- Start XP
+- Enter Content Studio
+- Add a Site. Give it a display name and activate this starter app. 
+- Select the "Default Page" page controller
+- You now see a drag and drop region. Insert a part.
+- In the dropdown menu, choose the "Hello React" part.
 
 
-## First time setup
+## Versions and compatibility
 
-```bash
-~ $ ./gradlew deploy 
-```
+| Version / tag    | Minimum XP version | Notes |
+| ---------------- | ---------- | --------------|
+| 0.2.8            | 7.0.0  | For XP7 |
+| 0.1.8            | 6.15.0 | For XP6 |
 
-## Watch
-
-```bash
-~ $ ./gradlew deploy -t
-```
-
-## The examples
-
-Once you have it installed, you can run XP. Two standalone HTML examples are ready to see out of the box - open the Application Admin tool in XP, mark React4xp Example Starter and scroll down to the link below **Web App**. There, you should see a link, something like [localhost:8080/app/com.enonic.app.react4xp](localhost:8080/app/com.enonic.app.react4xp) depending on your setup.
-
-For using the component examples in this starter, open Content Studio. Create a website, and connect it to the React4xp app. Select the default page controller. Now you can edit the site item, and drag the four parts into the page below the static header. They don't look like much, but should provide usable code examples of how to hook up any part with any react component.
-
-## Versions and compatibility:
-
-| Version / tag    | Minimum XP version |
-| ---------------- | ---------- |
-| 0.2.0            | 7.0.0  |
-| 0.1.0            | 6.15.0 |
+Earlier versions can be found, but may be differently structured and/or buggy/painful.
 
 ## Future development
 
-This is a first-release beta. We will keep working on this intensely, but feel free to try it out for yourself.
+**Being a first-release beta**, we will keep working on this intensely. For now there are a couple of known issues we are looking into.
  
-Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are [very much welcome](https://github.com/enonic/starter-react4xp/issues) - it will hugely help us build great React support in XP!
+Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are [very much welcome](https://github.com/enonic/starter-react4xp/issues)! It will hugely help us improve the React support in XP!
 
-### Issues and known technical bugs
-  - Most importantly: **Windows testing has been scarce!** This version might break in Windows in unknown ways, or not build at all. Use with caution. OSX seems solid so far.
-  
-  - If there are no JSX components to transpile below the folders `src/main/react4xp/_components` nor `src/main/resources/site`, it seems the starter won't build.
-
-### Priority improvements
-  - Simplifying the NPM imports and the complex build setup in `build.gradle`. Should be wrapped in fewer components before long.  
-
-  - Speeding up the first SSR rendering of each component after updating them in XP 7.
-  
-  - Finishing the library and a similar starter for XP 6. 
+### Issues and priority improvements
+  - SSR is cached on the first rendering, making subsequent server-side renderings of the same component very fast (even with different props). However, the server-side render engine initialization is pretty slow, on the scale of several seconds.
+  - Simplifying the NPM imports and the complex build setup in `build.gradle`. Should be wrapped in fewer components.  
+  - Supporting XP layouts, not just parts and pages.

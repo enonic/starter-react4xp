@@ -2,9 +2,11 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <title>XP Render With Dependencies | React4xp Starter</title>
+
         <!-- OPTION 1: You can get React and ReactDOM from CDN like this... -->
-            <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-            <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 
         <!-- OPTION 2: React and ReactDOM are also available as a chunk from this service (if the react4xp-build-externals step is included in build.gradle):
         <script data-th-src="${portal.serviceUrl({'_service=react4xp-externals'})}"></script> -->
@@ -16,13 +18,18 @@
     <body>
         <h1>React4xp Starter: Standalone HTML</h1>
 
-        <p><strong>Completely standalone client-side rendering</strong></p>
+        <p><strong>Render With Dependencies: completely standalone client-side rendering</strong></p>
         <p>No data inserted from the controller, the client only uses the source HTML document and React4xp services:</p>
 
         <div id="color_thing"></div>
         <div id="clickable_thing"></div>
 
-        <!-- Sets a global variable used by React4xp.CLIENT.renderWithDependencies below - the root path to the used services. Can be set anywhere before renderWithDependencies is called: -->
+        <!--
+              Sets a global variable SERVICE_URL_ROOT used by React4xp.CLIENT.renderWithDependencies below
+              - the root path to the react4xp services. Can be set anywhere before renderWithDependencies is called.
+              An alternative to setting it like this, is to add the value string as a third argument in
+              react4xp.CLIENT.renderWithDependencies below, after the callback.
+        -->
         <script data-th-text="|var SERVICE_URL_ROOT=`${portal.serviceUrl({'_service='})}`;|"></script>
 
         <!-- Actual rendering call: -->
@@ -34,7 +41,7 @@
                             props: { color: "purple"}
                         },
 
-                        'site/parts/04-chaining-example/04-chaining-example': {
+                        'site/parts/chaining/chaining': {
                             targetId: 'clickable_thing',
                             props: { first: "Come On!", second: "Click Me Already!" },
                         },

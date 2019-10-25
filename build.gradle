@@ -121,6 +121,9 @@ task webpack_react4xp(type: NodeTask) {
     // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
     args = ['--config', 'node_modules/react4xp-build-components/webpack.config.js', '--color', '--env.VERBOSE=' + react4xp.verbose]
+    if (react4xp.overrideComponentWebpack != null) {
+        args += '--env.OVERRIDE_COMPONENT_WEBPACK=' + react4xp.overrideComponentWebpack
+    }
 
     // 3 OPTIONAL STEPS. SEE SETTINGS AND (DE)ACTIVATION IN react4xp.properties:
     if (react4xp.buildExternals) {
@@ -141,7 +144,7 @@ task webpack_react4xp(type: NodeTask) {
     // Finally, and mandatorily: tells all of the webpack steps here where to find the react4xp master config file that was built during the config_react4xp task
     args += '--env.REACT4XP_CONFIG_FILE=' + react4xp.masterConfigFileName
 
-    if (true) {
+    if (react4xp.verbose) {
         println "webpack_react4xp task - args:"
         println args
     }

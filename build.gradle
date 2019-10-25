@@ -29,7 +29,7 @@ dependencies {
     include "com.enonic.lib:lib-mustache:2.0.0"
     include "com.enonic.lib:lib-util:2.0.0"
 
-    include 'com.enonic.lib:lib-react4xp:0.3.7'
+    include 'com.enonic.lib:lib-react4xp:0.3.8'
 }
 
 repositories {
@@ -38,25 +38,40 @@ repositories {
     xp.enonicRepo()
 }
 
+
+npmInstall.inputs.file("package.json")
+npmInstall.inputs.file("package-lock.json")
+npmInstall.outputs.dir('node_modules')
+
+
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-
-// Config file name for buildtime. Note that the runtime needs a copy of it in the folder of the react4xp lib - a location predicted by the constants defined in the config file itself. This is magically handled by the react4xp-buildconstants script package:
-def REACT4XP_CONFIG_FILE = "build/react4xp_constants.json"
 
 // Resolves the project folder root
 def ROOT = project.projectDir.toString()
 
-// Necessary placeholder, will be filled during build
-def CONFIG = {}
+def react4xp = {}
+file("react4xp.properties").withReader { reader ->
+    react4xp = new Properties()
+    react4xp.load(reader)
+}
 
-// Override config values to taste with a JSON-parseable string. See the react4xp-buildconstants docs:
-def REACT4XP_OVERRIDES = '{' +
-        '"outputFileName": "' + ROOT + '/' + REACT4XP_CONFIG_FILE + '"' +
-        // ', "NASHORNPOLYFILLS_SOURCE": "src/main/resources/extraNashornPolyfills.es6"' +     // <-- Example. To add your own custom nashorn polyfillse: make this file, uncomment this line and uncomment this line below:  '--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',
-        //', "BUILD_ENV": "production"' +
-        // ', "verbose":true' +
-        '}'
+react4xp.outputFileName = ROOT + '/' + react4xp.masterConfigFileName
+if(react4xp.nashornPolyfillsSource != null) {
+    react4xp.NASHORNPOLYFILLS_SOURCE = react4xp.nashornPolyfillsSource
+}
+if(react4xp.buildEnv != null) {
+    react4xp.BUILD_ENV = react4xp.buildEnv
+}
+
+react4xp.masterConfigFileName = react4xp.masterConfigFileName != null ? react4xp.masterConfigFileName : "build/react4xp_constants.json"
+react4xp.outputFileName = ROOT + '/' + react4xp.masterConfigFileName
+
+react4xp.verbose = react4xp.verbose != null && react4xp.verbose.toBoolean()
+react4xp.buildRuntimeClient = react4xp.buildRuntimeClient != null && react4xp.buildRuntimeClient.toBoolean()
+react4xp.buildExternals = react4xp.buildExternals != null && react4xp.buildExternals.toBoolean()
+react4xp.overwriteConstantsFile = react4xp.overwriteConstantsFile != null && react4xp.overwriteConstantsFile.toBoolean()
+
 
 // Build the master config JSON file and the copy:
 task config_react4xp(type: NodeTask) {
@@ -64,12 +79,22 @@ task config_react4xp(type: NodeTask) {
     description 'Build the master config JSON file and its copy'
 
     script = file('node_modules/react4xp-buildconstants/cli.js')
-    args = [ ROOT, JsonOutput.toJson(REACT4XP_OVERRIDES) ]
+    args = [ ROOT, JsonOutput.toJson(react4xp) ]
+}
+config_react4xp.inputs.file("react4xp.properties")
+config_react4xp.outputs.file(react4xp.masterConfigFileName)
 
+config_react4xp.dependsOn += 'npmInstall'
+config_react4xp.dependsOn += 'processResources'
+
+
+// Necessary placeholder, will be filled during build
+def CONFIG = {}
+task config_tasks {
     // After the above script has run and created the config file, use the constructed values from the script to update the configuration of the next task(s):
     doLast {
         // Read the file content into an object
-        def configFile = new File(REACT4XP_CONFIG_FILE)
+        def configFile = new File(react4xp.masterConfigFileName)
         CONFIG = new JsonSlurper().parseText(configFile.text)
 
         tasks['webpack_react4xp'].configure {
@@ -77,19 +102,15 @@ task config_react4xp(type: NodeTask) {
             inputs.dir(CONFIG.SRC_R4X)
             outputs.dir(CONFIG.BUILD_R4X)
         }
+
         tasks['babelXP'].configure {
             args = ["src/main/resources", "--out-dir", CONFIG.BUILD_MAIN, "--ignore", "**/*.jsx"]  // <-- Still ignoring JSX in the XP structure
             outputs.dir(CONFIG.BUILD_MAIN)
         }
     }
 }
+config_tasks.dependsOn += 'config_react4xp'
 
-npmInstall.inputs.file("package.json")
-npmInstall.inputs.file("package-lock.json")
-npmInstall.outputs.dir('node_modules')
-
-config_react4xp.dependsOn += 'npmInstall'
-config_react4xp.dependsOn += 'processResources'
 
 
 // Compile:
@@ -97,25 +118,42 @@ task webpack_react4xp(type: NodeTask) {
     group 'React4xp'
     description 'Run the imported react4xp webpack scripts that compile the components and externals (as well as client and nashorn polyfills if needed)'
 
+    // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
-    args = [
-            // 1 MANDATORY STEP:
-            '--config', 'node_modules/react4xp-build-components/webpack.config.js',			    // <-- This step compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
+    args = ['--config', 'node_modules/react4xp-build-components/webpack.config.js', '--color', '--env.VERBOSE=' + react4xp.verbose]
+    if (react4xp.overrideComponentWebpack != null) {
+        args += '--env.OVERRIDE_COMPONENT_WEBPACK=' + react4xp.overrideComponentWebpack
+    }
 
-            // 3 OPTIONAL STEPS. UNCOMMENT TO ACTIVATE:
-            //'--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   		    // <-- Activate this line to override the included clientside wrapper (included in lib-react4xp-runtime) - see the react4xp-runtime-client docs.
-            '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  		    // <-- This line supplies dependencies declared in the EXTERNALS config constant - see the react4xp-runtime-externals docs.
-            //'--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',   // <-- This line adds custom nashorn polyfill code if the default ones aren't enough for server-side rendering your react components. IMPORTANT: add a file with source code somewhere in this project, and add a NASHORNPOLYFILLS_SOURCE attribute to the REACT4XP_OVERRIDES above here. NASHORNPOLYFILLS_SOURCE should be a full filename with extension, and path relative to this project folder.
+    // 3 OPTIONAL STEPS. SEE SETTINGS AND (DE)ACTIVATION IN react4xp.properties:
+    if (react4xp.buildExternals) {
+        args += ['--config', 'node_modules/react4xp-runtime-externals/webpack.config.js']
+    }
+    if (react4xp.buildRuntimeClient) {
+        args += ['--config', 'node_modules/react4xp-runtime-client/webpack.config.js']
+    }
+    if (react4xp.nashornPolyfillsSource != null) {
+        args += ['--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js']
+    }
 
-            '--env.REACT4XP_CONFIG_FILE=' + REACT4XP_CONFIG_FILE, 			                    // <-- Tells all of the steps here where to find the master config file
-            '--progress', '--color'  								                            // <-- Just pretty
-    ]
+    // Pretty if chatty
+    if (react4xp.verbose) {
+        args += '--progress'
+    }
 
-    inputs.file(REACT4XP_CONFIG_FILE)
+    // Finally, and mandatorily: tells all of the webpack steps here where to find the react4xp master config file that was built during the config_react4xp task
+    args += '--env.REACT4XP_CONFIG_FILE=' + react4xp.masterConfigFileName
+
+    if (react4xp.verbose) {
+        println "webpack_react4xp task - args:"
+        println args
+    }
+
+    inputs.file(react4xp.masterConfigFileName)
     inputs.file("package.json")
     inputs.file("package-lock.json")
 }
-webpack_react4xp.dependsOn += 'config_react4xp'
+webpack_react4xp.dependsOn += 'config_tasks'
 
 
 task babelXP(type: NodeTask) {
@@ -128,8 +166,7 @@ task babelXP(type: NodeTask) {
     inputs.dir 'src/main/resources'
     outputs.dir("build/resources/main")
 }
-babelXP.dependsOn += 'config_react4xp'
-
+babelXP.dependsOn += 'config_tasks'
 
 jar.dependsOn += 'webpack_react4xp'
 jar.dependsOn += 'babelXP'

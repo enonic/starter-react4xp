@@ -22,7 +22,7 @@ To make it easier to get started, a simple example part with react rendering and
 - Start XP
 - Enter Content Studio
 - Add a Site. Give it a display name and activate this starter app. 
-- Select the "Default Page" page controller
+- Select the "Default Page" page controller (and apply/save).
 - You now see a drag and drop region. Insert a part.
 - In the dropdown menu, choose the "Hello React" part.
 

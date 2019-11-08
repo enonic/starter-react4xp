@@ -31,8 +31,10 @@ To make it easier to get started, a simple example part with react rendering and
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 0.2.8            | 7.0.0  | For XP7 |
-| 0.1.8            | 6.15.0 | For XP6 |
+| 0.2.10           | 7.0.0  | Fixes windows build issue #18. For XP7. |
+| 0.2.8            | 7.0.0  | Beta release for XP7 |
+| 0.1.10           | 6.15.0 | Fixes windows build issue #18. For XP6. |
+| 0.1.8            | 6.15.0 | Beta release for XP6 |
 
 Earlier versions can be found, but may be differently structured and/or buggy/painful.
 

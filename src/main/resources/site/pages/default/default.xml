@@ -2,6 +2,7 @@
   <display-name>React4xp Default page</display-name>
   <form/>
   <regions>
-    <region name="main"/>
+      <region name="main"/>
+      <region name="second"/>
   </regions>
 </page>

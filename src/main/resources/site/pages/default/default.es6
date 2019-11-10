@@ -1,18 +1,15 @@
 const portal = require('/lib/xp/portal');
-const React4xp = require('/lib/enonic/react4xp');
+
+import { renderPageBody } from '/lib/enonic/react4xp/templates';
 
 // Handle the GET request
 exports.get = function(req) {
     // Get the content that is using the page
     const content = portal.getContent();
 
-    const mainRegion = new React4xp('site/pages/default/xpRegion')
-        .setProps({
-            name: 'main',
-            content
-        })
-    const body = mainRegion.renderEntryToHtml(); // SSR always! Is it possible to use JSX that needs client-rendering in this?
+    const body = renderPageBody(content );
 
-    // Return the response object
-    return { body };
+    return {
+        body //: renderPageBody(content) }
+    };
 };

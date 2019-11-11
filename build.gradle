@@ -29,7 +29,7 @@ dependencies {
     include "com.enonic.lib:lib-mustache:2.0.0"
     include "com.enonic.lib:lib-util:2.0.0"
 
-    include 'com.enonic.lib:lib-react4xp:0.3.9-SNAPSHOT'
+    include 'com.enonic.lib:lib-react4xp:0.3.9'
 }
 
 repositories {
@@ -62,7 +62,7 @@ if(react4xp.buildEnv != null) {
 }
 if (react4xp.buildEnv == 'development') {
     task npmInstall(type: NpmTask, overwrite: true) {
-        println "react4xp.properties#buildEnv is set to '" + react4xp.buildEnv + "':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install!"
+        println "react4xp.properties#buildEnv is set to '" + react4xp.buildEnv + "':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install (nsi)." // Because nsi retains 'npm link' symlinks!
         args = ['run', 'install:dev']
     }
 }

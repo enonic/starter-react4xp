@@ -18,7 +18,7 @@ export default ({content}) =>
             <p>This is <span className="monospace">site/pages/default/default.jsx</span>, a JSX local to the current page controller: <b>Default.</b></p>
             <p>Here are a couple of regions:</p>
 
-            <RegionRange {...{content}} />
+            <RegionRange regionsObject={content.page.regions} />
 
         </body>
     </html>;

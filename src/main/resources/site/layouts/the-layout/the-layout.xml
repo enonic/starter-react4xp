@@ -1,0 +1,8 @@
+<layout>
+  <display-name>The Layout: React4xp Test</display-name>
+  <form/>
+  <regions>
+      <region name="left"/>
+      <region name="right"/>
+  </regions>
+</layout>

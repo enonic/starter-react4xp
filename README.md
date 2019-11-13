@@ -28,6 +28,7 @@ To make it easier to get started, a simple example part with react rendering and
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
+| 0.2.11           | 7.0.0  | Page and Layout support. For XP7. |
 | 0.2.10           | 7.0.0  | Fixes windows build issue #18. For XP7. |
 | 0.2.8            | 7.0.0  | Beta release for XP7 |
 | 0.1.10           | 6.15.0 | Fixes windows build issue #18. For XP6. |

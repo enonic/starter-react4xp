@@ -29,7 +29,7 @@ dependencies {
     include "com.enonic.lib:lib-mustache:2.0.0"
     include "com.enonic.lib:lib-util:2.0.0"
 
-    include 'com.enonic.lib:lib-react4xp:0.3.8'
+    include 'com.enonic.lib:lib-react4xp:0.3.10'
 }
 
 repositories {
@@ -39,9 +39,6 @@ repositories {
 }
 
 
-npmInstall.inputs.file("package.json")
-npmInstall.inputs.file("package-lock.json")
-npmInstall.outputs.dir('node_modules')
 
 
 import groovy.json.JsonOutput
@@ -63,6 +60,16 @@ if(react4xp.nashornPolyfillsSource != null) {
 if(react4xp.buildEnv != null) {
     react4xp.BUILD_ENV = react4xp.buildEnv
 }
+if (react4xp.buildEnv == 'development') {
+    task npmInstall(type: NpmTask, overwrite: true) {
+        println "react4xp.properties#buildEnv is set to '" + react4xp.buildEnv + "':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install (nsi)." // Because nsi retains 'npm link' symlinks!
+        args = ['run', 'install:dev']
+    }
+}
+npmInstall.inputs.file("package.json")
+npmInstall.inputs.file("package-lock.json")
+npmInstall.outputs.dir('node_modules')
+
 
 react4xp.masterConfigFileName = react4xp.masterConfigFileName != null ? react4xp.masterConfigFileName : "build/react4xp_constants.json"
 react4xp.outputFileName = ROOT + '/' + react4xp.masterConfigFileName

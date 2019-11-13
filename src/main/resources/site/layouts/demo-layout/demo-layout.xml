@@ -1,0 +1,8 @@
+<layout>
+  <display-name>Demo Layout: Two XP regions rendered with React4xp</display-name>
+  <form/>
+  <regions>
+      <region name="left"/>
+      <region name="right"/>
+  </regions>
+</layout>

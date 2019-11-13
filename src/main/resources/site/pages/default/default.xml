@@ -3,6 +3,5 @@
   <form/>
   <regions>
       <region name="main"/>
-      <region name="second"/>
   </regions>
 </page>

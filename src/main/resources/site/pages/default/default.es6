@@ -8,32 +8,37 @@ exports.get = function(req) {
     // Get the content that is using the page
     const content = portal.getContent();
 
-    // Works both with and without a local, same-name entry (site/pages/default/default.jsx).
-    // Without a local entry, the generic fallback is used: react4xp-templates/Page.jsx:
     return { body: renderPageBody(content) };
-
-    // works:
-    //return { body: renderPageBody(content, {jsxPath: 'react4xp-templates/Page'}) };
-
-    // works:
-    //return { body: renderPageBody(content, {jsxPath: 'site/pages/default/default'}) };
-
-
-    // works with valid jsxPath (here site/pages/default/default.jsx):
-    /*
-    return {
-        body: new React4xp('site/pages/default/default')
-            .setProps({content})
-            .renderEntryToHtml()
-    };
-    // */
-
-    // works with jsxPath to react4xp-templates standard page:
-    /*
-    return {
-        body: new React4xp('react4xp-templates/Page')
-            .setProps({content})
-            .renderEntryToHtml()
-    };
-    // */
 };
+
+
+/* ----------------------------------------------
+ HOW THIS WORKS, AND SOME ALTERNATIVES:
+
+ (TL;DR: about the same as the demo layout controller, site/layouts/demo-layout/demo-layout.es6)
+
+ renderPageBody will see if there is a same-folder/same-name entry (here: site/pages/default/default.jsx) and use
+ that as a page template if it exists. The react4xp starter comes without one, so renderPageBody just uses a
+ generic, standard page template: react4xp-templates/Page.
+
+ You can also add a params argument after 'content' with a 'jsxPath' parameter to point to any JSX entry anywhere,
+ e.g: renderPageBody(content, {jsxPath: 'site/somewhere-else/another-page-entry'}) };
+
+ If you want to write your own page entry, you can use the standard Page as example:
+ https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Page.jsx
+ It should import and use a <RegionRange>, which automatically populates the page with the regions defined in
+ default.xml, and populates the regions with the content dropped into it.
+
+ You can also use React4xp directly without the renderPageBody wrapper, with the jsxPath to your page entry:
+
+ const React4xp = require('/lib/enonic/react4xp');
+
+ (...)
+
+ return {
+    body: new React4xp('site/somewhere-else/another-page-entry')
+        .setProps({content})
+        .renderEntryToHtml()
+ };
+
+---------------------------------------------- */

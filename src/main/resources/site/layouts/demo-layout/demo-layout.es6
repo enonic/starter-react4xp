@@ -16,7 +16,7 @@ exports.get = function(req) {
         body: renderLayoutBody(component, {
                 props: {
                     containerClass: "demo-layout",
-                    regionNames: ["right"]  // <-- Add regionNames if you want to control which regions are added, and in which order. They must exist in the xml definition (demo-layout.xml).
+                    regionNames: ["right", "left"]  // <-- Add regionNames if you want to control which regions are added, and in which order. They must exist in the xml definition (demo-layout.xml). If omitted, all regions are added, in the order of appearance in the data object.
                 }
             }),
 

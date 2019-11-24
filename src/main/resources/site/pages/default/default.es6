@@ -11,7 +11,8 @@ exports.get = function(req) {
         body: renderPageBody(
             content,
             {
-                jsxPath: 'site/pages/default/default'
+                jsxPath: 'site/pages/default/default',
+                regionNames: ["main"]  // <-- Add regionNames if you need to control which regions are added, or in which order. They must exist in the xml definition (default.xml). If omitted, all regions are added, in the order of appearance in the data object.
             }
         )
     };

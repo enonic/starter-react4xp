@@ -8,28 +8,24 @@ exports.get = function(req) {
     const content = portal.getContent();
 
     return {
-        body: renderPageBody(
-            content,
-            {
-                jsxPath: 'site/pages/default/default',
-                regionNames: ["main"]  // <-- Add regionNames if you need to control which regions are added, or in which order. They must exist in the xml definition (default.xml). If omitted, all regions are added, in the order of appearance in the data object.
-            }
-        )
+
+        // renderPageBody API and usage:
+        //      https://github.com/enonic/lib-react4xp/blob/master/src/main/resources/lib/enonic/react4xp/templates.es6
+        //      https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Page.jsx
+        body: renderPageBody({
+            content,                                // <--  Basic data
+            jsxPath: 'site/pages/default/default',  // <-- Optional: points to a particular JSX entry. See more in the description below.
+            regionNames: ["main"]   ,               // <-- Optional: add regionNames to control which regions are added, or in which order. They must exist in the xml definition (default.xml). If omitted, all regions are added, in the order of appearance in the data object.
+            regionClasses: "default-page-region",   // <-- Optional: adds this class to each region container HTML element. Can also be an object, where the keys are region names and values are an added class string.
+            props: {}                               // <-- Optional: passes additional props to the JSX entry. If available, regionNames and regionClasses above are already passed as props and don't need to be added here.
+        })
     };
 };
 
 
 /* ----------------------------------------------
-TEMPLATES USAGE AND ALTERNATIVES:
 
-The parameter jsxPath points to default.jsx in this folder. This could actually be omitted, since renderPageBody falls back
-to looking for a same-name JSX in the same folder if it's not given a jsxPath parameter (and if there was no default.jsx
-either, it would fall back to using the generic react4xp-templates/Page - see
-https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Page.jsx).
-
-You can also add a props parameter if you want: renderPageBody(content, { props })
-
-If you don't want to use the renderPageBody shortcut function from lib-react v0.3.10+, this syntax is equivalent:
+This syntax is equivalent:
 
 const React4xp = require('/lib/enonic/react4xp');
 

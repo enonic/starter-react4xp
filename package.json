@@ -25,6 +25,7 @@
   "homepage": "https://github.com/enonic/starter-react4xp#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },

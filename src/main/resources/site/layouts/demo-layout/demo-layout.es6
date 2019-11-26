@@ -13,9 +13,9 @@ exports.get = function(req) {
         //      https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Layout.jsx
         body: renderLayoutBody({
                 component,                      // <--  Basic data
-                                                // <--  Skipping optional 'jsxPath' parameter. Points to a particular JSX entry template. renderLayoutBody falls back to a built-in JSX entry if omitted and there's no same-name JSX file in the folder. See more in the description below.
-                containerClass: "demo-layout",  // <--  Add this class to the outer container of the region (in order to get the CSS below to work).
-                regionNames: ["right", "left"]  // <--  Add regionNames if you want to control which regions are added, and in which order. They must exist in the xml definition (demo-layout.xml). If the regionNames parameter omitted, all regions are added in the order of appearance in the data object.
+                                                // <--  Skipping optional 'jsxPath' parameter, just using the built-in bare-bone JSX entry Layout.jsx (see link above).
+                containerClass: "demo-layout",  // <--  Optional: Add this class to the outer container of the region (in order to get the CSS below to work).
+                regionNames: ["left", "right"]  // <--  Optional: Add regionNames if you want to control which regions are added, in that order. They must exist in the xml definition (demo-layout.xml). If the regionNames parameter omitted, all regions are added in the order of appearance in the data object.
             }),
 
         // Add some pageContributions to make the two regions into two columns:
@@ -39,3 +39,23 @@ exports.get = function(req) {
         }
     };
 };
+
+/*
+Think of the params argument to renderLayoutBody as the props that are passed to the JSX entry chosen by jsxPath
+(except the jsxPath param itself) - although in this case we skipped jsxPath anyway in order to use the built-in Layout.jsx.
+
+Layout.jsx (see the link above) also takes some other optional props we could have added here - containerTag and regionClasses:
+
+
+renderLayoutBody({
+    component,                      // <--  Basic data
+
+    containerTag: "main",           // <--  Optional: makes the HTML element containing the layout a <main> tag instead of the default <div>.
+
+    regionClasses: {                // <--  Optional: Add specific classes to specific regions (object like this), a common class to all regions (string instead of object), or the renderLayoutBody-default: each region gets its own name as class (the boolean true).
+        left: "left-region",
+        right:, "right-region"
+    }
+}),
+
+ */

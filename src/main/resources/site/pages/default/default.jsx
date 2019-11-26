@@ -19,29 +19,34 @@ export default ({content}) => {
                 /> :
                 null
             }
-            {content.page.regions.secondary ?
-                <Region name="secondary"
-                        regionData={content.page.regions.secondary}
-                        addClass="secondary"
-                /> :
-                null
-            }
-
-
         </body>
     </html>;
 };
 
-/* The two regions above could be automatically resolved like this instead:
+/* It's also possible to use Regions instead of Region:
 
-import RegionRange from 'react4xp-templates/RegionRange';
+import Regions from 'react4xp-templates/Regions';
 
 (...)
 
-    <RegionRange regions={content.page.regions}
-                 classes={{main: "main", secondary: "secondary"}}
+    <Regions regions={content.page.regions}
+                 names="main"
+                 classes={{main: "main"}}
                  tags={{main: "main"}}
-                 TODO: names={["main","secondary"]}
+    />
+
+If this page template needed to handle several regions, for example with names "one", "two" and "three", You could use
+Regions to render and populate all three, in the order you want (or skipping some of them) using the 'names' prop, for
+example like this:
+
+    <Regions regions={content.page.regions}
+                 names={["two", "one", "three"]}   // <-- Sets the region sequence in the DOM. Selecing only 2 here would skip the third one, etc.
+                 classes={{
+                    one: "main",
+                    two: "topMenu",
+                    three: "sideMenu"
+                 }}
+                 tags={{one: "main"}}
     />
 
 */

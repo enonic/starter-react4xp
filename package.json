@@ -25,6 +25,7 @@
   "homepage": "https://github.com/enonic/starter-react4xp#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },
@@ -40,7 +41,7 @@
     "react4xp-buildconstants": "^0.7.10",
     "react4xp-runtime-externals": "^0.3.5",
     "react4xp-runtime-nashornpolyfills": "^0.3.6",
-    "react4xp-templates": "^0.1.10",
+    "react4xp-templates": "^0.1.11",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"
   },

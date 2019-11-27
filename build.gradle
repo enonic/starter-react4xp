@@ -128,9 +128,19 @@ task webpack_react4xp(type: NodeTask) {
     // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
     args = ['--config', 'node_modules/react4xp-build-components/webpack.config.js', '--color', '--env.VERBOSE=' + react4xp.verbose]
-    if (react4xp.overrideComponentWebpack != null) {
+    if (react4xp.overrideComponentWebpack != null && react4xp.overrideComponentWebpack.trim() != "") {
         args += '--env.OVERRIDE_COMPONENT_WEBPACK=' + react4xp.overrideComponentWebpack
     }
+    if (react4xp.chunkDirs != null && react4xp.chunkDirs.trim() != "") {
+        args += '--env.CHUNK_DIRS=' + react4xp.chunkDirs
+    }
+    if (react4xp.entryDirs != null && react4xp.entryDirs.trim() != "") {
+        args += '--env.ENTRY_DIRS=' + react4xp.entryDirs
+    }
+    if (react4xp.entryExtensions != null && react4xp.entryExtensions.trim() != "") {
+        args += '--env.ENTRY_EXT=' + react4xp.entryExtensions
+    }
+    
 
     // 3 OPTIONAL STEPS. SEE SETTINGS AND (DE)ACTIVATION IN react4xp.properties:
     if (react4xp.buildExternals) {

@@ -4,16 +4,16 @@ import Region from 'react4xp-templates/Region';
 // Of course, imported react components from chunks or entries can be used here too if needed:
 // import Hello from '../../parts/hello-react/hello-react.jsx'
 
-export default ({content}) => {
+export default ({component, displayName}) => {
     return <html>
         <head>
-            {content.displayName ? <title>{content.displayName}</title> : null}
+            {displayName ? <title>{displayName}</title> : null}
         </head>
 
         <body className="xp-page">
-            {content.page.regions.main ?
+            {component.regions.main ?
                 <Region name="main"
-                        regionData={content.page.regions.main}
+                        regionData={component.regions.main}
                         addClass="main"
                         tag="main"
                 /> :

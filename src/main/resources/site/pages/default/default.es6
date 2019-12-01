@@ -8,7 +8,7 @@ exports.get = function(req) {
     const content = portal.getContent();
 
     return {
-        body: React4xp.render(
+        body: '<!DOCTYPE HTML>\n' + React4xp.render(
             component,
             {component, displayName: content.displayName},
             req

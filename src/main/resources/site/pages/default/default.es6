@@ -1,26 +1,35 @@
 const portal = require('/lib/xp/portal');
 
-import { renderRegionBody } from '/lib/enonic/react4xp/templates';
+const React4xp = require('/lib/enonic/react4xp');
 
 // Handle the GET request
 exports.get = function(req) {
-    // Get the content that is using the page
+    const component = portal.getComponent();
     const content = portal.getContent();
 
     return {
-        // renderRegionBody API and usage:
-        //      https://github.com/enonic/lib-react4xp/blob/master/src/main/resources/lib/enonic/react4xp/templates.es6
-        body: renderRegionBody({
-            displayName: content.displayName,
-            jsxPath: 'site/pages/default/default',  // <-- Optional: points to a particular JSX entry. Can be skipped in this case, since default.jsx is in this folder and has the same name. Note that if you skip the jsxPath param WITHOUT a same-name-same-folder JSX entry, renderRegionBody will fall back to using a built-in JSX entry: https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Page.jsx
-        }),
+        body: React4xp.render(
+            component,
+            {component, displayName: content.displayName},
+            req
+        ). body
     };
+
+    // IMPORTANT:   render(component, ...) resolves to default.jsx in this folder (since it's in the same folder and has
+    //              the page controller's own name, 'default'). That JSX file has <Region>'s in it!
+    //
+    //              Guidelines for rendering JSX entries that contain XP regions, directly or by imports:
+    //
+    //              Current versions of XP (6.x, 7.0, 7.1 and probably 7.2) require regions (that is, the entry containing
+    //              them) to be RENDERED ON THE SERVER SIDE (so, don't activate `clientRender: true`), and the rendered
+    //              result of that to be part of the `body` field in the controller's returned response (so, don't insert
+    //              the rendered result into a different React4xp entry that is rendered with `clientRender: true`).
 };
 
 
 /* ----------------------------------------------
 
-The renderRegionBody call above syntax is equivalent to a more regular react4xp, but called with renderEntryToHtml instead of render:
+The above syntax is equivalent to:
 
 const React4xp = require('/lib/enonic/react4xp');
 (...)
@@ -29,7 +38,7 @@ const content = portal.getContent();
 return {
     body: new React4xp('site/pages/default/default')
         .setProps({ content })
-        .renderEntryToHtml()
+        .renderBody()
 };
 
 renderEntryToHtml and renderRegionBody do NOT add a container element around the rendered output, as React4xp.render does, and they don't

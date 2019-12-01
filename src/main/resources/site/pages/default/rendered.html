@@ -1,0 +1,96 @@
+<div id="pages_default__">
+    <html data-reactroot="">
+    <head><title>Example1</title>
+        <style>
+            .demo-layout {
+                margin-top: 20px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+            }
+
+            /* Both left and right region will be given the class "xp-region" by XP, while ".demo-layout" stems from demo-layout.jsx  */
+            .demo-layout .xp-region {
+                width: 45%;
+            }
+        </style>
+    </head>
+    <body class="xp-page">
+    <main data-portal-region="main" class="xp-region main">
+        <div data-portal-component-type="layout" class="demo-layout" data-reactroot="">
+            <div data-portal-region="left" class="xp-region left">
+                <div data-portal-component-type="part" id="parts_hello-react__main_0_left_0"><p data-reactroot="">Hello
+                    <!-- -->world<!-- --> !</p></div>
+
+                <div data-portal-component-type="part" id="parts_hello-react__main_0_left_1"><p data-reactroot="">Hello
+                    <!-- -->world<!-- --> !</p></div>
+            </div>
+            <div data-portal-region="right" class="xp-region right">
+                <div data-portal-component-type="part" id="parts_hello-react__main_0_right_0"><p data-reactroot="">Hello
+                    <!-- -->world<!-- --> !</p></div>
+            </div>
+        </div>
+    </main>
+    <script src="/admin/site/preview/default/draft/example1/_/service/com.enonic.app.react4xp/react4xp/externals.867c2186a.js"></script>
+    <script src="/admin/site/preview/default/draft/example1/_/service/com.enonic.app.react4xp/react4xp/vendors.994b19948.js"></script>
+    <script src="/admin/site/preview/default/draft/example1/_/service/com.enonic.app.react4xp/react4xp/templates.071db9128.js"></script>
+    <script src="/admin/site/preview/default/draft/example1/_/service/com.enonic.app.react4xp/react4xp-client/"></script>
+    <script src="/admin/site/preview/default/draft/example1/_/service/com.enonic.app.react4xp/react4xp/site/pages/default/default.js"></script>
+    <script defer>React4xp.CLIENT.hydrate(React4xp['site/pages/default/default'], "pages_default__", {
+        "component": {
+            "type": "page",
+            "path": "/",
+            "descriptor": "com.enonic.app.react4xp:default",
+            "config": {},
+            "regions": {
+                "main": {
+                    "components": [{
+                        "path": "/main/0",
+                        "type": "layout",
+                        "descriptor": "com.enonic.app.react4xp:demo-layout",
+                        "config": {},
+                        "regions": {
+                            "left": {
+                                "components": [{
+                                    "path": "/main/0/left/0",
+                                    "type": "part",
+                                    "descriptor": "com.enonic.app.react4xp:hello-react",
+                                    "config": {}
+                                }, {
+                                    "path": "/main/0/left/1",
+                                    "type": "part",
+                                    "descriptor": "com.enonic.app.react4xp:hello-react",
+                                    "config": {}
+                                }], "name": "left"
+                            },
+                            "right": {
+                                "components": [{
+                                    "path": "/main/0/right/0",
+                                    "type": "part",
+                                    "descriptor": "com.enonic.app.react4xp:hello-react",
+                                    "config": {}
+                                }], "name": "right"
+                            }
+                        }
+                    }], "name": "main"
+                }
+            }
+        }, "displayName": "Example1", "react4xpId": "pages_default__"
+    });</script>
+    <script src="/admin/site/preview/default/draft/example1/_/service/com.enonic.app.react4xp/react4xp/site/parts/hello-react/hello-react.js"></script>
+    <script defer>React4xp.CLIENT.hydrate(React4xp['site/parts/hello-react/hello-react'], "parts_hello-react__main_0_left_0", {
+        "greetee": "world",
+        "react4xpId": "parts_hello-react__main_0_left_0"
+    });</script>
+    <script defer>React4xp.CLIENT.hydrate(React4xp['site/parts/hello-react/hello-react'], "parts_hello-react__main_0_left_1", {
+        "greetee": "world",
+        "react4xpId": "parts_hello-react__main_0_left_1"
+    });</script>
+    <script defer>React4xp.CLIENT.hydrate(React4xp['site/parts/hello-react/hello-react'], "parts_hello-react__main_0_right_0", {
+        "greetee": "world",
+        "react4xpId": "parts_hello-react__main_0_right_0"
+    });</script>
+    </body>
+    </html>
+</div>

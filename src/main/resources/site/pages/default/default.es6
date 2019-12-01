@@ -7,12 +7,28 @@ exports.get = function(req) {
     const component = portal.getComponent();
     const content = portal.getContent();
 
-    return {
-        body: '<!DOCTYPE HTML>\n' + React4xp.render(
+    const body = '<!DOCTYPE HTML>\n' +
+        React4xp.render(
             component,
             {component, displayName: content.displayName},
             req
-        ). body
+        ).body;
+
+    const helloServerRenderPageContributions = new React4xp('site/parts/hello-react/hello-react')
+        .setId("helloServerRender")
+        .setProps({greetee: "serverside rendered"})
+        .renderPageContributions();
+    const bothPageContributions = new React4xp('site/parts/hello-react/hello-react')
+        .setId("helloClientRender")
+        .setProps({greetee: "clientside rendered"})
+        .renderPageContributions({
+            clientRender: true,
+            pageContributions: helloServerRenderPageContributions
+        });
+
+    return {
+        body,
+        pageContributions: bothPageContributions
     };
 
     // IMPORTANT:   render(component, ...) resolves to default.jsx in this folder (since it's in the same folder and has

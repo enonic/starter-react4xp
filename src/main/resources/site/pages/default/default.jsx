@@ -1,6 +1,8 @@
 import React from 'react';
 import Region from 'react4xp-regions/Region';
 
+import HelloReact from '../../parts/hello-react/hello-react.jsx';
+
 // Of course, imported react components from chunks or entries can be used here too if needed:
 // import Hello from '../../parts/hello-react/hello-react.jsx'
 
@@ -11,6 +13,7 @@ export default ({component, displayName}) => {
         </head>
 
         <body className="xp-page">
+
             {component.regions.main ?
                 <Region name="main"
                         regionData={component.regions.main}
@@ -19,6 +22,15 @@ export default ({component, displayName}) => {
                 /> :
                 null
             }
+
+            {/* How to add a server-side-rendered react component and hydrate it. Note that the id is in the added container around the actual react component. */}
+            <div id="helloServerRender">
+                <HelloReact greetee="serverside rendered" />
+            </div>
+
+            {/* How to add a server-side-rendered react component and hydrate it. Only a container with a div. */}
+            <div id="helloClientRender" />
+
         </body>
     </html>;
 };

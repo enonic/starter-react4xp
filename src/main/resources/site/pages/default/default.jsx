@@ -28,7 +28,7 @@ export default ({component, displayName}) => {
                 <HelloReact greetee="serverside rendered" />
             </div>
 
-            {/* How to add a server-side-rendered react component and hydrate it. Only a container with a div. */}
+            {/* How to add a client-side-rendered react component in a page that has regions. Only a container with a div. */}
             <div id="helloClientRender" />
 
         </body>

@@ -1,23 +1,23 @@
 var portal = require('/lib/xp/portal');
 import { renderRegionBody } from '/lib/enonic/react4xp/templates';
 
-exports.get = function(req) {
+const React4xp = require('/lib/enonic/react4xp');
 
-    // Get data from the current component (this layout).
-    return {
+exports.get = req => {
 
-        // renderRegionBody API and usage:
-        //      https://github.com/enonic/lib-react4xp/blob/master/src/main/resources/lib/enonic/react4xp/templates.es6
-        //      https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Layout.jsx
-        body: renderRegionBody({
-                                                // <--  Skipping optional 'jsxPath' parameter, just using the built-in bare-bone JSX entry Layout.jsx (see link above).
-                containerClass: "demo-layout",  // <--  Optional: Add this class to the outer container of the region (in order to get the CSS below to work).
+    // renderRegionBody API and usage:
+    //      https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-regions/Layout.jsx
+    return React4xp.render(
+            'react4xp-regions/Layout',
+            {
+                containerClass: "demo-layoutr",  // <--  Optional: Add this class to the outer container of the region (in order to get the CSS below to work).
                 regionNames: ["left", "right"]  // <--  Optional: Add regionNames if you want to control which regions are added, in that order. They must exist in the xml definition (demo-layout.xml). If the regionNames parameter omitted, all regions are added in the order of appearance in the data object.
-            }),
-
-        // Add some pageContributions to make the two regions into two columns:
-        pageContributions: {
-            headEnd: `
+            },
+            req,
+            {
+                // Pass through some pageContributions to make the two regions into two columns:
+                pageContributions: {
+                    headEnd: `
                 <style>
                     .demo-layout {
                         margin-top: 20px;
@@ -33,8 +33,10 @@ exports.get = function(req) {
                     }
                 </style>
 `
-        }
-    };
+                }
+            }
+        );
+
 };
 
 /*

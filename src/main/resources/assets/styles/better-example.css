@@ -3,6 +3,11 @@
     font-size: 15pt;
 }
 
+h1 {
+    margin: 0;
+    padding: 16px 40px;
+}
+
 .color.selected button {
     color: white;
     font-weight: bold;

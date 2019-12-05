@@ -23,23 +23,20 @@ class ColorClicker extends React.Component {
     };
 
     render() {
-        return (<div>
-            <Button func={this.shiftDown} label="Previous color" />
-            <Button func={this.shiftUp} label="Next color" />
+        return this.props.colors.length ?
 
-            {this.props.colors.length ?
-                [
-                    <Square color={this.props.colors[this.state.selected]} />,
-                    <List colors={this.props.colors}
-                          selectedIndex={this.state.selected}
-                          func={i => {
-                              this.setState({selected: (i) % this.props.colors.length})
-                          }} />
-                ] :
-                <p>Add some color!</p>
-            }
+            (<div>
+                <Button func={this.shiftDown} label="Previous color" />
+                <Button func={this.shiftUp} label="Next color" />
+                <Square color={this.props.colors[this.state.selected]} />
+                <List colors={this.props.colors}
+                      selectedIndex={this.state.selected}
+                      func={i => {
+                          this.setState({selected: (i) % this.props.colors.length})
+                      }} />
+            </div>) :
 
-        </div>);
+            (<p>Add some color!</p>);
     }
 }
 

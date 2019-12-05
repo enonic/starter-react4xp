@@ -17,10 +17,13 @@ const view = resolve('./better-example.html');
 
 
 exports.get = function(request) {
-    const alreadyRenderedView = thymeleaf.render(view, {});
+
+    const content = portal.getContent();
+    const alreadyRenderedView = thymeleaf.render(view, {pageTitle: content.displayName});
 
     const cssUrl = portal.assetUrl({path: 'styles/better-example.css'});
     const alreadyDecidedPageContributions = {
+        headBegin: `<title>${content.displayName}</title>`,
         headEnd: `<link rel="stylesheet" type="text/css" href="${cssUrl}">`
     };
 
@@ -35,13 +38,16 @@ exports.get = function(request) {
         });
 
     return {
-        body: react4xpObject.renderBody({
-            body: alreadyRenderedView,
-            clientRender: !component.config.SSR,
-        }),
-        pageContributions: react4xpObject.renderPageContributions({
-            pageContributions: alreadyDecidedPageContributions,
-            clientRender: !component.config.SSR
-        }),
+        body: react4xpObject.renderBody(
+            {
+                body: alreadyRenderedView,
+                clientRender: !component.config.SSR,
+            }),
+
+        pageContributions: react4xpObject.renderPageContributions(
+            {
+                pageContributions: alreadyDecidedPageContributions,
+                clientRender: !component.config.SSR
+            }),
     }
 };

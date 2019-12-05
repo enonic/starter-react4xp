@@ -8,7 +8,7 @@ export default ({colors, selectedIndex, func}) =>
                 class={`color${i === selectedIndex ? ' selected' : ''}`} >
                 <button type="button"
                         onClick={() => func(i)}
-                        style={{backgroundColor: color}} >
+                        style={{backgroundColor: color, borderColor: color}} >
                     {color}
                 </button>
             </li>

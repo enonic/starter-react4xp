@@ -12,15 +12,21 @@ class ColorClicker extends React.Component {
         };
 
         this.shiftUp = this.shiftUp.bind(this);
+        this.shiftDown = this.shiftDown.bind(this);
     }
 
     shiftUp() {
         this.setState({selected: (this.state.selected + 1) % this.props.colors.length});
     };
+    shiftDown() {
+        this.setState({selected: (this.props.colors.length + this.state.selected - 1) % this.props.colors.length});
+    };
 
     render() {
         return (<div>
+            <Button func={this.shiftDown} label="Previous color" />
             <Button func={this.shiftUp} label="Next color" />
+
             {this.props.colors.length ?
                 [
                     <Square color={this.props.colors[this.state.selected]} />,

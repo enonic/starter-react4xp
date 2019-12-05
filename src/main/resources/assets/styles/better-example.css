@@ -1,0 +1,49 @@
+* {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-size: 15pt;
+}
+
+.color.selected button {
+    color: white;
+    font-weight: bold;
+    border: none !important;
+}
+
+.color:not(.selected) button {
+    background-color: white !important;
+}
+
+.color button {
+    height: 100%;
+    width: 100%;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.my-button {
+    padding: 16px 35px;
+    border-radius: 5px;
+    border: 2px solid black;
+    font-weight: bold;
+    margin: 10px 40px;
+}
+
+button {
+    cursor:pointer;
+}
+
+li.color {
+    width: 40%;
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+.coloredSquare {
+    margin: 10px 40px;
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    float: right;
+}

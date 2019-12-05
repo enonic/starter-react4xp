@@ -14,14 +14,15 @@ const React4xp = require('/lib/enonic/react4xp');
 const thymeleaf = require('/lib/thymeleaf');
 
 const view = resolve('./better-example.html');
-const alreadyRenderedView = thymeleaf.render(view, {});
 
-const alreadyDecidedPageContributions = {
-    headEnd: '<style>' +
-        '</style>'
-};
 
 exports.get = function(request) {
+    const alreadyRenderedView = thymeleaf.render(view, {});
+
+    const cssUrl = portal.assetUrl({path: 'styles/better-example.css'});
+    const alreadyDecidedPageContributions = {
+        headEnd: `<link rel="stylesheet" type="text/css" href="${cssUrl}">`
+    };
 
     const component = portal.getComponent();
 

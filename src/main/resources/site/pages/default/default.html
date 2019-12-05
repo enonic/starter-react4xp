@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+
+	<body class="xp-page">
+		<main data-portal-region="main" class="xp-region">
+			<th:block data-th-if="${mainRegion}">
+				<th:block data-th-each="component : ${mainRegion.components}">
+					<th:block data-portal-component="${component.path}"></th:block>
+				</th:block>
+			</th:block>
+		</main>
+	</body>
+</html>

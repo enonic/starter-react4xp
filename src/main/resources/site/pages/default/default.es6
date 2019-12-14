@@ -7,6 +7,13 @@ exports.get = function(req) {
     // Get the content that is using the page
     const content = portal.getContent();
 
+    log.info("content (" +
+    	(Array.isArray(content) ?
+    		("array[" + content.length + "]") :
+    		(typeof content + (content && typeof content === 'object' ? (" with keys: " + JSON.stringify(Object.keys(content))) : ""))
+    	) + "): " + JSON.stringify(content, null, 2)
+    );
+
     return {
 
         // renderPageBody API and usage:

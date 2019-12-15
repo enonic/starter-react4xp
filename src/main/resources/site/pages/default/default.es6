@@ -15,15 +15,16 @@ exports.get = function(req) {
     );
 
     return React4xp.render(
-        'react4xp-regions/Page',
+        null,
         {
-            title: "Heppsann",
+            title: content.displayName,
             regionsData: content.page.regions
         },
         req,
         {
             id: content._id,
-            body: `<html id="${content._id}"></html>`
+            body: `<!DOCTYPE HTML><html><head><title>${content.displayName}</title></head><body><div id="${content._id}"></div></body></html>`,
+            clientRender: true
         }
     );
 };

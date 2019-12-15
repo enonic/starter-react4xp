@@ -1,28 +1,31 @@
 const portal = require('/lib/xp/portal');
 
-import { renderPageBody } from '/lib/enonic/react4xp/templates';
+import React4xp from '/lib/enonic/react4xp';
 
 // Handle the GET request
 exports.get = function(req) {
     // Get the content that is using the page
     const content = portal.getContent();
 
-    log.info("content (" +
+    log.info("\n\npages/default content (" +
     	(Array.isArray(content) ?
     		("array[" + content.length + "]") :
     		(typeof content + (content && typeof content === 'object' ? (" with keys: " + JSON.stringify(Object.keys(content))) : ""))
-    	) + "): " + JSON.stringify(content, null, 2)
+    	) + "): " + JSON.stringify(content, null, 2) + "\n\n"
     );
 
-    return {
-
-        // renderPageBody API and usage:
-        //      https://github.com/enonic/lib-react4xp/blob/master/src/main/resources/lib/enonic/react4xp/templates.es6
-        body: renderPageBody({
-            content,
-            jsxPath: 'site/pages/default/default',  // <-- Optional: points to a particular JSX entry. Can be skipped in this case, since default.jsx is in this folder and has the same name. Note that if you skip the jsxPath param WITHOUT a same-name-same-folder JSX entry, renderPageBody will fall back to using a built-in JSX entry: https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Page.jsx
-        }),
-    };
+    return React4xp.render(
+        'react4xp-regions/Page',
+        {
+            title: "Heppsann",
+            regionsData: content.page.regions
+        },
+        req,
+        {
+            id: content._id,
+            body: `<html id="${content._id}"></html>`
+        }
+    );
 };
 
 

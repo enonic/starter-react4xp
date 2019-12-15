@@ -67,7 +67,6 @@ if (react4xp.buildEnv == 'development') {
     }
 }
 npmInstall.inputs.file("package.json")
-npmInstall.inputs.file("package-lock.json")
 npmInstall.outputs.dir('node_modules')
 
 

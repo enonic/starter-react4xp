@@ -2,7 +2,7 @@ import React from 'react';
 import Regions from 'react4xp-templates/Regions';
 
 export default ({title, regionsData, regionNames, regionClasses}) => {
-    console.log("title (" +
+    /*console.log("title (" +
     	(Array.isArray(title) ?
     		("array[" + title.length + "]") :
     		(typeof title + (title && typeof title === 'object' ? (" with keys: " + JSON.stringify(Object.keys(title))) : ""))
@@ -13,7 +13,7 @@ export default ({title, regionsData, regionNames, regionClasses}) => {
     		("array[" + regionsData.length + "]") :
     		(typeof regionsData + (regionsData && typeof regionsData === 'object' ? (" with keys: " + JSON.stringify(Object.keys(regionsData))) : ""))
     	) + "): " + JSON.stringify(regionsData, null, 2)
-    );
+    ); */
     return <div className="react4xp-page">
         {title ? <h1>{title}</h1> : null}
         {regionsData ? <Regions regionsData={regionsData} classes={regionClasses} names={regionNames}/> : null}

@@ -16,7 +16,7 @@ exports.get = function(request) {
     const component = portal.getComponent();
     const props = { greetee: "world" };
 
-    return React4xp.render(component, props, request);
+    return React4xp.render(component, props, request, {clientRender: true});
 };
 
 

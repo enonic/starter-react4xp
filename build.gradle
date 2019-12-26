@@ -69,7 +69,6 @@ if (react4xp.buildEnv == 'development') {
 npmInstall.inputs.file("package.json")
 npmInstall.outputs.dir('node_modules')
 
-
 react4xp.masterConfigFileName = react4xp.masterConfigFileName != null ? react4xp.masterConfigFileName : "build/react4xp_constants.json"
 react4xp.outputFileName = ROOT + '/' + react4xp.masterConfigFileName
 

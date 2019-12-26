@@ -23,8 +23,7 @@ exports.get = function(req) {
         req,
         {
             id: content._id,
-            body: `<!DOCTYPE HTML><html><head><title>${content.displayName}</title></head><body><div id="${content._id}"></div></body></html>`,
-            clientRender: true
+            body: `<!DOCTYPE HTML><html><head><title>${content.displayName}</title></head><body><div id="${content._id}"></div></body></html>`
         }
     );
 };

@@ -47,7 +47,7 @@
     "react4xp-runtime-client": "^0.3.2",
     "react4xp-runtime-externals": "^0.3.5",
     "react4xp-runtime-nashornpolyfills": "^0.3.6",
-    "react4xp-templates": "^0.2.0",
+    "react4xp-regions": "^0.2.0",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"
   },

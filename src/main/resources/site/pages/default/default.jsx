@@ -4,8 +4,8 @@ import Region from 'react4xp-templates/Region';
 // Of course, imported react components from chunks or entries can be used here too if needed:
 // import Hello from '../../parts/hello-react/hello-react.jsx'
 
-export default ({content}) => {
-    return <html>
+export default ({content}) =>
+    <html>
         <head>
             {content.displayName ? <title>{content.displayName}</title> : null}
         </head>
@@ -21,9 +21,9 @@ export default ({content}) => {
             }
         </body>
     </html>;
-};
 
-/* It's also possible to use Regions instead of Region:
+/*
+It's also possible to use Regions instead of Region:
 
 import Regions from 'react4xp-templates/Regions';
 

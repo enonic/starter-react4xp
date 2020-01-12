@@ -1,6 +1,6 @@
 # starter-react4xp
 
-React4xp starter, beta version 0.1.8, for Enonic **XP 6**. 
+React4xp starter, beta version 0.1.10, for Enonic **XP 6**. 
 
 <strong style="color:darkgreen">See [the React4xp tutorial](https://developer.enonic.com/templates/react4xp) for an introduction.</strong> That introduction is oriented toward XP 7, but the differences between the XP 6 and XP 7 versions are minor and mostly focused on the setup process and the build config. So the vast majority of that intro can be used for this starter as well. 
 

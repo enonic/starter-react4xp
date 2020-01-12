@@ -1,6 +1,6 @@
 # starter-react4xp
 
-React4xp starter, beta version 0.1.8, for Enonic **XP 6**. 
+React4xp starter, beta version 0.1.10, for Enonic **XP 6**. 
 
 <strong style="color:darkgreen">See [the React4xp tutorial](https://developer.enonic.com/templates/react4xp) for an introduction.</strong> That introduction is oriented toward XP 7, but the differences between the XP 6 and XP 7 versions are minor and mostly focused on the setup process and the build config. So the vast majority of that intro can be used for this starter as well. 
 
@@ -31,8 +31,10 @@ To make it easier to get started, a simple example part with react rendering and
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 0.2.8            | 7.0.0  | For XP7 |
-| 0.1.8            | 6.15.0 | For XP6 |
+| 0.2.10           | 7.0.0  | Fixes windows build issue #18. For XP7. |
+| 0.2.8            | 7.0.0  | Beta release for XP7 |
+| 0.1.10           | 6.15.0 | Fixes windows build issue #18. For XP6. |
+| 0.1.8            | 6.15.0 | Beta release for XP6 |
 
 Earlier versions can be found, but may be differently structured and/or buggy/painful.
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Region from 'react4xp-templates/Region';
+import Region from 'react4xp-regions/Region';
 
 // Of course, imported react components from chunks or entries can be used here too if needed:
 // import Hello from '../../parts/hello-react/hello-react.jsx'

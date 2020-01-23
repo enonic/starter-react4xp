@@ -1,0 +1,11 @@
+<content-type xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Checking</display-name>
+    <description>Fiskepudding</description>
+    <super-type>base:structured</super-type>
+    <form>
+        <input type="CheckBox" name="check">
+            <label>Checking one two</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+    </form>
+</content-type>

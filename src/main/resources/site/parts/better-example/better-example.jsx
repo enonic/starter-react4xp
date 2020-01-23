@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Button from '../../../react4xp/components/Button';
-import List from '../../../react4xp/components/List';
-import Square from '../../../react4xp/components/Square';
+import Button from '../../../react4xp/shared/Button';
+import List from '../../../react4xp/shared/List';
+import Square from '../../../react4xp/shared/Square';
 
 class ColorClicker extends React.Component {
     constructor(props) {
+        console.log("\nConstructor");
         super(props);
         this.state = {
             selected: 0
@@ -23,20 +24,26 @@ class ColorClicker extends React.Component {
     };
 
     render() {
-        return this.props.colors.length ?
+        const props =  this.props;
+        const state = this.state;
+        return <div>
+            <h1>{props.pageTitle}</h1>
+            {props.colors.length ?
 
-            (<div>
-                <Button func={this.shiftDown} label="Previous color" />
-                <Button func={this.shiftUp} label="Next color" />
-                <Square color={this.props.colors[this.state.selected]} />
-                <List colors={this.props.colors}
-                      selectedIndex={this.state.selected}
-                      func={i => {
-                          this.setState({selected: (i) % this.props.colors.length})
-                      }} />
-            </div>) :
+                (<div id="better-example-part">
+                    <Button func={this.shiftDown} label="Previous color"/>
+                    <Button func={this.shiftUp} label="Next color"/>
+                    <Square color={props.colors[state.selected]}/>
+                    <List colors={props.colors}
+                          selectedIndex={state.selected}
+                          func={i => {
+                              this.setState({selected: (i) % props.colors.length})
+                          }}/>
+                </div>) :
 
-            (<p>Add some color!</p>);
+                (<p>Add some color!</p>)
+            }
+        </div>;
     }
 }
 

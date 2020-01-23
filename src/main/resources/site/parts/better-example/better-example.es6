@@ -11,19 +11,14 @@
 
 const portal = require('/lib/xp/portal');
 const React4xp = require('/lib/enonic/react4xp');
-const thymeleaf = require('/lib/thymeleaf');
-
-const view = resolve('./better-example.html');
 
 
 exports.get = function(request) {
 
     const content = portal.getContent();
-    const alreadyRenderedView = thymeleaf.render(view, {pageTitle: content.displayName});
 
     const cssUrl = portal.assetUrl({path: 'styles/better-example.css'});
     const alreadyDecidedPageContributions = {
-        headBegin: `<title>${content.displayName}</title>`,
         headEnd: `<link rel="stylesheet" type="text/css" href="${cssUrl}">`
     };
 
@@ -32,6 +27,7 @@ exports.get = function(request) {
     const react4xpObject = new React4xp(component)
         .setId("my-app")
         .setProps({
+            pageTitle: content.displayName,
             colors: (component.config.colors || [])
                 .map( c => (c || '').trim())
                 .filter(c => !!c)
@@ -40,7 +36,6 @@ exports.get = function(request) {
     return {
         body: react4xpObject.renderBody(
             {
-                body: alreadyRenderedView,
                 clientRender: !component.config.SSR,
             }),
 

@@ -1,6 +1,9 @@
 const portal = require('/lib/xp/portal');
 
 import React4xp from '/lib/enonic/react4xp';
+const thymeleaf = require('/lib/thymeleaf');
+
+var view = resolve('default.html');
 
 // Handle the GET request
 exports.get = function(req) {
@@ -14,7 +17,16 @@ exports.get = function(req) {
     	) + "): " + JSON.stringify(content, null, 2) + "\n\n"
     );
 
-    return React4xp.render(
+    const id = content._id;
+
+    // Prepare the container model
+    const model = {
+        reactAppId: id,
+        title: content.displayName
+    };
+    const alreadyRenderedView = thymeleaf.render(view, model);
+
+    const renderedPage = React4xp.render(
         null,
         {
             title: content.displayName,
@@ -22,10 +34,20 @@ exports.get = function(req) {
         },
         req,
         {
-            id: content._id,
-            body: `<!DOCTYPE HTML><html><head><title>${content.displayName}</title></head><body><div id="${content._id}"></div></body></html>`
+            id,
+            body: alreadyRenderedView,
+            clientRender: true
         }
     );
+
+    log.info("\nrenderedPage (" +
+    	(Array.isArray(renderedPage) ?
+    		("array[" + renderedPage.length + "]") :
+    		(typeof renderedPage + (renderedPage && typeof renderedPage === 'object' ? (" with keys: " + JSON.stringify(Object.keys(renderedPage))) : ""))
+    	) + "): " + JSON.stringify(renderedPage, null, 2)
+    );
+
+    return renderedPage;
 };
 
 

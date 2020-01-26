@@ -24,6 +24,22 @@ exports.get = function(request) {
 
     const component = portal.getComponent();
 
+    return React4xp.render(
+        component,
+        {
+            pageTitle: content.displayName,
+            colors: (component.config.colors || [])
+                .map( c => (c || '').trim())
+                .filter(c => !!c)
+        },
+        request,
+        {
+            id: "my-app",
+            pageContributions: alreadyDecidedPageContributions,
+            clientRender: !component.config.SSR
+        }
+    );
+/*
     const react4xpObject = new React4xp(component)
         .setId("my-app")
         .setProps({
@@ -45,4 +61,5 @@ exports.get = function(request) {
                 clientRender: !component.config.SSR
             }),
     }
+    */
 };

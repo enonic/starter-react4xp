@@ -4,9 +4,8 @@ import Button from '../../../react4xp/shared/Button';
 import List from '../../../react4xp/shared/List';
 import Square from '../../../react4xp/shared/Square';
 
-class ColorClicker extends React.Component {
+class ColorExample extends React.Component {
     constructor(props) {
-        console.log("\nConstructor");
         super(props);
         this.state = {
             selected: 0
@@ -17,10 +16,14 @@ class ColorClicker extends React.Component {
     }
 
     shiftUp() {
-        this.setState({selected: (this.state.selected + 1) % this.props.colors.length});
+        this.setState({
+            selected: (this.state.selected + 1) % this.props.colors.length
+        });
     };
     shiftDown() {
-        this.setState({selected: (this.props.colors.length + this.state.selected - 1) % this.props.colors.length});
+        this.setState({
+            selected: (this.props.colors.length + this.state.selected - 1) % this.props.colors.length
+        });
     };
 
     render() {
@@ -47,4 +50,4 @@ class ColorClicker extends React.Component {
     }
 }
 
-export default (props) => <ColorClicker {...props} />;
+export default (props) => <ColorExample {...props} />;

@@ -15,8 +15,14 @@ export default ({title, regionsData, regionNames, regionClasses}) => {
         ) + "): " + JSON.stringify(regionsData, null, 2)
     ); // */
 
-    return
-        <div className="react4xp-page">
+    console.log("!!regionsData (" +
+    	(Array.isArray(!!regionsData) ? 
+    		("array[" + !!regionsData.length + "]") : 
+    		(typeof !!regionsData + (!!regionsData && typeof !!regionsData === 'object' ? (" with keys: " + JSON.stringify(Object.keys(!!regionsData))) : ""))
+    	) + "): " + JSON.stringify(!!regionsData, null, 2)
+    );
+
+    return <div className="react4xp-page">
             {title ? <h1>{title}</h1> : null}
             {regionsData ? <Regions regionsData={regionsData} classes={regionClasses} names={regionNames}/> : null}
         </div>;

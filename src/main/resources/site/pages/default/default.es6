@@ -22,9 +22,18 @@ exports.get = function(req) {
     // Prepare the container model
     const model = {
         reactAppId: id,
-        title: content.displayName
+        title: content.displayName,
+        mainRegion: content.page.regions.main
     };
     const alreadyRenderedView = thymeleaf.render(view, model);
+    const alreadyPageContributions = {
+        headBegin: `<title>${content.displayName}</title>`
+    };
+
+    /* return {
+        body: alreadyRenderedView,
+        pageContributions: alreadyPageContributions
+    }; */
 
     const renderedPage = React4xp.render(
         null,
@@ -36,15 +45,15 @@ exports.get = function(req) {
         {
             id,
             body: alreadyRenderedView,
-            clientRender: true
+            pageContributions: alreadyPageContributions
         }
     );
 
-    log.info("\nrenderedPage (" +
+    log.info("\n\nrenderedPage (" +
     	(Array.isArray(renderedPage) ?
     		("array[" + renderedPage.length + "]") :
     		(typeof renderedPage + (renderedPage && typeof renderedPage === 'object' ? (" with keys: " + JSON.stringify(Object.keys(renderedPage))) : ""))
-    	) + "): " + JSON.stringify(renderedPage, null, 2)
+    	) + "): " + JSON.stringify(renderedPage, null, 2) + "\n"
     );
 
     return renderedPage;

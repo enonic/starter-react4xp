@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({func, label}) =>
-    <button class="my-button"
+    <button className="my-button"
             type="button"
             onClick={func}>
         {label}

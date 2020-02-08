@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part>
+<display-name>Hello 3</display-name>
+<description>Configureable greetee</description>
+<form>
+    <input type="TextLine" name="greetee">
+        <label>Who shall we greet?</label>
+        <occurrences minimum="1" maximum="1"/>
+    </input>
+</form>
+</part>

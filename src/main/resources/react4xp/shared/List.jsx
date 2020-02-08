@@ -5,7 +5,7 @@ export default ({colors, selectedIndex, func}) =>
         {colors.map( (color, i) =>
 
             <li key={i}
-                class={`color${i === selectedIndex ? ' selected' : ''}`} >
+                className={`color${i === selectedIndex ? ' selected' : ''}`} >
                 <button type="button"
                         onClick={() => func(i)}
                         style={{backgroundColor: color, borderColor: color}} >

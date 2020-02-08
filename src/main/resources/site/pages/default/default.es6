@@ -10,13 +10,6 @@ exports.get = function(req) {
     // Get the content that is using the page
     const content = portal.getContent();
 
-    log.info("\n\npages/default content (" +
-    	(Array.isArray(content) ?
-    		("array[" + content.length + "]") :
-    		(typeof content + (content && typeof content === 'object' ? (" with keys: " + JSON.stringify(Object.keys(content))) : ""))
-    	) + "): " + JSON.stringify(content, null, 2) + "\n\n"
-    );
-
     const id = content._id;
 
     // Prepare the container model
@@ -30,12 +23,7 @@ exports.get = function(req) {
         headBegin: `<title>${content.displayName}</title>`
     };
 
-    /* return {
-        body: alreadyRenderedView,
-        pageContributions: alreadyPageContributions
-    }; */
-
-    const renderedPage = React4xp.render(
+    return React4xp.render(
         null,
         {
             title: content.displayName,
@@ -46,17 +34,9 @@ exports.get = function(req) {
             id,
             body: alreadyRenderedView,
             pageContributions: alreadyPageContributions
+            // , clientRender: true
         }
     );
-
-    log.info("\n\nrenderedPage (" +
-    	(Array.isArray(renderedPage) ?
-    		("array[" + renderedPage.length + "]") :
-    		(typeof renderedPage + (renderedPage && typeof renderedPage === 'object' ? (" with keys: " + JSON.stringify(Object.keys(renderedPage))) : ""))
-    	) + "): " + JSON.stringify(renderedPage, null, 2) + "\n"
-    );
-
-    return renderedPage;
 };
 
 

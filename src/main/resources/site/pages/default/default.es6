@@ -1,22 +1,45 @@
 const portal = require('/lib/xp/portal');
 
-import { renderPageBody } from '/lib/enonic/react4xp/templates';
+import React4xp from '/lib/enonic/react4xp';
+const thymeleaf = require('/lib/thymeleaf');
+
+var view = resolve('default.html');
 
 // Handle the GET request
 exports.get = function(req) {
     // Get the content that is using the page
     const content = portal.getContent();
 
-    return {
+    const id = content._id;
 
-        // renderPageBody API and usage:
-        //      https://github.com/enonic/lib-react4xp/blob/master/src/main/resources/lib/enonic/react4xp/templates.es6
-        body: renderPageBody({
-            content,
-            jsxPath: 'site/pages/default/default',  // <-- Optional: points to a particular JSX entry. Can be skipped in this case, since default.jsx is in this folder and has the same name. Note that if you skip the jsxPath param WITHOUT a same-name-same-folder JSX entry, renderPageBody will fall back to using a built-in JSX entry: https://github.com/enonic/react4xp-templates/blob/master/src/_entries/react4xp-templates/Page.jsx
-        }),
+    // Prepare the container model
+    const model = {
+        reactAppId: id,
+        title: content.displayName,
+        mainRegion: content.page.regions.main
     };
+    const alreadyRenderedView = thymeleaf.render(view, model);
+    const alreadyPageContributions = {
+        headBegin: `<title>${content.displayName}</title>`
+    };
+
+    return React4xp.render(
+        null,
+        {
+            title: content.displayName,
+            regionsData: content.page.regions
+        },
+        req,
+        {
+            id,
+            body: alreadyRenderedView,
+            pageContributions: alreadyPageContributions
+            // , clientRender: true
+        }
+    );
 };
+
+
 
 
 /* ----------------------------------------------
@@ -49,3 +72,34 @@ renderPageBody({
     });
 
 ---------------------------------------------- */
+
+/*
+
+// Pure thymeleaf controller:
+
+const portal = require('/lib/xp/portal');
+const thymeleaf = require('/lib/thymeleaf');
+
+// Specify the view file to use
+var view = resolve('default.html');
+
+
+// Handle the GET request
+exports.get = function(req) {
+    // Get the content that is using the page
+    const content = portal.getContent();
+
+	const mainRegion = content.page.regions.main;
+
+    // Prepare the model that will be passed to the view
+    const model = { content,  mainRegion };
+
+    // Render the dynamic HTML with values from the model
+    const body = thymeleaf.render(view, model);
+
+    // Return the response object
+    return { body }
+};
+
+
+ */

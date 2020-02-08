@@ -1,17 +1,22 @@
 {
   "name": "react4xp",
-  "version": "0.6.0",
+  "version": "0.6.1-SNAPSHOT",
   "description": "React4xp starter for Enonic XP7.0",
   "scripts": {
-    "rm": "node_modules/rimraf/bin.js build",
+    "rmnode": "node_modules/rimraf/bin.js node_modules || true",
     "install:dev": "nsi",
     "install:prod": "npm install",
-    "rebuild": "npm run rm; ./gradlew build",
+    "clean": "./gradlew clean --refresh-dependencies  --info",
+    "build": "./gradlew build --info",
     "deploy": "./gradlew deploy --info",
+    "rebuild": "npm run clean && npm run build",
+    "redeploy": "npm run rebuild && npm run deploy",
+    "dev": "npm run redeploy && npm run watch:all",
     "watch": "npm-run-all --parallel watch:xp watch:r4xp",
+    "watch:all": "npm-run-all --parallel watch:gradle watch:xp watch:r4xp",
     "watch:gradle": "./gradlew deploy --info -t",
     "watch:r4xp": "webpack --env.REACT4XP_CONFIG_FILE=build/react4xp_constants.json --config node_modules/react4xp-build-components/webpack.config.js --progress --watch",
-    "watch:xp": "babel src/main/resources --out-dir build/resources/main --ignore **/*.jsx --progress --watch"
+    "watch:xp": "babel src/main/resources --out-dir build/resources/main --ignore **/*.jsx --watch"
   },
   "repository": {
     "type": "git",
@@ -27,10 +32,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react4xp-build-components": "^0.7.0",
-    "react4xp-buildconstants": "^0.8.0",
-    "react4xp-templates": "^0.2.0",
-    "react4xp-runtime-client": "^0.4.0"
+    "react4xp-build-components": "0.7.3",
+    "react4xp-buildconstants": "0.8.0",
+    "react4xp-regions": "0.2.1",
+    "react4xp-runtime-client": "0.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
@@ -42,8 +47,8 @@
     "babel-loader": "^8.0.6",
     "npm-run-all": "^4.1.5",
     "npm-safe-install": "^1.0.0",
-    "react4xp-runtime-externals": "^0.4.0",
-    "react4xp-runtime-nashornpolyfills": "^0.4.1",
+    "react4xp-runtime-externals": "0.4.0",
+    "react4xp-runtime-nashornpolyfills": "0.4.3",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"
   },

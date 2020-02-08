@@ -28,13 +28,16 @@ To make it easier to get started, a simple example part with react rendering and
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 0.2.11           | 7.0.0  | Page and Layout support. For XP7. |
+| 0.6.1            | 7.0.0  | Fixed Page/Layout problems. Free structure of entry and chunk directories. Babel upgrade.  |
+| 0.2.11           | 7.0.0  | Page and Layout support. |
 | 0.2.10           | 7.0.0  | Fixes windows build issue #18. For XP7. |
 | 0.2.8            | 7.0.0  | Beta release for XP7 |
 | 0.1.10           | 6.15.0 | Fixes windows build issue #18. For XP6. |
 | 0.1.8            | 6.15.0 | Beta release for XP6 |
 
 Earlier versions can be found, but may be differently structured and/or buggy/painful.
+
+Also, whenever you want to upgrade your lib-react4xp and/or the react4xp-* NPM packages, have a look at this [table of tested version combinations](https://github.com/enonic/lib-react4xp#version-and-compatibility).
 
 ## Future development
 

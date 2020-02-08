@@ -28,9 +28,8 @@ To make it easier to get started, a simple example part with react rendering and
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 0.6.1            | 7.0.0  | Fixed Page/Layout problems. Free structure of entry and chunk directories. Babel upgrade.  |
-| 0.2.11           | 7.0.0  | Page and Layout support. |
-| 0.2.10           | 7.0.0  | Fixes windows build issue #18. For XP7. |
+| 0.6.1            | 7.0.0  | Fixed Page/Layout support. Free structure of entry and chunk directories. Babel upgrade.  |
+| **0.2.10**           | 7.0.0  | Most stable and tested version, currently. Fixes windows build issue #18. For XP7. |
 | 0.2.8            | 7.0.0  | Beta release for XP7 |
 | 0.1.10           | 6.15.0 | Fixes windows build issue #18. For XP6. |
 | 0.1.8            | 6.15.0 | Beta release for XP6 |

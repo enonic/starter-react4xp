@@ -1,6 +1,6 @@
 {
   "name": "react4xp",
-  "version": "0.6.1-SNAPSHOT",
+  "version": "0.6.2-SNAPSHOT",
   "description": "React4xp starter for Enonic XP7.0",
   "scripts": {
     "rmnode": "node_modules/rimraf/bin.js node_modules || true",

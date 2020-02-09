@@ -8,7 +8,7 @@ module.exports = function(env, config) {
         ...config.module.rules,
         ...[
             {
-                test: /\.css$/,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
@@ -40,12 +40,25 @@ module.exports = function(env, config) {
                 exclude: /\.global\.css$/
             },
             {
-                test: /\.css$/,
+                test: /\.(sa|sc|c)ss$/,
                 use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true,
+                            config: {
+                                path: 'postcss.config.js'
+                            }
+                        }
                     },
-                    'css-loader'
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
                 ],
                 include: /\.global\.css$/
             },

@@ -1,11 +1,12 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = function(env, config) {
+
     // This makes 'npm link' symlinks in node_modules work:
     config.resolve.symlinks = false;
 
     config.module.rules = [
-        ...config.module.rules,
+        ...(config.module.rules || []),
         ...[
             {
                 test: /\.(sa|sc|c)ss$/,
@@ -70,10 +71,10 @@ module.exports = function(env, config) {
     ];
 
     config.plugins = [
-        ...config.plugins,
+        ...(config.plugins || []),
         new MiniCssExtractPlugin( {
             filename: '[name].[contenthash:7].css',
-            chunkFilename: '[name].[contenthash:7].css',
+            chunkFilename: '[id].[contenthash:7].css',
         })
     ];
 

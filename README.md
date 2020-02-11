@@ -1,6 +1,6 @@
 # starter-react4xp
 
-React4xp starter, beta version 0.2.8.
+React4xp starter, this branch is alpha version **0.6.1-SNAPSHOT** with usage examples.
 
 <strong style="color:darkgreen">See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!</strong>
 
@@ -28,13 +28,16 @@ To make it easier to get started, a simple example part with react rendering and
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 0.2.11           | 7.0.0  | Page and Layout support. For XP7. |
-| 0.2.10           | 7.0.0  | Fixes windows build issue #18. For XP7. |
+| 0.6.2            | 7.0.0  | Support: CSS modules with asset handling.  |
+| 0.6.1            | 7.0.0  | Fixed Page/Layout support. Free structure of entry and chunk directories. Babel upgrade.  |
+| **0.2.10**           | 7.0.0  | **Most stable and tested version, currently.** Fixes windows build issue #18. For XP7. |
 | 0.2.8            | 7.0.0  | Beta release for XP7 |
 | 0.1.10           | 6.15.0 | Fixes windows build issue #18. For XP6. |
 | 0.1.8            | 6.15.0 | Beta release for XP6 |
 
-Earlier versions can be found, but may be differently structured and/or buggy/painful.
+Other versions can be found in this repo, but may be differently structured and/or buggy/painful.
+
+Also, whenever you want to upgrade your lib-react4xp and/or the react4xp-* NPM packages, have a look at this [table of tested version combinations](https://github.com/enonic/lib-react4xp#version-and-compatibility).
 
 ## Future development
 

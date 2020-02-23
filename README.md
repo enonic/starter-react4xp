@@ -1,6 +1,6 @@
 # starter-react4xp
 
-React4xp starter, beta version **0.6.2**.
+React4xp starter, beta version **0.6.3**.
 
 <strong style="color:darkgreen">See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!</strong>
 
@@ -28,6 +28,7 @@ To make it easier to get started, a simple example part with react rendering and
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
+| 0.6.3            | 7.0.0  | Lazy-loading assets on server-side rendering. Collected all the react4xp NPM packages into one. |
 | 0.6.2            | 7.0.0  | Support: CSS modules with asset handling.  |
 | 0.6.1            | 7.0.0  | Fixed Page/Layout support. Free structure of entry and chunk directories. Babel upgrade.  |
 | **0.2.10**           | 7.0.0  | **Most stable and tested version, currently.** Fixes windows build issue #18. For XP7. |
@@ -44,4 +45,4 @@ Also, whenever you want to upgrade your lib-react4xp and/or the react4xp-* NPM p
 **Being a first-release beta**, we will keep working on this intensely. For now there are a couple of [known issues](https://github.com/enonic/lib-react4xp/issues) we are looking into. Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are **very welcome here** - it will hugely help us improve the React support in XP!
 
 ### Some notes:
-  - The SSR engine caches the react components on the first rendering, making subsequent server-side renderings of the same component very fast - even with different props. However, initializing the rendering engine after restarting the server or redeploying the app, is pretty slow: on the scale of several seconds.
+  - The SSR engine caches the react components on the first rendering, making subsequent server-side renderings of the same component very fast - even with different props. However, initializing the rendering engine after restarting the server or redeploying the app, is pretty slow: on the scale of several seconds. With version 0.6.3, this situation is improved: lazy-loading the assets wherever possible, so that this caching time only occurs the first time _each particular JS asset_ is server-side rendered.

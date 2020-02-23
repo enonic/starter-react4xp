@@ -1,6 +1,6 @@
 {
   "name": "react4xp",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "React4xp starter for Enonic XP7.0",
   "scripts": {
     "rmnode": "node_modules/rimraf/bin.js node_modules || true",
@@ -29,26 +29,23 @@
   },
   "homepage": "https://github.com/enonic/starter-react4xp#readme",
   "dependencies": {
+    "node-fetch": "^1.7.3",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react4xp-build-components": "0.7.3",
-    "react4xp-buildconstants": "0.8.0",
-    "react4xp-regions": "0.2.1",
-    "react4xp-runtime-client": "0.5.0"
+    "react4xp": "^0.0.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
     "@babel/plugin-transform-arrow-functions": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
     "babel-loader": "^8.0.6",
     "npm-run-all": "^4.1.5",
     "npm-safe-install": "^1.0.0",
-    "react4xp-runtime-externals": "0.4.0",
-    "react4xp-runtime-nashornpolyfills": "0.4.3",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"
   },

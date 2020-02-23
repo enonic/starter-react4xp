@@ -14,9 +14,7 @@ exports.get = function(req) {
 
     // Prepare the container model
     const model = {
-        reactAppId: id,
-        title: content.displayName,
-        mainRegion: content.page.regions.main
+        reactAppId: id
     };
     const alreadyRenderedView = thymeleaf.render(view, model);
     const alreadyPageContributions = {
@@ -34,7 +32,6 @@ exports.get = function(req) {
             id,
             body: alreadyRenderedView,
             pageContributions: alreadyPageContributions
-            // , clientRender: true
         }
     );
 };

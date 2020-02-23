@@ -1,6 +1,6 @@
 # starter-react4xp
 
-React4xp starter, beta version **0.2.10**.
+React4xp starter, beta version **0.2.10**. Higher alpha versions are available, see the table below.
 
 <strong style="color:darkgreen">See [the documentation](https://developer.enonic.com/templates/react4xp) for introduction and comprehensive info!</strong>
 

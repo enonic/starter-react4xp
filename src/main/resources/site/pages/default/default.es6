@@ -32,7 +32,6 @@ exports.get = function(req) {
             id,
             body: alreadyRenderedView,
             pageContributions: alreadyPageContributions
-            // , clientRender: true
         }
     );
 };

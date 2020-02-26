@@ -65,8 +65,8 @@ if (react4xp.buildEnv == 'development') {
         args = ['run', 'install:dev']
     }
 }
-npmInstall.inputs.file("package.json")
-npmInstall.outputs.dir('node_modules')
+npmInstall.inputs.files("package.json", "package-lock.json")
+npmInstall.outputs.file("package-lock.json")
 
 react4xp.masterConfigFileName = react4xp.masterConfigFileName != null ? react4xp.masterConfigFileName : "build/react4xp_constants.json"
 react4xp.outputFileName = ROOT + '/' + react4xp.masterConfigFileName

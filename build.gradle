@@ -29,7 +29,7 @@ dependencies {
     include "com.enonic.lib:lib-mustache:2.0.0"
     include "com.enonic.lib:lib-util:2.0.0"
 
-    include 'com.enonic.lib:lib-react4xp:0.8.3-SNAPSHOT'
+    include 'com.enonic.lib:lib-react4xp:1.0.0'
 }
 
 repositories {
@@ -144,14 +144,12 @@ task config_tasks {
         CONFIG = new JsonSlurper().parseText(configFile.text)
 
         REACT4XP_TASKS.each {
-            // TODO: use react4xp.properites (entryDirs, chunkDirs) instead of assuming these inputs !!!
             tasks["${it}"].configure {
                 inputs.dir(CONFIG.SRC_SITE)
                 inputs.dir(CONFIG.SRC_R4X)
                 outputs.dir(CONFIG.BUILD_R4X)
             }
         }
-
     }
 }
 config_tasks.dependsOn += 'config_react4xp'

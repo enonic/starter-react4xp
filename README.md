@@ -2,20 +2,19 @@
 
 # starter-react4xp
 
-React4xp starter, for integrating React with Enonic XP. Compiles and serves standard JSX-format React components from XP.
+This starter provides the building blocks for integrating React in Enonic XP on client- and serverside.
+ 
+This covers build steps and runtime: a Gradle/NPM build setup with [a library](https://github.com/enonic/lib-react4xp) and a few [companion NPM packages](https://www.npmjs.com/package/react4xp). Compiles and serves standard JSX-format React components from XP.
 
-A simple example XP part with React rendering and a barebone page controller is included. **See [the react4xp introduction](https://developer.enonic.com/templates/react4xp)** for a tutorial and links to more comprehensive documentation.
+A simple example XP part with React rendering and a barebone page controller is included.
 
----
+**See [the react4xp introduction](https://developer.enonic.com/templates/react4xp)** for a tutorial and more comprehensive documentation.
 
-## Quick overview
-
-This starter provides the building blocks for client- and serverside React support in Enonic XP: a Gradle/NPM build setup with [a library](https://github.com/enonic/lib-react4xp) and a few [companion NPM packages](https://www.npmjs.com/package/react4xp). 
-
-Prerequisites: installed [Enonic XP 7.x](https://developer.enonic.com/) with Gradle and Node/NPM. 
+Requires: installed [Enonic XP 7.x](https://developer.enonic.com/) with [Gradle](https://docs.gradle.org/current/userguide/getting_started.html) and Node/NPM. 
 
 
-## Easy setup after building: 
+
+## Easy setup after building
 
 For complete setup info, see [the react4xp introduction](https://developer.enonic.com/templates/react4xp). Crash course, after getting this starter running:
 

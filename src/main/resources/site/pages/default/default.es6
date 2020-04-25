@@ -1,5 +1,33 @@
-/** Simple page controller.
- *  This is an example of a way to render an XP page with Regions, using only server-side React.
+/** Simple page controller, as an example of how to render an XP page with Regions, using only server-side React.
+
+
+ ---------------------------
+ On a side note, a more performance-focused way would be to skip the unnecessary rendering of page contributions.
+ As long as the rendered react has nothing that needs to be activated in the client, only
+ the HTML string is needed in this page controller
+ (parts etc inside the regions can still be created any way you want, have their own page controllers and so on):
+
+
+     const content = portal.getContent();
+     const component = portal.getComponent();
+
+     const bodyEntry = new React4xp(component);
+
+     bodyEntry.setProps({
+            regionsData: content.page.regions,
+            names: "main",
+            tag: "main",
+        });
+
+     return {
+        contentType: 'text/html',
+        body: `<html><head><title>${
+            content.displayName
+        }</title></head><body class="xp-page">${
+            bodyEntry.renderEntryToHtml()
+        }</body></html>`
+    };
+ --------------------------------
  */
 
 const portal = require('/lib/xp/portal');
@@ -31,40 +59,10 @@ exports.get = function() {
 
         {
             id,
-            body: `<html><head></head><body class="xp-page"><div id="${id}"></div></body></html>`,
+            body: `<!DOCTYPE html><html><head></head><body class="xp-page"><div id="${id}"></div></body></html>`,
             pageContributions: {
                 headBegin: `<title>${content.displayName}</title>`
             }
         }
     );
 };
-
-/* ---------------------------
-A more performance-focused way, skipping the unnecessary rendering of page contributions:
-as long as the rendered react has nothing that needs to be activated in the client, only
-the HTML string is needed in this page controller (parts etc inside the regions can still be created any way you want, have their own page controllers and so on).
-
------------------------------
-
-    const content = portal.getContent();
-    const component = portal.getComponent();
-
-    const bodyEntry = new React4xp(component);
-
-    bodyEntry.setProps({
-        regionsData: content.page.regions,
-        names: "main",
-        tag: "main",
-    });
-
-    return {
-        contentType: 'text/html',
-        body: `<html><head><title>${
-            content.displayName
-        }</title></head><body class="xp-page">${
-            bodyEntry.renderEntryToHtml()
-        }</body></html>`
-    };
-
---------------------------------
- */

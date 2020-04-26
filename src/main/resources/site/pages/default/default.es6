@@ -1,39 +1,10 @@
 /** Simple page controller, as an example of how to render an XP page with Regions, using only server-side React.
-
-
- ---------------------------
- On a side note, a more performance-focused way would be to skip the unnecessary rendering of page contributions.
- As long as the rendered react has nothing that needs to be activated in the client, only
- the HTML string is needed in this page controller
- (parts etc inside the regions can still be created any way you want, have their own page controllers and so on):
-
-
-     const content = portal.getContent();
-     const component = portal.getComponent();
-
-     const bodyEntry = new React4xp(component);
-
-     bodyEntry.setProps({
-            regionsData: content.page.regions,
-            names: "main",
-            tag: "main",
-        });
-
-     return {
-        contentType: 'text/html',
-        body: `<html><head><title>${
-            content.displayName
-        }</title></head><body class="xp-page">${
-            bodyEntry.renderEntryToHtml()
-        }</body></html>`
-    };
- --------------------------------
  */
 
 const portal = require('/lib/xp/portal');
 const React4xp = require('/lib/enonic/react4xp');
 
-exports.get = function() {
+exports.get = function(request) {
     const content = portal.getContent();
     const component = portal.getComponent();
 
@@ -53,16 +24,67 @@ exports.get = function() {
             tag: "main",
         },
 
-        // request=null: forcing serverside rendering in all contexts, here preventing an unsupported corner case:
-        // Regions (like the ones in default.jsx) can't be client-side rendered if they contain XP components that need their own page contributions to work.
+        // request=null: omitting the request object here forces the entry default.jsx to be serverside-rendered and only
+        // as an HTML string.
+        //
+        // The .render `options` argument is still valid: the rendered static HTML is still
+        // inserted into the HTML from the added `body`, and `pageContributions` are still added. And of course, parts
+        // etc INSIDE the regions can still be created any way you want, use their own page contributions and so on.
+        // It's just that .render will not render additional page contributions from THIS particular entry.
+        //
+        // We take advantage of this here, for two reasons:
+        //      - Default.jsx and the Regions in it has no need for page contributions. The way it is now, only the static
+        //        HTML is of interest; no client-side JS code needs to be activated/rendered in the client, and there's no
+        //        styling or anything else coming from it. So by skipping the page contributions rendering, performance is
+        //        improved a little.
+        //      - Preventing a currently unsupported corner case: Regions (like the ones in default.jsx) can't be client-side
+        //        rendered if they contain XP components that need their own page contributions to work.
         null,
 
         {
             id,
-            body: `<!DOCTYPE html><html><head></head><body class="xp-page"><div id="${id}"></div></body></html>`,
+
+            body: `<!DOCTYPE html>
+<html>
+    <head></head>
+    <body class="xp-page">
+        <div id="${id}"></div>
+    </body>
+</html>`,
+
             pageContributions: {
                 headBegin: `<title>${content.displayName}</title>`
             }
         }
     );
 };
+
+
+/**
+ Just an optional syntax that would do the same thing:
+ ---------------------------
+
+    exports.get = function(request) {
+        const content = portal.getContent();
+        const component = portal.getComponent();
+
+        const bodyEntry = new React4xp(component);
+
+        bodyEntry.setProps({
+            regionsData: content.page.regions,
+            names: "main",
+            tag: "main",
+        });
+
+        return {
+            contentType: 'text/html',
+            body: `<html><head><title>${
+                content.displayName
+            }</title></head><body class="xp-page">${
+                bodyEntry.renderEntryToHtml()
+            }</body></html>`
+        };
+    };
+
+ --------------------------------
+ */

@@ -10,12 +10,13 @@ exports.get = function(request) {
         {
             id: "react4xpApp",
             body: `
-<html>
-    <head></head>
-    <body class="xp-page">
-        <div id="react4xpApp"></div>
-    </body>
-</html>`
+                <html>
+                    <head></head>
+                    <body class="xp-page">
+                        <div id="react4xpApp"></div>
+                    </body>
+                </html>
+            `
         }
     )
 };

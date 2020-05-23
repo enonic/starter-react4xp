@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part>
+    <display-name>Color part</display-name>
+    <description>React4xp rendered part with editorial color</description>
+    <form>
+        <input name="color" type="TextLine">
+            <label>What's the color of the thing?</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>red</default>
+        </input>
+    </form>
+</part>

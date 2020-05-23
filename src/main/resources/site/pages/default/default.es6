@@ -44,17 +44,16 @@ exports.get = function(request) {
         {
             id,
 
-            body: `<!DOCTYPE html>
-<html>
-    <head></head>
-    <body class="xp-page">
-        <div id="${id}"></div>
-    </body>
-</html>`,
-
-            pageContributions: {
-                headBegin: `<title>${content.displayName}</title>`
-            }
+            body: `                
+                <html>
+                    <head>
+                        <title>${content.displayName}</title>
+                    </head>
+                    <body class="xp-page">
+                        <div id="${id}"></div>
+                    </body>
+                </html>
+`
         }
     );
 };

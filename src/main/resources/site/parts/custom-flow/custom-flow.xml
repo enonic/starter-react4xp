@@ -1,0 +1,35 @@
+<part>
+    <display-name>CustomFlow example</display-name>
+    <description>Single part with multiple entries</description>
+    <form>
+        <input name="color" type="TextLine">
+            <label>What's the color of the thing?</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>red</default>
+        </input>
+
+        <input type="TextLine" name="greeting">
+            <label>What's the greeting?</label>
+            <default>Hello</default>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+
+        <input type="TextLine" name="greetee">
+            <label>Who shall we greet?</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>world</default>
+        </input>
+
+        <input type="TextLine" name="things">
+            <label>What are the things on the wall?</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>bottles of beer</default>
+        </input>
+
+        <input type="Long" name="startCount">
+            <label>How many of them are there?</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>99</default>
+        </input>
+    </form>
+</part>

@@ -4,7 +4,8 @@ import Button from '../shared/Button';
 import List from '../shared/List';
 import Square from '../shared/Square';
 
-import css from './MultiColor.scss';
+import sharedStyles from '../shared/shared-styles.scss';
+import style from './MultiColor.scss';
 
 class MultiColor extends React.Component {
     constructor(props) {

@@ -1,5 +1,3 @@
-@import '../shared/shared-styles';
-
 .color {
   &.selected button {
     color: white;
@@ -12,11 +10,14 @@
   }
 
   button {
-    height: 100%;
     width: 100%;
     padding: 6px;
     border-radius: 5px;
     border: 1px solid black;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 
@@ -29,17 +30,16 @@
 }
 
 li.color {
-    width: 40%;
+    width: 50%;
     list-style-type: none;
     margin-bottom: 5px;
 }
 
 .coloredSquare {
     margin: 10px 40px;
-    background-color: red;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 50%;
     float: right;
     color: white;
 }

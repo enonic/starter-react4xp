@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from './Button';
+
 export default ({colors, selectedIndex, clickFunc}) =>
     <ul className="colorList">
         {colors.map( (color, i) =>
@@ -7,12 +9,9 @@ export default ({colors, selectedIndex, clickFunc}) =>
             <li key={i}
                 className={`color${i === selectedIndex ? ' selected' : ''}`}
             >
-                <button type="button"
-                        onClick={() => clickFunc(i)}
-                        style={{backgroundColor: color, borderColor: color}}
-                >
+                <Button clickFunc={ ()=>clickFunc(i) } style={{backgroundColor: color, borderColor: color}}>
                     {color}
-                </button>
+                </Button>
             </li>
 
         )}

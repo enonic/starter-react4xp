@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Button from '../shared/Button';
-import List from '../shared/List';
-import Square from '../shared/Square';
+import ColorButtons from '../shared/ColorButtons';
+import ActiveColorOval from '../shared/ActiveColorOval';
 
 import sharedStyles from '../shared/shared-styles.scss';
 import style from './MultiColor.scss';
@@ -34,14 +34,19 @@ class MultiColor extends React.Component {
         const state = this.state;
         return props.colors.length ?
             <div id="better-example-part">
-                <Button clickFunc={this.shiftDown} label="Previous color"/>
-                <Button clickFunc={this.shiftUp} label="Next color"/>
-                <Square color={props.colors[state.selected]}/>
-                <List colors={props.colors}
-                      selectedIndex={state.selected}
-                      clickFunc={i => {
-                          this.setState({selected: (i) % props.colors.length})
-                      }}/>
+
+                <Button className="my-button" clickFunc={this.shiftDown}>Previous color</Button>
+                <Button className="my-button" clickFunc={this.shiftUp}>Next color</Button>
+
+                <ActiveColorOval color={props.colors[state.selected]} />
+
+                <ColorButtons colors={props.colors}
+                              selectedIndex={state.selected}
+                              clickFunc={ i => {
+                                  this.setState({selected: (i) % props.colors.length});
+                              }}
+                />
+
             </div> :
 
             <p>Add some color!</p>

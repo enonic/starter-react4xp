@@ -1,9 +1,10 @@
 import React from 'react';
 
-export default ({clickFunc, label}) =>
-    <button className="my-button"
+export default ({clickFunc, className, style, children}) =>
+    <button className={className}
             type="button"
             onClick={clickFunc}
+            style={style}
     >
-        {label}
+        {children}
     </button>;

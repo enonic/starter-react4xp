@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({color}) =>
-    <div className="coloredSquare"
+    <div className="activeColorOval"
          style={{backgroundColor: color}}
     >
         {color}

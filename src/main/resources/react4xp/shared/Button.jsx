@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default ({func, label}) =>
+export default ({clickFunc, label}) =>
     <button className="my-button"
             type="button"
-            onClick={func}>
+            onClick={clickFunc}
+    >
         {label}
     </button>;

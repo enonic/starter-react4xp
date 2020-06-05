@@ -1,14 +1,16 @@
 import React from 'react';
 
-export default ({colors, selectedIndex, func}) =>
+export default ({colors, selectedIndex, clickFunc}) =>
     <ul className="colorList">
         {colors.map( (color, i) =>
 
             <li key={i}
-                className={`color${i === selectedIndex ? ' selected' : ''}`} >
+                className={`color${i === selectedIndex ? ' selected' : ''}`}
+            >
                 <button type="button"
-                        onClick={() => func(i)}
-                        style={{backgroundColor: color, borderColor: color}} >
+                        onClick={() => clickFunc(i)}
+                        style={{backgroundColor: color, borderColor: color}}
+                >
                     {color}
                 </button>
             </li>

@@ -53,26 +53,28 @@ exports.get = function(request) {
     });
 
 
-    // Rendering helloObj's entry into colorBody (which is basically custom-flow-view.html with color.jsx added).
-    const finalBody = helloObj.renderBody({
-        body: colorBody
-    });
-    // Adding helloObj's page contributions to the previously rendered page contributions:
-    const finalPageContributions = helloObj.renderPageContributions({
-        pageContributions: colorPageContributions
-    })
-
-
     // Determining if the rendering context is not inside Content Studio:
     const isOutsideContentStudio = (
         request.mode === 'live' ||
         request.mode === 'preview'
     );
 
+    // Rendering helloObj's entry into colorBody (which is basically custom-flow-view.html with color.jsx added),
+    // using client-side rendering only outside of Content Studio:
+    const finalBody = helloObj.renderBody({
+        body: colorBody,
+        clientRender: isOutsideContentStudio
+    });
+    // Adding helloObj's page contributions to the previously rendered page contributions:
+    const finalPageContributions = helloObj.renderPageContributions({
+        pageContributions: colorPageContributions,
+        clientRender: isOutsideContentStudio
+    });
 
-    // Finally, returning the response object - omitting the page contributions if rendering from inside Content Studio:
+
+    // Finally, returning the response object:
     return {
         body: finalBody,
-        pageContributions: isOutsideContentStudio ? finalPageContributions : undefined
+        pageContributions: finalPageContributions
     }
 };

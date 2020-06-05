@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part>
-    <display-name>Better example</display-name>
-    <description>A part with a little bit more interaction: better-example.jsx</description>
+    <display-name>Multi-Color</display-name>
+    <description>Add your own clickable colors</description>
 
     <form>
         <input name="SSR" type="CheckBox">

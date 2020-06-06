@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './ActiveColorOval.scss';
+import './ActiveColorOval.scss';
 
 export default ({color}) =>
     <div className="activeColorOval"

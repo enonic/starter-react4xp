@@ -4,8 +4,8 @@ import Button from '../shared/Button';
 import ColorButtons from '../shared/ColorButtons';
 import ActiveColorOval from '../shared/ActiveColorOval';
 
-import sharedStyles from '../shared/shared-styles.scss';
-import styles from './MultiColor.scss';
+import './MultiColor.scss';
+import '../shared/shared-styles.scss';
 
 class MultiColor extends React.Component {
     constructor(props) {
@@ -33,7 +33,7 @@ class MultiColor extends React.Component {
         const props =  this.props;
         const state = this.state;
         return props.colors.length ?
-            <div id="better-example-part">
+            <div className="multi-color">
 
                 <Button className="my-button" clickFunc={this.shiftDown}>Previous color</Button>
                 <Button className="my-button" clickFunc={this.shiftUp}>Next color</Button>

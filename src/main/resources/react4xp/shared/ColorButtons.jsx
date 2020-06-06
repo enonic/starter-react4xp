@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from './Button';
 
-import styles from './ColorButtons.scss';
+import './ColorButtons.scss';
 
 export default ({colors, selectedIndex, clickFunc}) =>
     <ul className="colorList">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Button.scss';
+import './Button.scss';
 
 export default ({clickFunc, className, style, children}) =>
     <button className={className}

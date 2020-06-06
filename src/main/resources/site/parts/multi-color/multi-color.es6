@@ -12,20 +12,19 @@
 const portal = require('/lib/xp/portal');
 const React4xp = require('/lib/enonic/react4xp');
 
-
 exports.get = function(request) {
     const component = portal.getComponent();
 
+    const colors = (component.config.colors || [])
+        .map( c => (c || '').trim())
+        .filter(c => !!c);
+
+    const clientRender = !component.config.SSR
+
     return React4xp.render(
         "MultiColor",
-        {
-            colors: (component.config.colors || [])
-                .map( c => (c || '').trim())
-                .filter(c => !!c)
-        },
+        { colors },
         request,
-        {
-            clientRender: !component.config.SSR
-        }
+        { clientRender }
     );
 };

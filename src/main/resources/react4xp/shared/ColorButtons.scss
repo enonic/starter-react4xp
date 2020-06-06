@@ -1,0 +1,26 @@
+.color {
+  width: 50%;
+  list-style-type: none;
+  margin-bottom: 5px;
+
+  &.selected button {
+    color: white;
+    font-weight: bold;
+    border: none !important;
+  }
+
+  &:not(.selected) button {
+    background-color: white !important;
+  }
+
+  button {
+    width: 100%;
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid black;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

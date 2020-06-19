@@ -4,7 +4,7 @@ import Button from '../shared/Button';
 import ColorButtons from '../shared/ColorButtons';
 import ActiveColorOval from '../shared/ActiveColorOval';
 
-import './MultiColor.scss';
+import '../../MultiColor.scss';
 import '../shared/shared-styles.scss';
 
 class MultiColor extends React.Component {

@@ -41,9 +41,8 @@ This is version ###STARTER_VERSION###.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| ###STARTER_VERSION###            | ###XP_VERSION###  | Lazy-loading assets on server-side rendering. Collected all the react4xp NPM packages into one. |
 | 1.0.0            | 7.0.0  | First full release, compatible with updated guide.  |
-| 0.6.2            | 7.0.0  | Support: CSS modules with asset handling.  |
+| 0.6.3            | 7.0.0  | Lazy-loading assets on server-side rendering. Collected all the react4xp NPM packages into one. Support: CSS modules with asset handling.  |
 | 0.6.1            | 7.0.0  | Fixed Page/Layout support. Free structure of entry and chunk directories. Babel upgrade.  |
 | 0.2.10           | 7.0.0  | Fixes windows build issue #18. |
 | 0.2.8            | 7.0.0  | Beta release for XP7 |

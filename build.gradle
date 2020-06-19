@@ -13,6 +13,8 @@ app {
     systemVersion = "${xpVersion}"
 }
 
+def LIB_VERSION = "1.0.0"
+
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"
     compile "com.enonic.xp:portal-api:${xpVersion}"
@@ -29,7 +31,7 @@ dependencies {
     include "com.enonic.lib:lib-mustache:2.0.0"
     include "com.enonic.lib:lib-util:2.0.0"
 
-    include 'com.enonic.lib:lib-react4xp:0.3.8'
+    include "com.enonic.lib:lib-react4xp:${LIB_VERSION}"
 }
 
 repositories {
@@ -39,9 +41,6 @@ repositories {
 }
 
 
-npmInstall.inputs.file("package.json")
-npmInstall.inputs.file("package-lock.json")
-npmInstall.outputs.dir('node_modules')
 
 
 import groovy.json.JsonOutput
@@ -56,13 +55,55 @@ file("react4xp.properties").withReader { reader ->
     react4xp.load(reader)
 }
 
-react4xp.outputFileName = ROOT + '/' + react4xp.masterConfigFileName
 if(react4xp.nashornPolyfillsSource != null) {
     react4xp.NASHORNPOLYFILLS_SOURCE = react4xp.nashornPolyfillsSource
 }
 if(react4xp.buildEnv != null) {
     react4xp.BUILD_ENV = react4xp.buildEnv
 }
+
+
+
+
+// These are not supplied from react4xp, but are just names used for buildtime housekeeping:
+def markerName = "node_modules/react4xp/npmInstalled.marker"
+def linkMarkerName = "node_modules/react4xp/npmLinked.marker"
+
+task nsiInstall(type:NodeTask) {
+    doFirst {
+        println "react4xp.properties#buildEnv is set to '" + react4xp.buildEnv + "':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install (nsi)." // Because nsi retains 'npm link' symlinks!
+    }
+    script = file("node_modules/npm-safe-install/out/cli.js")   // npm-safe-install comes with react4xp@^0.2.0
+    doLast {
+        def marker = new File(linkMarkerName)
+        new File(marker.getParent()).mkdirs()
+        marker.text = """
+Marker file, indicating that react4xp in node_module is locally linked.
+"""
+    }
+}
+nsiInstall.inputs.files('package.json', 'package-lock.json')
+nsiInstall.outputs.file('package-lock.json')
+nsiInstall.outputs.file file(linkMarkerName)
+
+if (new File(linkMarkerName).exists()) {
+    npmInstall.enabled = false
+    npmInstall.dependsOn nsiInstall
+
+} else {
+    npmInstall.enabled = true
+    npmInstall.inputs.files('package.json', 'package-lock.json')
+    npmInstall.outputs.file('package-lock.json')
+    npmInstall.outputs.file file(markerName)
+    npmInstall.doLast {
+        def marker = new File(markerName)
+        new File(marker.getParent()).mkdirs()
+        marker.text = """
+Marker file, indicating that the npmInstall gradle task has been run in this subproject - faster than traversing the entire node_modules tree for changes.
+"""
+    }
+}
+
 
 react4xp.masterConfigFileName = react4xp.masterConfigFileName != null ? react4xp.masterConfigFileName : "build/react4xp_constants.json"
 react4xp.outputFileName = ROOT + '/' + react4xp.masterConfigFileName
@@ -78,7 +119,7 @@ task config_react4xp(type: NodeTask) {
     group 'React4xp'
     description 'Build the master config JSON file and its copy'
 
-    script = file('node_modules/react4xp-buildconstants/bin/cli.js')
+    script = file('node_modules/react4xp-buildconstants/bin/cli.js')       // react4xp-buildconstants comes with react4xp@^0.2.0
     args = [ ROOT, JsonOutput.toJson(JsonOutput.toJson(react4xp)) ]
 }
 config_react4xp.inputs.file("react4xp.properties")
@@ -90,22 +131,26 @@ config_react4xp.dependsOn += 'processResources'
 
 // Necessary placeholder, will be filled during build
 def CONFIG = {}
+
 task config_tasks {
     // After the above script has run and created the config file, use the constructed values from the script to update the configuration of the next task(s):
     doLast {
         // Read the file content into an object
+        def REACT4XP_TASKS = [
+                "react4xp_components",
+                "react4xp_externals",
+                "react4xp_client",
+                "react4xp_nashornpolyfills"
+        ]
         def configFile = new File(react4xp.masterConfigFileName)
         CONFIG = new JsonSlurper().parseText(configFile.text)
 
-        tasks['webpack_react4xp'].configure {
-            inputs.dir(CONFIG.SRC_SITE)
-            inputs.dir(CONFIG.SRC_R4X)
-            outputs.dir(CONFIG.BUILD_R4X)
-        }
-
-        tasks['babelXP'].configure {
-            args = ["src/main/resources", "--out-dir", CONFIG.BUILD_MAIN, "--ignore", "**/*.jsx"]  // <-- Still ignoring JSX in the XP structure
-            outputs.dir(CONFIG.BUILD_MAIN)
+        REACT4XP_TASKS.each {
+            tasks["${it}"].configure {
+                inputs.dir(CONFIG.SRC_SITE)
+                inputs.dir(CONFIG.SRC_R4X)
+                outputs.dir(CONFIG.BUILD_R4X)
+            }
         }
     }
 }
@@ -114,26 +159,22 @@ config_tasks.dependsOn += 'config_react4xp'
 
 
 // Compile:
-task webpack_react4xp(type: NodeTask) {
+task react4xp_components(type: NodeTask) {
     group 'React4xp'
-    description 'Run the imported react4xp webpack scripts that compile the components and externals (as well as client and nashorn polyfills if needed)'
+    description 'Compile the parent projects react components'
 
     // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
-    args = ['--config', 'node_modules/react4xp-build-components/webpack.config.js', '--color', '--env.VERBOSE=' + react4xp.verbose]
+    args = [
+            '--config', 'node_modules/react4xp-build-components/webpack.config.js', // react4xp-build-components comes with react4xp@^0.2.0
+            '--color',
+            '--env.VERBOSE=' + react4xp.verbose,
+            '--env.ENTRY_DIRS=' + react4xp.entryDirs,
+            '--env.CHUNK_DIRS=' + react4xp.chunkDirs,
+            '--env.ROOT="' + ROOT +'"'
+    ]
     if (react4xp.overrideComponentWebpack != null) {
         args += '--env.OVERRIDE_COMPONENT_WEBPACK=' + react4xp.overrideComponentWebpack
-    }
-
-    // 3 OPTIONAL STEPS. SEE SETTINGS AND (DE)ACTIVATION IN react4xp.properties:
-    if (react4xp.buildExternals) {
-        args += ['--config', 'node_modules/react4xp-runtime-externals/webpack.config.js']
-    }
-    if (react4xp.buildRuntimeClient) {
-        args += ['--config', 'node_modules/react4xp-runtime-client/webpack.config.js']
-    }
-    if (react4xp.nashornPolyfillsSource != null) {
-        args += ['--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js']
     }
 
     // Pretty if chatty
@@ -145,32 +186,241 @@ task webpack_react4xp(type: NodeTask) {
     args += '--env.REACT4XP_CONFIG_FILE=' + react4xp.masterConfigFileName
 
     if (react4xp.verbose) {
-        println "webpack_react4xp task - args:"
-        println args
+        println "react4xp_components task - args:"
+        println "\t${args}\n"
     }
 
-    inputs.file(react4xp.masterConfigFileName)
+    inputs.file(react4xp.outputFileName)
     inputs.file("package.json")
     inputs.file("package-lock.json")
 }
-webpack_react4xp.dependsOn += 'config_tasks'
+react4xp_components.dependsOn += 'config_tasks'
+jar.dependsOn += "react4xp_components"
 
 
-task babelXP(type: NodeTask) {
+
+task react4xp_externals(type: NodeTask) {
     group 'React4xp'
-    description 'Compile XP components from ES6, ignoring JSX components'
+    description 'Compile the externals (react and react-dom'
 
-    script = file('node_modules/babel-cli/bin/babel.js')
+    // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
+    script = file('node_modules/webpack/bin/webpack.js')
+    args = [
+            '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  // react4xp-runtime-externals comes with react4xp@^0.2.0
+            '--color',
+            '--env.VERBOSE=' + react4xp.verbose,
+            '--env.ENTRY_DIRS=' + react4xp.entryDirs,
+            '--env.CHUNK_DIRS=' + react4xp.chunkDirs,
+            '--env.ROOT="' + ROOT +'"'
+    ]
+
+    // Pretty if chatty
+    if (react4xp.verbose) {
+        args += '--progress'
+    }
+
+    // Finally, and mandatorily: tells all of the webpack steps here where to find the react4xp master config file that was built during the config_react4xp task
+    args += '--env.REACT4XP_CONFIG_FILE=' + react4xp.masterConfigFileName
+
+    if (react4xp.verbose && react4xp.buildExternals) {
+        println "react4xp_externals task - args:"
+        println "\t${args}\n"
+    }
+
+    inputs.file(react4xp.outputFileName)
+    inputs.file("package.json")
+    inputs.file("package-lock.json")
+}
+react4xp_externals.dependsOn += 'config_tasks'
+if (react4xp.buildExternals) {
+    jar.dependsOn += 'react4xp_externals'
+}
+
+
+
+task react4xp_client(type: NodeTask) {
+    group 'React4xp'
+    description 'Compile the react4xp runtime client'
+
+    // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
+    script = file('node_modules/webpack/bin/webpack.js')
+    args = [
+            '--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   // react4xp-runtime-client comes with react4xp@^0.2.0
+            '--color',
+            '--env.VERBOSE=' + react4xp.verbose,
+            '--env.ENTRY_DIRS=' + react4xp.entryDirs,
+            '--env.CHUNK_DIRS=' + react4xp.chunkDirs,
+            '--env.ROOT="' + ROOT +'"'
+    ]
+
+    // Pretty if chatty
+    if (react4xp.verbose) {
+        args += '--progress'
+    }
+
+    // Finally, and mandatorily: tells all of the webpack steps here where to find the react4xp master config file that was built during the config_react4xp task
+    args += '--env.REACT4XP_CONFIG_FILE=' + react4xp.masterConfigFileName
+
+    if (react4xp.verbose && react4xp.buildRuntimeClient) {
+        println "react4xp_client task - args:"
+        println "\t${args}\n"
+    }
+
+    inputs.file(react4xp.outputFileName)
+    inputs.file("package.json")
+    inputs.file("package-lock.json")
+}
+react4xp_client.dependsOn += 'config_tasks'
+if (react4xp.buildRuntimeClient) {
+    jar.dependsOn += 'react4xp_client'
+}
+
+
+
+task react4xp_nashornpolyfills(type: NodeTask) {
+    group 'React4xp'
+    description 'Run the imported react4xp webpack scripts that compile the components and externals (as well as client and nashorn polyfills if needed)'
+
+    script = file('node_modules/webpack/bin/webpack.js')
+    args = [
+            '--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',    // react4xp-runtime-nashornpolyfills comes with react4xp@^0.2.0
+            '--color',
+            '--env.VERBOSE=' + react4xp.verbose,
+            '--env.ENTRY_DIRS=' + react4xp.entryDirs,
+            '--env.CHUNK_DIRS=' + react4xp.chunkDirs,
+            '--env.ROOT="' + ROOT +'"'
+    ]
+
+    // Pretty if chatty
+    if (react4xp.verbose) {
+        args += '--progress'
+    }
+
+    // Finally, and mandatorily: tells all of the webpack steps here where to find the react4xp master config file that was built during the config_react4xp task
+    args += '--env.REACT4XP_CONFIG_FILE=' + react4xp.masterConfigFileName
+
+    if (react4xp.verbose && react4xp.nashornPolyfillsSource != null) {
+        println "react4xp_nashornpolyfills task - args:"
+        println "\t${args}\n"
+    }
+
+    inputs.file(react4xp.outputFileName)
+    inputs.file("package.json")
+    inputs.file("package-lock.json")
+}
+react4xp_nashornpolyfills.dependsOn += 'config_tasks'
+if (react4xp.nashornPolyfillsSource != null) {
+    jar.dependsOn += 'react4xp_nashornpolyfills'
+}
+
+
+
+// This task takes care of es6 under src/main/resources/site. You can replace it with build steps of your own if you want.
+// IMPORTANT: IF YOU DON'T USE THIS TASK TO COMPILE THE REGULAR XP JS (/ES6/TS etc),
+// MAKE SURE THAT YOUR OWN TASK/SCRIPT/LOGIC IGNORES .JSX FILES UNDER src/main/resources/site !
+// It's safer to let React4xp's tasks (above) handles those.
+task compileXP(type: NodeTask) {
+    group 'React4xp'
+    description 'Compile all things non-react4xp: XP components from ES6, ignoring JSX components'
+
+    script = file('node_modules/@babel/cli/bin/babel.js')
     args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
 
     inputs.dir 'src/main/resources'
     outputs.dir("build/resources/main")
 }
-babelXP.dependsOn += 'config_tasks'
-
-jar.dependsOn += 'webpack_react4xp'
-jar.dependsOn += 'babelXP'
+compileXP.dependsOn += 'config_tasks'
+jar.dependsOn += 'compileXP'
 
 
 
-// Note: the 2 watcher tasks from previous version are removed. Use "npm run watch" instead, in combination with XP dev mode (e.g. enonic sandbox start --dev) 
+
+//////////////////////////////////////////////////  Auto-update current version in docs and package.json:
+
+def PACKAGE_JSON = new JsonSlurper().parseText(file('package.json').text)
+def NPM_BUNDLE_VERSION = PACKAGE_JSON.dependencies.react4xp
+def STARTER_VERSION = "${project.version}"
+def XP_VERSION = "${xpVersion}"
+def PREVIOUS_VERSION = "${PACKAGE_JSON.version}"
+def README_SOURCE = "README.src.md"
+
+task makeAdoc(type: Copy) {
+    from("./")
+    into("./")
+    include("README.md")
+    rename("README.md", "README.adoc")
+
+    doFirst {
+        new File('README.adoc').delete()
+    }
+
+    filter {
+        String line -> line
+                .replaceAll(/\[\/\/\]: <> \((.*?)\)/, "// \$1") // Top comment
+                .replaceAll(/^# (.*?)$/, "= \$1\n:toc: right") // Main header, adding auto ToC
+                .replaceAll(/^## (.*?)$/, "== \$1") // H2-H5
+                .replaceAll(/^### (.*?)$/, "=== \$1")
+                .replaceAll(/^#### (.*?)$/, "==== \$1")
+                .replaceAll(/^##### (.*?)$/, "===== \$1")
+                .replaceAll(/<a name="(.*?)"><\/a>/, "\n[#\$1]") // Explicit anchor IDs
+                .replaceAll(/\[(.*?)\]\((.*?)\)/, "link:\$2[\$1]") // Links
+                .replaceAll(/^```$/, "----") // Source code end
+                .replaceAll(/^```(.*?)$/, "[source,\$1,options=\"nowrap\"]\n----") // Source code start
+                .replaceAll(/^(\| ?\*?\*?Version \/ tag\*?\*?[\n \|])(.*?)\|$/, "[%header,cols=3]\n|===\n\$1\$2") // Version table header
+                .replaceAll(/^\| ?-.*?- ?\|$/, "")
+                .replaceAll(/^(\| ?0\.2\.8.*?) ?\|$/, "\$1\n|===") // Version table last line (starts with "0.2.8")
+                .replaceAll(/^(\| ?.*?)\|$/, "\$1") // Version table cells
+    }
+
+    doLast {
+        File fh1 = new File('README.adoc')
+        def text = fh1.getText('UTF-8')
+        text = text.replaceAll(/\n== Table of Contents\n( *- link:.*?\]\n)*\n/, "")
+        fh1.delete()
+        fh1.write text
+    }
+}
+
+task updateReadme(type: Copy) {
+    from("./docs/")
+    into("./")
+    include(README_SOURCE)
+    rename(README_SOURCE, "README.md")
+
+    doFirst {
+        new File('README.md').delete()
+    }
+
+    filter {
+        String line -> line
+                .replaceAll("USE THIS FILE TO EDIT THE ROOT's README.md! This will be copied to root and and verions inserted before commit. Gradle task: copyReadme. Version placeholders: ###STARTER_VERSION###, ###XP_VERSION###, ###LIB_VERSION### and ###NPM_BUNDLE_VERSION###. Leave this line in place", "  DO NOT EDIT!   Autogenerated and auto-replaced from source docs/${README_SOURCE}, write docs there instead")
+                .replaceAll("###LIB_VERSION###", LIB_VERSION)
+                .replaceAll("###XP_VERSION###", XP_VERSION)
+                .replaceAll("###STARTER_VERSION###", STARTER_VERSION)
+                .replaceAll("###NPM_BUNDLE_VERSION###", NPM_BUNDLE_VERSION)
+    }
+
+    doLast {
+        PACKAGE_JSON.version = LIB_VERSION
+        def pkgJsonFile = new File('package.json')
+        // new File('package.json').delete()
+        pkgJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(PACKAGE_JSON)))
+    }
+}
+makeAdoc.dependsOn updateReadme
+npmInstall.dependsOn makeAdoc
+
+def readmeUnstaged() {
+    def command = "git diff --name-only HEAD"
+    // println "Process: ${command}"
+    def proc = command.execute()
+    proc.waitFor()
+    if (proc.exitValue() != 0) {
+        throw new GradleException(proc.err.text)
+    }
+    def stdout = proc.in.text
+    def unstagedSource = stdout.split( '\n' ).findAll { it == "docs/README.md" || it == "docs\\README.md" }
+    return unstagedSource.size() > 0
+}
+updateReadme.enabled = true // LIB_VERSION != PREVIOUS_VERSION || readmeUnstaged()
+

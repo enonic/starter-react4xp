@@ -1,55 +1,59 @@
 {
-  "name": "react4xp",
-  "version": "0.2.10",
-  "description": "React4xp starter for Enonic XP7.0",
-  "scripts": {
-    "rm": "node_modules/rimraf/bin.js build",
-    "install:dev": "nsi",
-    "install:prod": "npm install",
-    "rebuild": "npm run rm; ./gradlew build",
-    "deploy": "./gradlew deploy --info",
-    "watch": "npm-run-all --parallel watch:xp watch:r4xp",
-    "watch:gradle": "./gradlew deploy --info -t",
-    "watch:r4xp": "webpack --env.REACT4XP_CONFIG_FILE=build/react4xp_constants.json --config node_modules/react4xp-build-components/webpack.config.js --progress --watch",
-    "watch:xp": "babel src/main/resources --out-dir build/resources/main --ignore **/*.jsx --progress --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/enonic/starter-react4xp.git"
-  },
-  "author": "Espen Norderud",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/enonic/starter-react4xp/issues"
-  },
-  "homepage": "https://github.com/enonic/starter-react4xp#readme",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
-  },
-  "devDependencies": {
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "npm-run-all": "^4.1.5",
-    "react4xp-build-components": "^0.3.10",
-    "react4xp-buildconstants": "^0.7.9",
-    "react4xp-runtime-externals": "^0.3.5",
-    "react4xp-runtime-nashornpolyfills": "^0.3.6",
-    "webpack": "^4.41.1",
-    "webpack-cli": "^3.3.9"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-0"
-    ],
-    "plugins": [
-      "transform-object-rest-spread"
-    ]
-  }
+    "name": "starter-react4xp",
+    "version": "1.0.0",
+    "description": "React4xp starter for Enonic XP7.0",
+    "scripts": {
+        "install:dev": "nsi",
+        "install:prod": "npm install",
+        "clean": "./gradlew clean --refresh-dependencies  --info",
+        "build": "./gradlew build --info",
+        "deploy": "./gradlew deploy --info",
+        "rebuild": "npm run clean && npm run build",
+        "redeploy": "npm run rebuild && npm run deploy",
+        "dev": "npm run redeploy && npm run watch:all",
+        "watch": "npm-run-all --parallel watch:xp watch:r4xp",
+        "watch:all": "npm-run-all --parallel watch:gradle watch:xp watch:react4xp",
+        "watch:gradle": "./gradlew deploy --info -t",
+        "watch:react4xp": "webpack --env.REACT4XP_CONFIG_FILE=build/react4xp_constants.json --config node_modules/react4xp-build-components/webpack.config.js --progress --watch",
+        "watch:xp": "babel src/main/resources --out-dir build/resources/main --ignore **/*.jsx --progress --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/enonic/starter-react4xp.git"
+    },
+    "author": "Espen Norderud",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/enonic/starter-react4xp/issues"
+    },
+    "homepage": "https://github.com/enonic/starter-react4xp#readme",
+    "dependencies": {
+        "node-fetch": "^1.7.3",
+        "prop-types": "^15.7.2",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "react4xp": "0.2.1"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.7.7",
+        "@babel/core": "^7.7.7",
+        "@babel/plugin-proposal-class-properties": "^7.7.4",
+        "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
+        "@babel/plugin-transform-arrow-functions": "^7.7.4",
+        "@babel/preset-env": "^7.7.7",
+        "@babel/preset-react": "^7.7.4",
+        "babel-loader": "^8.0.6",
+        "npm-run-all": "^4.1.5",
+        "webpack": "^4.41.1",
+        "webpack-cli": "^3.3.9"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ],
+        "plugins": [
+            "@babel/plugin-proposal-object-rest-spread",
+            "@babel/plugin-transform-arrow-functions"
+        ]
+    }
 }

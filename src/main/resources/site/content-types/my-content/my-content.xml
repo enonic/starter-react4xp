@@ -1,0 +1,6 @@
+<content-type xmlns="urn:enonic:xp:model:1.0">
+    <display-name>My Content</display-name>
+    <description>Just some content</description>
+    <super-type>base:structured</super-type>
+    <form/>
+</content-type>

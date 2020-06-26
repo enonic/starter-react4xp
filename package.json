@@ -1,6 +1,6 @@
 {
     "name": "starter-react4xp",
-    "version": "1.0.0",
+    "version": "1.0.0-RC1",
     "description": "React4xp starter for Enonic XP7.0",
     "scripts": {
         "install:dev": "nsi",

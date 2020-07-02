@@ -1,8 +1,11 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+/** Use this file to adjust the webpack config.
+ *  Uncomment the overrideComponentWebpack property in react4xp.properties, and add this file there.
+ */
+
 
 module.exports = function(env, config) {
 
-    // This makes 'npm link' symlinks in node_modules work:
+    // Makes symlinks under node_modules work, e.g. 'npm link' and possibly PNPM etc:
     config.resolve.symlinks = true;
 
     return config;

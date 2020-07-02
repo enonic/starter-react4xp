@@ -37,11 +37,11 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.0.0-CLEANTEST.
+This is version 1.0.0.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 1.0.0            | 7.0.0  | First full release, compatible with updated guide.  |
+| 1.0.0            | 7.3.0  | First full release, compatible with updated guide.  |
 | 0.6.3            | 7.0.0  | Lazy-loading assets on server-side rendering. Collected all the react4xp NPM packages into one. Support: CSS modules with asset handling.  |
 | 0.6.1            | 7.0.0  | Fixed Page/Layout support. Free structure of entry and chunk directories. Babel upgrade.  |
 | 0.2.10           | 7.0.0  | Fixes windows build issue #18. |

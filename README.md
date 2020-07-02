@@ -37,7 +37,7 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.0.0-RC1.
+This is version 1.0.0-CLEANTEST.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|

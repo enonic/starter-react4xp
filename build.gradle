@@ -91,7 +91,7 @@ task config_react4xp(type: NodeTask) {
     group 'React4xp'
     description 'Generates the master config JSON file (this is not react4xp.properties, but build/react4xp_constants.json and its copy)'
 
-    script = file('node_modules/react4xp-buildconstants/bin/cli.js')       // react4xp-buildconstants comes with react4xp@^0.2.0
+    script = file('node_modules/react4xp-buildconstants/bin/cli.js')       // react4xp-buildconstants comes with react4xp@^1.0.0
     args = [ ROOT, JsonOutput.toJson(JsonOutput.toJson(react4xp)) ]
 }
 config_react4xp.inputs.file("react4xp.properties")
@@ -141,7 +141,7 @@ task react4xp_components(type: NodeTask) {
     // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
     args = [
-            '--config', 'node_modules/react4xp-build-components/webpack.config.js', // react4xp-build-components comes with react4xp@^0.2.0
+            '--config', 'node_modules/react4xp-build-components/webpack.config.js', // react4xp-build-components comes with react4xp@^1.0.0
             '--color',
             '--env.VERBOSE=' + react4xp.verbose,
             '--env.ENTRY_DIRS=' + react4xp.entryDirs,
@@ -177,10 +177,9 @@ task react4xp_externals(type: NodeTask) {
     group 'React4xp'
     description 'Helper part of the react4xp build flow: Compile the externals (usually react and react-dom) down to one asset'
 
-    // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
     args = [
-            '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  // react4xp-runtime-externals comes with react4xp@^0.2.0
+            '--config', 'node_modules/react4xp-runtime-externals/webpack.config.js',  // react4xp-runtime-externals comes with react4xp@^1.0.0
             '--color',
             '--env.VERBOSE=' + react4xp.verbose,
             '--env.ENTRY_DIRS=' + react4xp.entryDirs,
@@ -214,10 +213,9 @@ task react4xp_client(type: NodeTask) {
     group 'React4xp'
     description 'Helper part of the react4xp build flow: Compile the react4xp runtime client asset'
 
-    // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
     args = [
-            '--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   // react4xp-runtime-client comes with react4xp@^0.2.0
+            '--config', 'node_modules/react4xp-runtime-client/webpack.config.js',   // react4xp-runtime-client comes with react4xp@^1.0.0
             '--color',
             '--env.VERBOSE=' + react4xp.verbose,
             '--env.ENTRY_DIRS=' + react4xp.entryDirs,
@@ -252,7 +250,7 @@ task react4xp_nashornpolyfills(type: NodeTask) {
 
     script = file('node_modules/webpack/bin/webpack.js')
     args = [
-            '--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',    // react4xp-runtime-nashornpolyfills comes with react4xp@^0.2.0
+            '--config', 'node_modules/react4xp-runtime-nashornpolyfills/webpack.config.js',    // react4xp-runtime-nashornpolyfills comes with react4xp@^1.0.0
             '--color',
             '--env.VERBOSE=' + react4xp.verbose,
             '--env.ENTRY_DIRS=' + react4xp.entryDirs,
@@ -308,8 +306,7 @@ jar.dependsOn += 'react4xp_build'
 // MAKE SURE THAT YOUR OWN TASK/SCRIPT/LOGIC IGNORES .JSX FILES UNDER src/main/resources/site !
 // It's safer to let React4xp's tasks (above) handle those.
 task compileXP(type: NodeTask) {
-    group 'React4xp'
-    description 'Non-react4xp build: compile XP components: ES6 under src/main/resources/site, ignoring JSX components'
+    description 'Non-react4xp build: compile XP components - ES6 under src/main/resources/site, ignoring JSX components'
 
     script = file('node_modules/@babel/cli/bin/babel.js')
     args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!

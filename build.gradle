@@ -64,45 +64,16 @@ if(react4xp.buildEnv != null) {
 
 
 
-// These are not supplied from react4xp, but are just names used for buildtime housekeeping:
-def markerName = "node_modules/react4xp/npmInstalled.marker"
-def linkMarkerName = "node_modules/react4xp/npmLinked.marker"
-
-task nsiInstall(type:NodeTask) {
-    description("npm-safe-install: Runs npm i, and if npm link has been run before that: rebuilds the links afterwards")
-    doFirst {
-        println "react4xp.properties#buildEnv is set to '" + react4xp.buildEnv + "':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install (nsi)." // Because nsi retains 'npm link' symlinks!
-    }
-    script = file("node_modules/npm-safe-install/out/cli.js")   // npm-safe-install comes with react4xp@^0.2.0
-    doLast {
-        def marker = new File(linkMarkerName)
-        new File(marker.getParent()).mkdirs()
-        marker.text = """
-Marker file, indicating that react4xp in node_module is locally linked.
-"""
-    }
-}
-nsiInstall.inputs.files('package.json', 'package-lock.json')
-nsiInstall.outputs.file('package-lock.json')
-nsiInstall.outputs.file file(linkMarkerName)
-
-if (new File(linkMarkerName).exists()) {
-    npmInstall.enabled = false
-    npmInstall.dependsOn nsiInstall
-
-} else {
-    npmInstall.enabled = true
-    npmInstall.inputs.files('package.json', 'package-lock.json')
-    npmInstall.outputs.file('package-lock.json')
-    npmInstall.outputs.file file(markerName)
-    npmInstall.doLast {
-        def marker = new File(markerName)
-        new File(marker.getParent()).mkdirs()
-        marker.text = """
+npmInstall.inputs.files('package.json', 'package-lock.json')
+npmInstall.outputs.file file(markerName)
+npmInstall.doLast {
+    def marker = new File(markerName)
+    new File(marker.getParent()).mkdirs()
+    marker.text = """
 Marker file, indicating that the npmInstall gradle task has been run in this subproject - faster than traversing the entire node_modules tree for changes.
 """
-    }
 }
+
 
 
 react4xp.masterConfigFileName = react4xp.masterConfigFileName != null ? react4xp.masterConfigFileName : "build/react4xp_constants.json"
@@ -112,6 +83,7 @@ react4xp.verbose = react4xp.verbose != null && react4xp.verbose.toBoolean()
 react4xp.buildRuntimeClient = react4xp.buildRuntimeClient != null && react4xp.buildRuntimeClient.toBoolean()
 react4xp.buildExternals = react4xp.buildExternals != null && react4xp.buildExternals.toBoolean()
 react4xp.overwriteConstantsFile = react4xp.overwriteConstantsFile != null && react4xp.overwriteConstantsFile.toBoolean()
+
 
 
 // Build the master config JSON file and the copy:
@@ -325,6 +297,9 @@ if (react4xp.buildExternals) {
 }
 
 jar.dependsOn += 'react4xp_build'
+
+
+
 ////////////////////////////
 
 
@@ -345,96 +320,3 @@ task compileXP(type: NodeTask) {
 compileXP.dependsOn += 'config_tasks'
 
 jar.dependsOn += 'compileXP'
-
-
-
-
-//////////////////////////////////////////////////  Auto-update current version in docs and package.json:
-
-def PACKAGE_JSON = new JsonSlurper().parseText(file('package.json').text)
-def NPM_BUNDLE_VERSION = PACKAGE_JSON.dependencies.react4xp
-def STARTER_VERSION = "${project.version}"
-def XP_VERSION = "${xpVersion}"
-def PREVIOUS_VERSION = "${PACKAGE_JSON.version}"
-def README_SOURCE = "README.src.md"
-
-task makeAdoc(type: Copy) {
-    from("./")
-    into("./")
-    include("README.md")
-    rename("README.md", "README.adoc")
-
-    doFirst {
-        new File('README.adoc').delete()
-    }
-
-    filter {
-        String line -> line
-                .replaceAll(/\[\/\/\]: <> \((.*?)\)/, "// \$1") // Top comment
-                .replaceAll(/^# (.*?)$/, "= \$1\n:toc: right") // Main header, adding auto ToC
-                .replaceAll(/^## (.*?)$/, "== \$1") // H2-H5
-                .replaceAll(/^### (.*?)$/, "=== \$1")
-                .replaceAll(/^#### (.*?)$/, "==== \$1")
-                .replaceAll(/^##### (.*?)$/, "===== \$1")
-                .replaceAll(/<a name="(.*?)"><\/a>/, "\n[#\$1]") // Explicit anchor IDs
-                .replaceAll(/\[(.*?)\]\((.*?)\)/, "link:\$2[\$1]") // Links
-                .replaceAll(/^```$/, "----") // Source code end
-                .replaceAll(/^```(.*?)$/, "[source,\$1,options=\"nowrap\"]\n----") // Source code start
-                .replaceAll(/^(\| ?\*?\*?Version \/ tag\*?\*?[\n \|])(.*?)\|$/, "[%header,cols=3]\n|===\n\$1\$2") // Version table header
-                .replaceAll(/^\| ?-.*?- ?\|$/, "")
-                .replaceAll(/^(\| ?0\.2\.8.*?) ?\|$/, "\$1\n|===") // Version table last line (starts with "0.2.8")
-                .replaceAll(/^(\| ?.*?)\|$/, "\$1") // Version table cells
-    }
-
-    doLast {
-        File fh1 = new File('README.adoc')
-        def text = fh1.getText('UTF-8')
-        text = text.replaceAll(/\n== Table of Contents\n( *- link:.*?\]\n)*\n/, "")
-        fh1.delete()
-        fh1.write text
-    }
-}
-
-task updateReadme(type: Copy) {
-    from("./docs/")
-    into("./")
-    include(README_SOURCE)
-    rename(README_SOURCE, "README.md")
-
-    doFirst {
-        new File('README.md').delete()
-    }
-
-    filter {
-        String line -> line
-                .replaceAll("USE THIS FILE TO EDIT THE ROOT's README.md! This will generate the actual README.md and README.adoc with placeholder values inserted. Run gradle task before commit: updateReadme - this should autorun when building. Version placeholders: 0.6.3, 7.0.0, 1.0.0 and 0.2.1. Leave this line in place - and if you edit it, remember to also update it in the search/replace target in build.gradle", "  DO NOT EDIT!   Autogenerated and auto-replaced from source docs/${README_SOURCE}. Write docs there instead")
-                .replaceAll("###LIB_REACT4XP_VERSION###", LIB_REACT4XP_VERSION)
-                .replaceAll("###XP_VERSION###", XP_VERSION)
-                .replaceAll("###STARTER_VERSION###", STARTER_VERSION)
-                .replaceAll("###NPM_BUNDLE_VERSION###", NPM_BUNDLE_VERSION)
-    }
-
-    doLast {
-        PACKAGE_JSON.version = LIB_REACT4XP_VERSION
-        def pkgJsonFile = new File('package.json')
-        // new File('package.json').delete()
-        pkgJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(PACKAGE_JSON)))
-    }
-}
-
-updateReadme.dependsOn makeAdoc
-
-def readmeUnstaged() {
-    def command = "git diff --name-only HEAD"
-    // println "Process: ${command}"
-    def proc = command.execute()
-    proc.waitFor()
-    if (proc.exitValue() != 0) {
-        throw new GradleException(proc.err.text)
-    }
-    def stdout = proc.in.text
-    def unstagedSource = stdout.split( '\n' ).findAll { it == "docs/README.md" || it == "docs\\README.md" }
-    return unstagedSource.size() > 0
-}
-updateReadme.enabled = true // LIB_REACT4XP_VERSION != PREVIOUS_VERSION || readmeUnstaged()
-

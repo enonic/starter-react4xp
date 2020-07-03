@@ -69,6 +69,7 @@ def markerName = "node_modules/react4xp/npmInstalled.marker"
 def linkMarkerName = "node_modules/react4xp/npmLinked.marker"
 
 task nsiInstall(type:NodeTask) {
+    description("npm-safe-install: Runs npm i, and if npm link has been run before that: rebuilds the links afterwards")
     doFirst {
         println "react4xp.properties#buildEnv is set to '" + react4xp.buildEnv + "':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install (nsi)." // Because nsi retains 'npm link' symlinks!
     }
@@ -116,7 +117,7 @@ react4xp.overwriteConstantsFile = react4xp.overwriteConstantsFile != null && rea
 // Build the master config JSON file and the copy:
 task config_react4xp(type: NodeTask) {
     group 'React4xp'
-    description 'Build the master config JSON file and its copy'
+    description 'Generates the master config JSON file (this is not react4xp.properties, but build/react4xp_constants.json and its copy)'
 
     script = file('node_modules/react4xp-buildconstants/bin/cli.js')       // react4xp-buildconstants comes with react4xp@^0.2.0
     args = [ ROOT, JsonOutput.toJson(JsonOutput.toJson(react4xp)) ]
@@ -132,6 +133,9 @@ config_react4xp.dependsOn += 'processResources'
 def CONFIG = {}
 
 task config_tasks {
+    group 'React4xp'
+    description 'Helper part of the react4xp build flow: configures other tasks using values from the master config JSON file from the config_react4xp task'
+
     // After the above script has run and created the config file, use the constructed values from the script to update the configuration of the next task(s):
     doLast {
         // Read the file content into an object
@@ -160,7 +164,7 @@ config_tasks.dependsOn += 'config_react4xp'
 // Compile:
 task react4xp_components(type: NodeTask) {
     group 'React4xp'
-    description 'Compile the parent projects react components'
+    description "Helper part of the react4xp build flow: compile the parent project's react components"
 
     // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
@@ -194,13 +198,12 @@ task react4xp_components(type: NodeTask) {
     inputs.file("package-lock.json")
 }
 react4xp_components.dependsOn += 'config_tasks'
-jar.dependsOn += "react4xp_components"
 
 
 
 task react4xp_externals(type: NodeTask) {
     group 'React4xp'
-    description 'Compile the externals (react and react-dom'
+    description 'Helper part of the react4xp build flow: Compile the externals (usually react and react-dom) down to one asset'
 
     // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
@@ -231,15 +234,13 @@ task react4xp_externals(type: NodeTask) {
     inputs.file("package-lock.json")
 }
 react4xp_externals.dependsOn += 'config_tasks'
-if (react4xp.buildExternals) {
-    jar.dependsOn += 'react4xp_externals'
-}
+
 
 
 
 task react4xp_client(type: NodeTask) {
     group 'React4xp'
-    description 'Compile the react4xp runtime client'
+    description 'Helper part of the react4xp build flow: Compile the react4xp runtime client asset'
 
     // 1 MANDATORY STEP: react4xp-build-components compiles the components added in this project into runnable/renderable components. See react4xp-build-components docs.
     script = file('node_modules/webpack/bin/webpack.js')
@@ -270,15 +271,12 @@ task react4xp_client(type: NodeTask) {
     inputs.file("package-lock.json")
 }
 react4xp_client.dependsOn += 'config_tasks'
-if (react4xp.buildRuntimeClient) {
-    jar.dependsOn += 'react4xp_client'
-}
 
 
 
 task react4xp_nashornpolyfills(type: NodeTask) {
     group 'React4xp'
-    description 'Run the imported react4xp webpack scripts that compile the components and externals (as well as client and nashorn polyfills if needed)'
+    description 'Helper part of the react4xp build flow: compile the nashorn polyfills asset'
 
     script = file('node_modules/webpack/bin/webpack.js')
     args = [
@@ -308,19 +306,35 @@ task react4xp_nashornpolyfills(type: NodeTask) {
     inputs.file("package-lock.json")
 }
 react4xp_nashornpolyfills.dependsOn += 'config_tasks'
+
+
+
+task react4xp_build {
+    group 'React4xp'
+    description 'React4xp build: entry task'
+}
+react4xp_build.dependsOn += "react4xp_components"
 if (react4xp.nashornPolyfillsSource != null) {
-    jar.dependsOn += 'react4xp_nashornpolyfills'
+    react4xp_build.dependsOn "react4xp_nashornpolyfills"
+}
+if (react4xp.buildRuntimeClient) {
+    react4xp_build.dependsOn += 'react4xp_client'
+}
+if (react4xp.buildExternals) {
+    react4xp_build.dependsOn += 'react4xp_externals'
 }
 
+jar.dependsOn += 'react4xp_build'
+////////////////////////////
 
 
 // This task takes care of es6 under src/main/resources/site. You can replace it with build steps of your own if you want.
 // IMPORTANT: IF YOU DON'T USE THIS TASK TO COMPILE THE REGULAR XP JS (/ES6/TS etc),
 // MAKE SURE THAT YOUR OWN TASK/SCRIPT/LOGIC IGNORES .JSX FILES UNDER src/main/resources/site !
-// It's safer to let React4xp's tasks (above) handles those.
+// It's safer to let React4xp's tasks (above) handle those.
 task compileXP(type: NodeTask) {
     group 'React4xp'
-    description 'Compile all things non-react4xp: XP components from ES6, ignoring JSX components'
+    description 'Non-react4xp build: compile XP components: ES6 under src/main/resources/site, ignoring JSX components'
 
     script = file('node_modules/@babel/cli/bin/babel.js')
     args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
@@ -329,6 +343,7 @@ task compileXP(type: NodeTask) {
     outputs.dir("build/resources/main")
 }
 compileXP.dependsOn += 'config_tasks'
+
 jar.dependsOn += 'compileXP'
 
 

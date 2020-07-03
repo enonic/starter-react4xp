@@ -1,5 +1,6 @@
 <page>
   <display-name>Default page</display-name>
+  <description>Default react-rendered page controller</description>
   <form/>
   <regions>
     <region name="main"/>

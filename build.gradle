@@ -406,7 +406,7 @@ task updateReadme(type: Copy) {
         pkgJsonFile.write(JsonOutput.prettyPrint(JsonOutput.toJson(PACKAGE_JSON)))
     }
 }
-npmInstall.dependsOn updateReadme
+
 updateReadme.dependsOn makeAdoc
 
 def readmeUnstaged() {

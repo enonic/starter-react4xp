@@ -13,7 +13,7 @@ app {
     systemVersion = "${xpVersion}"
 }
 
-def LIB_REACT4XP_VERSION = "1.0.1"
+def LIB_REACT4XP_VERSION = "1.0.2"
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"
     compile "com.enonic.xp:portal-api:${xpVersion}"

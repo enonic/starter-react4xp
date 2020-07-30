@@ -1,6 +1,6 @@
 {
     "name": "starter-react4xp",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "React4xp starter for Enonic XP7.0",
     "scripts": {
         "install:dev": "nsi",
@@ -32,7 +32,7 @@
         "prop-types": "^15.7.2",
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
-        "react4xp": "1.0.0"
+        "react4xp": "1.0.9"
     },
     "devDependencies": {
         "@babel/cli": "^7.7.7",

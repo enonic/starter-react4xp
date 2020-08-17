@@ -1,0 +1,45 @@
+// Adds optional dev convenience: adjusts the regular 'npmInstall' gradle task with two improvements:
+//      - NSI allows npm-linked local development (https://www.npmjs.com/package/npm-safe-install)
+//      - faster gradle up-to-date check during build (only checks content of package.json and package-lock.json,
+//          and a marker file for whether node_module exists as a regular or NSI-linked version. Runs NSI if it's linked.
+//          Does not check the entire node_modules subtree).
+
+
+// These are not supplied from react4xp, they are just names used for buildtime housekeeping:
+def markerName = "node_modules/react4xp/npmInstalled.marker"
+def linkMarkerName = "node_modules/react4xp/npmLinked.marker"
+
+task nsiInstall(type:NodeTask) {
+    doFirst {
+        println "react4xp.properties#buildEnv is set to '" + react4xp.buildEnv + "':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install (nsi)." // Because nsi retains 'npm link' symlinks!
+    }
+    script = file("node_modules/npm-safe-install/out/cli.js")   // npm-safe-install comes with react4xp@^0.2.0
+    doLast {
+        def marker = new File(linkMarkerName)
+        new File(marker.getParent()).mkdirs()
+        marker.text = """
+Marker file, indicating that react4xp in node_module is locally linked.
+"""
+    }
+}
+nsiInstall.inputs.files('package.json', 'package-lock.json')
+nsiInstall.outputs.file('package-lock.json')
+nsiInstall.outputs.file file(linkMarkerName)
+
+if (new File(linkMarkerName).exists()) {
+    npmInstall.enabled = false
+    npmInstall.dependsOn nsiInstall
+
+} else {
+    npmInstall.enabled = true
+    npmInstall.inputs.files('package.json', 'package-lock.json')
+    npmInstall.outputs.file('package-lock.json')
+    npmInstall.outputs.file file(markerName)
+    npmInstall.doLast {
+        def marker = new File(markerName)
+        new File(marker.getParent()).mkdirs()
+        marker.text = """
+Marker file, indicating that the npmInstall gradle task has been run in this subproject - faster than traversing the entire node_modules tree for changes.
+"""
+    }
+}

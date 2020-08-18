@@ -37,7 +37,7 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.0.1.
+This is version 1.0.2.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|

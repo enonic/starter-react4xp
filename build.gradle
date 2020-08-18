@@ -13,8 +13,8 @@ app {
     systemVersion = "${xpVersion}"
 }
 
-// This variable is also used in the optional readme.gradle
-def LIB_REACT4XP_VERSION = "1.0.2"
+// This variable is used in the include lib-react4xp below, and also used in the optional tasks in readme.gradle
+rootProject.ext.LIB_REACT4XP_VERSION = "1.0.2"
 
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"
@@ -32,7 +32,7 @@ dependencies {
     include "com.enonic.lib:lib-mustache:2.0.0"
     include "com.enonic.lib:lib-util:2.0.0"
 
-    include "com.enonic.lib:lib-react4xp:${LIB_REACT4XP_VERSION}"
+    include "com.enonic.lib:lib-react4xp:${rootProject.ext.LIB_REACT4XP_VERSION}"
 }
 
 repositories {
@@ -46,17 +46,20 @@ repositories {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Necessary react4xp build setup. Used by the mandatory 'jar' task, so 'npm i' or 'gradlew npmInstall' must be run separately first
+// Necessary react4xp build setup.
+// Used by the mandatory 'jar' task, so 'npm i' or 'gradlew npmInstall' must be run separately before e.g. 'gradlew build' or 'enonic project deploy'.
 apply from: 'react4xp.gradle'
 
-// Optional dev convenience: adjusts the regular 'npmInstall' gradle task with two improvements:
+// Optional dev convenience:
+// Adjusts the regular 'npmInstall' gradle task with two improvements:
 //      - NSI allows npm-linked local development (https://www.npmjs.com/package/npm-safe-install)
 //      - faster gradle up-to-date check during build (only checks content of package.json and package-lock.json,
 //          and a marker file for whether node_module exists as a regular or NSI-linked version. Runs NSI if it's linked.
 //          Does not check the entire node_modules subtree).
 apply from: 'npmInstall.gradle'
 
-// Optional dev convenience: adds the 'updateReadme' gradle task, which generates readme files at root, from docs/README.src.md
+// Optional dev convenience:
+// Adds the 'updateReadme' gradle task, which generates readme files at root, from docs/README.src.md
 apply from: 'readme.gradle'
 
 
@@ -69,7 +72,7 @@ apply from: 'readme.gradle'
 // This task takes care of es6 under src/main/resources/site. You can replace it with build steps of your own if you want.
 // IMPORTANT: IF YOU DON'T USE THIS TASK TO COMPILE THE REGULAR XP JS (/ES6/TS etc),
 // MAKE SURE THAT YOUR OWN TASK/SCRIPT/LOGIC IGNORES .JSX FILES THAT ARE LOCATED UNDER src/main/resources/site !
-// It's safer to let React4xp's tasks (above) handles those.
+// It's safer to let React4xp's tasks (in react4xp.gradle) handle those.
 task compileXP(type: NodeTask) {
     group 'enonic xp'
     description 'Babel-compile Enonic XP ES6 source files (important: ignoring JSX components since they are left to react4xp)'

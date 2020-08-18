@@ -48,7 +48,7 @@ repositories {
 
 // Necessary react4xp build setup.
 // Used by the mandatory 'jar' task, so 'npm i' or 'gradlew npmInstall' must be run separately before e.g. 'gradlew build' or 'enonic project deploy'.
-apply from: 'react4xp.gradle'
+apply from: 'node_modules/react4xp/react4xp.gradle'
 
 // Optional dev convenience:
 // Adjusts the regular 'npmInstall' gradle task with two improvements:
@@ -56,11 +56,11 @@ apply from: 'react4xp.gradle'
 //      - faster gradle up-to-date check during build (only checks content of package.json and package-lock.json,
 //          and a marker file for whether node_module exists as a regular or NSI-linked version. Runs NSI if it's linked.
 //          Does not check the entire node_modules subtree).
-apply from: 'npmInstall.gradle'
+apply from: 'node_modules/react4xp/npmInstall.gradle'
 
 // Optional dev convenience:
 // Adds the 'updateReadme' gradle task, which generates readme files at root, from docs/README.src.md
-apply from: 'readme.gradle'
+apply from: 'node_modules/react4xp/readme.gradle'
 
 
 

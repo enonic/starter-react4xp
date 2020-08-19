@@ -18,15 +18,15 @@ Requires: installed [Enonic XP 7.x](https://developer.enonic.com/) with [Gradle]
 
 ## Install
 
-1. Install it from [Enonic Market](https://market.enonic.com/vendors/enonic/react4xp-starter) or clone it down from [the github repo](https://github.com/enonic/starter-react4xp). 
-2. The NPM packages ([react4xp](https://www.npmjs.com/package/react4xp) spectfically) must be installed before running the gradle build task: 
-    ```shell script
-    > npm i
+1. Install the starter from [Enonic Market](https://market.enonic.com/vendors/enonic/react4xp-starter) or clone it down from [the github repo](https://github.com/enonic/starter-react4xp). 
+2. The NPM packages ([react4xp](https://www.npmjs.com/package/react4xp) specifically) must be installed before running the gradle build task: 
+    ```commandline
+    npm i
     ```
 
 3. Run it locally from [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master) (which runs gradle build behind the scenes): 
-    ```shell script
-    > enonic project deploy
+    ```commandline
+    enonic project deploy
    ```
 
 

@@ -59,8 +59,8 @@ apply from: 'node_modules/react4xp/react4xp.gradle'
 apply from: 'node_modules/react4xp/npmInstall.gradle'
 
 // Optional dev convenience:
-// Adds the 'updateReadme' gradle task, which generates readme files at root, from docs/README.src.md
-apply from: 'node_modules/react4xp/readme.gradle'
+// Adds the 'updateReadme' gradle task which generates readme files at root from docs/README.src.md
+apply from: 'node_modules/react4xp/updaters.gradle'
 
 
 

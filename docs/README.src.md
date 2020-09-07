@@ -19,19 +19,19 @@ Requires: installed [Enonic XP 7.x](https://developer.enonic.com/) with [Gradle]
 ## Install
 
 1. Install the starter from [Enonic Market](https://market.enonic.com/vendors/enonic/react4xp-starter) or clone it down from [the github repo](https://github.com/enonic/starter-react4xp). 
-2. The NPM packages ([react4xp](https://www.npmjs.com/package/react4xp) specifically) must be installed before running the gradle build task: 
+2. The NPM packages ([react4xp](https://www.npmjs.com/package/react4xp) specifically) must be installed before running the gradle build task. Before you build for the first time, and whenever you wipe the _node_modules_ folder, run: 
     ```commandline
     npm i
     ```
 
-3. Run it locally from [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master) (which runs gradle build behind the scenes): 
+3. Build it locally from [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master) (which runs gradle build behind the scenes): 
     ```commandline
     enonic project deploy
-   ```
+    ```
 
 
 
-## Easy setup after building
+## Easy Content Studio setup after building
 
 For complete setup info, see [the react4xp introduction](https://developer.enonic.com/templates/react4xp). 
 
@@ -49,6 +49,7 @@ This is version ###STARTER_VERSION###.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
+| 1.1.0            | 7.3.0  | Simplified the build -  NPM package react4xp@1.1.3 replaces a big pile of build setup in this parent project's build.gradle with one line (`apply from:`...) |
 | 1.0.1            | 7.3.0  | First full release, compatible with updated guide.  |
 | 0.6.3            | 7.0.0  | Lazy-loading assets on server-side rendering. Collected all the react4xp NPM packages into one. Support: CSS modules with asset handling.  |
 | 0.6.1            | 7.0.0  | Fixed Page/Layout support. Free structure of entry and chunk directories. Babel upgrade.  |

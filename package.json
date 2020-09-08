@@ -30,7 +30,7 @@
     "dependencies": {
         "node-fetch": "^1.7.3",
         "prop-types": "^15.7.2",
-        "react": "^16.12.0",
+        "react": "^16.13.1",
         "react-dom": "^16.12.0",
         "react4xp": "1.1.3"
     },

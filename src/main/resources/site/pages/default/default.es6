@@ -24,6 +24,7 @@ exports.get = function(request) {
             body: `
                 <html>
                     <head>
+                        <meta charset="UTF-8" />
                         <title>${content.displayName}</title>
                     </head>
                     <body class="xp-page">

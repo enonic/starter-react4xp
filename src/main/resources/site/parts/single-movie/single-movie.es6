@@ -5,6 +5,7 @@ const React4xp = require('/lib/enonic/react4xp');
 
 exports.get = function(request) {
     const content = portal.getContent();
+
     const props = {
         imageUrl: content.data.image ?
             portal.imageUrl({
@@ -19,13 +20,6 @@ exports.get = function(request) {
             .map( actor => (actor || '').trim())
             .filter(actor => !!actor)
     }
-
-    log.info("props (" +
-    	(Array.isArray(props) ?
-    		("array[" + props.length + "]") :
-    		(typeof props + (props && typeof props === 'object' ? (" with keys: " + JSON.stringify(Object.keys(props))) : ""))
-    	) + "): " + JSON.stringify(props, null, 2)
-    );
 
     return React4xp.render(
         'Movie',

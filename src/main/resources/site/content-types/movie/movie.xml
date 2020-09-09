@@ -1,0 +1,16 @@
+<content-type>
+    <display-name>Movie</display-name>
+    <description>Moving images often reflecting culture</description>
+    <super-type>base:structured</super-type>
+    <form>
+        <input type="imageSelector" name="image">
+            <label>Cover</label>
+        </input>
+        <input type="textLine" name="year">
+            <label>Release year</label>
+        </input>
+        <input type="textArea" name="description">
+            <label>Movie description</label>
+        </input>
+    </form>
+</content-type>

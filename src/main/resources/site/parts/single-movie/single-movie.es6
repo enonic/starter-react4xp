@@ -9,7 +9,7 @@ exports.get = function(request) {
         imageUrl: content.data.image ?
             portal.imageUrl({
                 id: content.data.image,
-                scale: 'block(240, 320)'
+                scale: 'width(300)'
             }) :
             undefined,
         title: content.displayName,

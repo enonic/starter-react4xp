@@ -21,7 +21,7 @@ exports.get = function(request) {
         null,
         {
             id,
-            body: `
+            body: `<!DOCTYPE html>
                 <html>
                     <head>
                         <meta charset="UTF-8" />

@@ -1,6 +1,6 @@
 <content-type xmlns="urn:enonic:xp:model:1.0">
     <display-name>Movie</display-name>
-    <description>Demo content</description>
+    <description>Moving images often reflecting culture</description>
     <super-type>base:structured</super-type>
     <form>
         <input name="image" type="ImageSelector">

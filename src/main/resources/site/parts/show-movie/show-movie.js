@@ -16,15 +16,13 @@ exports.get = function() {
 
     return {
         body: `        
-            <div style="display:none;" id="content" data-key="${content._id}"></div>
             <div style="display:none;" id="url" data-url="${graphqlServiceUrl}"></div>
-            <div id="movie"></div>
+            <div style="display:none;" id="contentId" data-key="${content._id}"></div>
         `,
         pageContributions: {
             headEnd:[
                 `<script src="${getMovieScript}"></script>`
             ],
-
         }
 
     }

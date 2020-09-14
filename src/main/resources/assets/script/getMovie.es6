@@ -1,4 +1,6 @@
-const QUERY_GETMOVIE = `query ($key:ID!) {
+(() => {
+
+    const QUERY_GETMOVIE = `query ($key:ID!) {
             guillotine {
                 get(key: $key) {
                     displayName
@@ -16,7 +18,7 @@ const QUERY_GETMOVIE = `query ($key:ID!) {
             }
         }`;
 
-const QUERY_GETIMAGEURL = `query ($key:ID!) {
+    const QUERY_GETIMAGEURL = `query ($key:ID!) {
             guillotine {
                 get(key: $key) {
                     ... on media_Image {
@@ -27,59 +29,66 @@ const QUERY_GETIMAGEURL = `query ($key:ID!) {
         }`;
 
 
-const getImage = url => result => {
-    let imageId = result.data.guillotine.get.data.image._id;
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-            query: QUERY_GETIMAGEURL,
-            variables: {
-                key: imageId
-            },
-        }),
-        credentials: "same-origin"
-    })
-        .then(response => response.json())
-        .then(response => ({
-                imageUrl :response.data.guillotine.get.imageUrl,
-                name: result.data.guillotine.get.displayName,
-                year: result.data.guillotine.get.data.year,
-                desc: result.data.guillotine.get.data.description,
-                actor: result.data.guillotine.get.data.actor
-            })
-        )
-        .then(createMovie);
-
-    return result;
-};
+    const fetchMovieData = (url, contentId) => {
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                query: QUERY_GETMOVIE,
+                variables: {
+                    key: contentId,
+                }
+            }),
+            credentials: "same-origin",
+        })
+            .then(response => response.json())
+            .then(getImage(url));
+    }
 
 
-function createMovie(params) {
-    console.log("createMovie with params(" +
-        (Array.isArray(params) ?
-                ("array[" + params.length + "]") :
-                (typeof params + (params && typeof params === 'object' ? (" with keys: " + JSON.stringify(Object.keys(params))) : ""))
-        ) + "): " + JSON.stringify(params, null, 2)
-    );
-}
+    const getImage = url => result => {
+        let imageId = result.data.guillotine.get.data.image._id;
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                query: QUERY_GETIMAGEURL,
+                variables: {
+                    key: imageId
+                },
+            }),
+            credentials: "same-origin"
+        })
+            .then(response => response.json())
+            .then(response => ({
+                    imageUrl: response.data.guillotine.get.imageUrl,
+                    name: result.data.guillotine.get.displayName,
+                    year: result.data.guillotine.get.data.year,
+                    desc: result.data.guillotine.get.data.description,
+                    actor: result.data.guillotine.get.data.actor
+                })
+            )
+            .then(createMovie);
+
+        return result;
+    };
+
+
+    const createMovie = params => {
+        console.log("createMovie with params(" +
+            (Array.isArray(params) ?
+                    ("array[" + params.length + "]") :
+                    (typeof params + (params && typeof params === 'object' ? (" with keys: " + JSON.stringify(Object.keys(params))) : ""))
+            ) + "): " + JSON.stringify(params, null, 2)
+        );
+    }
 
 
 // ------------------------------------------------------------------
 
-document.addEventListener("DOMContentLoaded", () => {
-    const url = document.getElementById("url").dataset.url;
-    const content = document.getElementById("content").dataset.key;
+    document.addEventListener("DOMContentLoaded", () => {
+        const url = document.getElementById("url").dataset.url;
+        const contentId = document.getElementById("contentId").dataset.key;
 
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-            query: QUERY_GETMOVIE,
-            variables: {
-                key: content,
-            }
-        }),
-        credentials: "same-origin",
-    })
-        .then(response => response.json())
-        .then(getImage(url));
-});
+        fetchMovieData(url, contentId);
+    });
+
+})();

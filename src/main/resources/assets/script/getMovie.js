@@ -5,9 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     displayName
                     ... on com_enonic_app_react4xp_Movie {
                         data {
-                            image
+                            image {
+                                _id
+                            }
                             year
                             description
+                            actor
                         }
                     }
                 }
@@ -59,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function getImage(result) {
-        let imageId = result.data.guillotine.get.data.image;
+        let imageId = result.data.guillotine.get.data.image._id;
         fetch(url, {
             method: "POST",
             body: JSON.stringify({
@@ -77,19 +80,34 @@ document.addEventListener("DOMContentLoaded", () => {
             let name = result.data.guillotine.get.displayName;
             let year = result.data.guillotine.get.data.year;
             let desc = result.data.guillotine.get.data.description;
+            let actor = result.data.guillotine.get.data.actor
 
-            createMovie({
+            const params = {
                 name,
                 year,
                 imageUrl,
                 desc,
-            })
+                actor
+            };
+
+            return params;
+        })
+        .then(params => {
+            createMovie(params)
         });
 
         return result;
     }
 
     function createMovie(params) {
+        console.log("createMovie with params(" +
+            (Array.isArray(params) ?
+                    ("array[" + params.length + "]") :
+                    (typeof params + (params && typeof params === 'object' ? (" with keys: " + JSON.stringify(Object.keys(params))) : ""))
+            ) + "): " + JSON.stringify(params, null, 2)
+        );
+
+        /*
         let name = params.headline;
         let year = params.year;
         let coverUrl = params.imageUrl;
@@ -104,11 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
         p.textContent = year;
         let p2 = document.createElement("p");
         p2.textContent = description;
-        
+
         movie.appendChild(h);
         movie.appendChild(img);
         movie.appendChild(p);
         movie.appendChild(p2);
-
+*/
     }
 });

@@ -12,25 +12,11 @@ const SCHEMA = guillotineLib.createSchema();
 exports.post = req => {
     var body = JSON.parse(req.body);
 
-    /*log.info("body.variables (" +
-    	(Array.isArray(body.variables) ?
-    		("array[" + body.variables.length + "]") :
-    		(typeof body.variables + (body.variables && typeof body.variables === 'object' ? (" with keys: " + JSON.stringify(Object.keys(body.variables))) : ""))
-    	) + "): " + JSON.stringify(body.variables, null, 2)
-    );*/
-
     const output = {
         contentType: 'application/json',
         headers: CORS_HEADERS,
         body: graphQlLib.execute(SCHEMA, body.query, body.variables)
     };
-
-/*    log.info("output (" +
-    	(Array.isArray(output) ?
-    		("array[" + output.length + "]") :
-    		(typeof output + (output && typeof output === 'object' ? (" with keys: " + JSON.stringify(Object.keys(output))) : ""))
-    	) + "): " + JSON.stringify(output, null, 2)
-    );*/
 
     let status = 200;
     if (output.body.errors) {

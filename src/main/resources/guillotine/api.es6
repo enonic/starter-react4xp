@@ -7,6 +7,11 @@ const CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 };
 
+const OPTIONS_HEADERS = {
+    ...CORS_HEADERS,
+    "Allow": "POST,OPTIONS"
+}
+
 const SCHEMA = guillotineLib.createSchema();
 
 exports.post = req => {
@@ -21,5 +26,5 @@ exports.post = req => {
 
 exports.options = req => ({
     contentType: 'text/plain;charset=utf-8',
-    headers: CORS_HEADERS
+    headers: OPTIONS_HEADERS
 });

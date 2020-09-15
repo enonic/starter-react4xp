@@ -38,11 +38,11 @@ const requestMovies = ({ apiurl, contentid, first, offset, sort, movietype, hand
             .map(
                 movieItem => ({
                     id: movieItem._id,
-                    name: movieItem.displayName,
+                    title: movieItem.displayName,
                     imageUrl: movieItem.data.image.imageUrl,
                     year: movieItem.data.year,
-                    desc: movieItem.data.description,
-                    actor: movieItem.data.actor
+                    description: movieItem.data.description,
+                    actors: movieItem.data.actor
                 })
             ),
 

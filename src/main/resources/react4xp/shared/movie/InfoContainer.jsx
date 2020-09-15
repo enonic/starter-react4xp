@@ -19,9 +19,12 @@ const InfoContainer = ({title, year, description, actors}) => (
             </div>
         </Info>
 
-        <Info heading="Cast">
-            <Cast actors={actors} />
-        </Info>
+        { (actors && actors.length > 0) ?
+            <Info heading="Cast">
+                <Cast actors={actors} />
+            </Info> :
+            null
+        }
     </div>
 );
 

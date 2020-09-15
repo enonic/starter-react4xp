@@ -9,7 +9,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
 
     const [state, setState] = useState({displayingMovies: movies, nextOffsetState: movies.length});
 
-    const handleDataFunc = movieItems => {
+    const updateDOMWithNewMovies = movieItems => {
         const moviesToDisplay = [...state.displayingMovies];
         const moviesIds = state.displayingMovies.map(movie => movie.id);
         movieItems.forEach(movie => {
@@ -34,7 +34,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
             offset: state.nextOffsetState,
             movietype: movieType,
             sort: sortExpression,
-            handleDataFunc
+            handleDataFunc: updateDOMWithNewMovies
         });
     };
 

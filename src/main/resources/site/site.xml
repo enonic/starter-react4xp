@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
   <form/>
-    <mapping controller="/script/getMovie.js" order="50">
-        <pattern>/api/guillotine/*?</pattern>
-    </mapping>
+    <mappings>
+        <mapping controller="/guillotine/api.js" order="50">
+            <pattern>/api/guillotine</pattern>
+        </mapping>
+    </mappings>
 </site>

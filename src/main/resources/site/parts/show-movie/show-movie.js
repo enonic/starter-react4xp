@@ -8,11 +8,12 @@ exports.get = function() {
         type: "absolute"
     });
 
-    var graphqlServiceUrl = portal.serviceUrl({
+    var graphqlServiceUrl = "api/guillotine"
+        /*// portal.serviceUrl({
         service: 'graphql',
         application: 'com.enonic.app.guillotine',
         type: "absolute"
-    });
+    }); //*/
 
     return {
         body: `        

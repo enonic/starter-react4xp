@@ -16,11 +16,13 @@ exports.get = function(request) {
     const result = contentLib.getChildren({
         key: content._path,
         start: 0,
-        count: component.config.movieCount + 1,
+        count: component.config.movieCount,
         sort: sortExpression
     });
 
-    const hits = result.total > 0 ? util.data.forceArray(result.hits.filter( hit => hit.type === `${app.name}:movie`)) : [];
+    const hits = result.total > 0
+        ? util.data.forceArray(result.hits.filter( hit => hit.type === `${app.name}:movie`))
+        : [];
 
     const movies = hits.map(hit => ({
         id: hit._id,
@@ -40,7 +42,15 @@ exports.get = function(request) {
 
     return React4xp.render(
         'MovieList',
-        {movies},
+        {
+            movies,
+            apiUrl: `./${content._name}/api/guillotine`,
+            parentId: content._id,
+            movieCount: component.config.movieCount,
+            movieType: `${app.name.replace(/\./g, '_')}_Movie`,
+            sortExpression
+
+        },
         request
         // , { clientRender: true }
     );

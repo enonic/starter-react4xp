@@ -9,13 +9,19 @@ const CORS_HEADERS = {
 
 const SCHEMA = guillotineLib.createSchema();
 
+// ----------------------------------------------  FOR USE IN CONTROLLERS    ------------------------------------
+
+exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, variables);
+
+// ----------------------------------------------  FRONTEND EXPOSED METHODS  ------------------------------------
+
 exports.post = req => {
     var body = JSON.parse(req.body);
 
     const output = {
         contentType: 'application/json',
         headers: CORS_HEADERS,
-        body: graphQlLib.execute(SCHEMA, body.query, body.variables)
+        body: exports.executeQuery(body.query, body.variables)
     };
 
     let status = 200;

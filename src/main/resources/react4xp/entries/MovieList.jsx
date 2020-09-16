@@ -37,10 +37,13 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
                 ...movieItems
             ];
 
+            console.log("currentMovies pre:", currentMovies.map(movie => movie.title));
             // Add movies: merge new movie items into existing state
             setCurrentMovies(mergedMoviesList);
 
-            
+            console.log("currentMovies post:", currentMovies.map(movie => movie.title));
+
+            console.log("mergedMoviesList:", mergedMoviesList.map(movie => movie.title));
         }
     };
 
@@ -78,7 +81,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
 
         nextOffset = movies.length;
 
-        // Browser-specific functionality, so this is prevented from running on the backend
+        // Browser-specific functionality, so this is prevented from running on the SSR
         if (typeof document === 'object' && typeof document.addEventListener === 'function' && typeof window !== 'undefined') {
             document.addEventListener("DOMContentLoaded", () => {
                 var movieList = document.getElementById(`movieList_${parentId}`);

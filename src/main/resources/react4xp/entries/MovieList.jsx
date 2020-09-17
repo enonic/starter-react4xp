@@ -27,8 +27,8 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // ------------------------------------------------------
     // Set up action methods, triggered by listener:
 
-    // Makes a (guillotine) request for data with these search parameters and passes updateDOMWithNewMovies as the callback
-    // function to use on the returned list of movie data
+    // Makes a (guillotine) request for data with these search parameters and passes an anonymous callback function as
+    // handleDataFunc (used on the returned list of movie data).
     const makeRequest = () => {
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
         requestMovies({
@@ -38,22 +38,13 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
             offset: nextOffset,
             movietype: movieType,
             sort: sortExpression,
-            handleDataFunc: updateDOMWithNewMovies
+            handleDataFunc: (newMovieItems) => {
+                console.log("Received data:", newMovieItems);
+
+                nextOffset += movieCount;
+            }
         });
     };
-
-
-
-
-    // When a movie data array is returned from the guillotine data request, this method is called.
-    // Merges incoming movie data into the component state (which react automatically renders to the DOM), preventing duplicates.
-    // Also updates the index in the movies data that the next item should start searching at.
-    const updateDOMWithNewMovies = (newMovieItems) => {
-        console.log("Received data:", newMovieItems);
-
-        nextOffset += movieCount;
-    };
-
 
 
     // ------------------------------------------------------------------------------------

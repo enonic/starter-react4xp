@@ -17,6 +17,8 @@ exports.get = function(request) {
 
     const query = getListMoviesQuery(movieType);
 
+    log.info("\n--------\nBuilt query:" + query);
+
     const variables = {
         contentid: content._id,
         first: component.config.movieCount,
@@ -24,20 +26,20 @@ exports.get = function(request) {
         sort: sortExpression
     };
 
+    log.info("\nVariables:" + JSON.stringify(variables, null, 4));
+
     const guillotineResult = guillotine.executeQuery(query, variables);
 
+    log.info("\nguillotineResult: " + JSON.stringify(guillotineResult, null, 4));
+
     const movies = extractMovieArray(guillotineResult);
+
+    log.info("\n--------->\nextracted movie array: " + JSON.stringify(movies, null, 4));
 
     return React4xp.render(
         'MovieList',
         {
             movies,
-            apiUrl: `./${content._name}/api/guillotine`,
-            parentId: content._id,
-            movieCount: component.config.movieCount,
-            movieType,
-            sortExpression
-
         },
         request
         // , { clientRender: true }

@@ -4,10 +4,10 @@ import './MovieList.scss';
 
 import Movie from "./Movie";
 
-const MovieList = ({movies, parentId, apiUrl, movieCount, movieType, sortExpression}) => {
+const MovieList = ({movies}) => {
 
     return (
-        <div id={`movieList_${parentId}`} className="movieList">
+        <div className="movieList">
             {movies
                 ? movies.map(movie =>
                         <Movie key={movie.id} {...movie} />
@@ -18,5 +18,5 @@ const MovieList = ({movies, parentId, apiUrl, movieCount, movieType, sortExpress
     );
 };
 
-// MUST use this export line wrapping, because of the useState hook.
+// MUST use this export line wrapping, because we will use a useState hook.
 export default (props) => <MovieList {...props} />;

@@ -4,13 +4,9 @@ import './MovieList.scss';
 
 import Movie from "./Movie";
 
-import doGuillotineRequest from "../../lib/guillotine/guillotineRequest";
-import {extractMovieArray, getListMoviesQuery} from "../../lib/movie-listing/index";
-
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
-let listMoviesQuery;
 
 
 const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpression}) => {
@@ -19,7 +15,6 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
         isInitialized = true;
 
         nextOffset = movieCount;
-        listMoviesQuery = getListMoviesQuery(movieType);
     }
 
     // ------------------------------------------------------

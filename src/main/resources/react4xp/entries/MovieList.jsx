@@ -8,7 +8,6 @@ import Movie from "./Movie";
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
-const movieIds = []
 
 
 
@@ -23,7 +22,6 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
         isInitialized = true;
 
         nextOffset = movieCount;
-        movieIds.push(...movies.map( movie => movie.id ));
     }
 
     // ------------------------------------------------------
@@ -53,26 +51,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     const updateDOMWithNewMovies = (newMovieItems) => {
         console.log("Received data:", newMovieItems);
 
-        if (newMovieItems.length > 0) {
-
-            // Prevent possible duplicates
-            const movieItemsToAdd = newMovieItems.filter(movie => movieIds.indexOf(movie.id) === -1);
-            movieIds.push(...movieItemsToAdd.map(movie => movie.id));
-
-            console.log("Adding movies to state:", movieItemsToAdd.map(movie => movie.title));
-
-            nextOffset += movieCount;
-
-            // Use a function, not just a new direct object/array, for mutating state object/array instead of replacing it:
-            setState(oldState => ({
-                movies: [
-                    ...oldState.movies,
-                    ...movieItemsToAdd
-                ]
-            }));
-
-            console.log("Added new movies to state / DOM.");
-        }
+        nextOffset += movieCount;
     };
 
 

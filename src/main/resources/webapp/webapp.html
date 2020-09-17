@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html th:with="serviceUrlRoot=${portal.serviceUrl({'_service='})}">
+    <head>
+        <title>All headless</title>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+        <script data-th-src="|${serviceUrlRoot}/react4xp-client|" src=""></script>
+
+    </head>
+    <body>
+        <h1>Top 10 movies to put in a list</h1>
+        <div id="movieListContainer"></div>
+
+        <h3>TODO:</h3>
+        <p>1. What's a STABLE api/guillotine URL (from here and anywhere)?</p>
+        <p>2. Put that, and the query, and the variables, in <em>assets/webapp/script.js</em>,</p>
+        <p>3. Let <em>assets/webapp/script.js</em> extract a <code>movies</code> array from the result,</p>
+        <p>4. Call:</p>
+        <p><pre>
+        React4xp.CLIENT.renderWithDependencies({
+            MovieList: {
+                targetId: "movieListContainer",
+                props: { movies: movies }
+            }
+        </pre></p>
+        <p>5. Make a second, PURE-HTML webapp example (with all compiled assets, and a script section calling regular React rendering instead of <code>React4xp.CLIENT.renderWithDependencies</code>),</p>
+        <p>6. Finally, deconstruct the rest of the example.</p>
+
+        <script data-th-utext="|var SERVICE_URL_ROOT='${serviceUrlRoot}';|"></script>
+        <script defer data-th-src="${portal.assetUrl({'_path=webapp/script.js'})}"></script>
+    </body>
+</html>

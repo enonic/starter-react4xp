@@ -1,14 +1,16 @@
 import React from 'react'
 
 import './MovieList.scss';
-import requestMovies from "../shared/requestMovies";
 
 import Movie from "./Movie";
+
+import doGuillotineRequest from "../../lib/guillotine/guillotineRequest";
+import {extractMovieArray, getListMoviesQuery} from "../../lib/movie-listing/index";
 
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
-
+let listMoviesQuery;
 
 
 const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpression}) => {
@@ -17,6 +19,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
         isInitialized = true;
 
         nextOffset = movieCount;
+        listMoviesQuery = getListMoviesQuery(movieType);
     }
 
     // ------------------------------------------------------
@@ -26,13 +29,21 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // handleDataFunc (used on the returned list of movie data).
     const makeRequest = () => {
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
-        requestMovies({
-            apiurl: apiUrl,
-            contentid: parentId,
-            first: movieCount,
-            offset: nextOffset,
-            movietype: movieType,
-            sort: sortExpression,
+
+        doGuillotineRequest({
+            url: apiUrl,
+
+            query: listMoviesQuery,
+
+            variables: {
+                contentid: parentId,
+                first: movieCount,
+                offset: nextOffset,
+                sort: sortExpression
+            },
+
+            extractDataFunc: extractMovieArray,
+
             handleDataFunc: (newMovieItems) => {
                 console.log("Received data:", newMovieItems);
 

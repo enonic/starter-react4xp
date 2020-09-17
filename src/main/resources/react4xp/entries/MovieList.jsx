@@ -5,15 +5,21 @@ import requestMovies from "../shared/requestMovies";
 
 import Movie from "./Movie";
 
+// State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
+let isInitialized = false;
+let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
 
 const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpression}) => {
 
     // Setup asunchronous component state that triggers re-render on change.
     const [state, setState] = useState({
         movies,                     // Array of data objects: currently displayed movies
-        nextOffset: movieCount,     // Index for what will be the next movie to search for in a guillotine request
     });
 
+    if (!isInitialized) {
+        isInitialized = true;
+        nextOffset = movieCount;
+    }
 
     // ------------------------------------------------------
     // Set up action methods, triggered by listener:
@@ -21,7 +27,6 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // Makes a (guillotine) request for data with these search parameters and passes updateDOMWithNewMovies as the callback
     // function to use on the returned list of movie data
     const makeRequest = (state) => {
-        const nextOffset = state.nextOffset;
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
         requestMovies({
             apiurl: apiUrl,
@@ -48,15 +53,16 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
             // Prevent possible duplicates
             const movieIds = state.movies.map(movie => movie.id);
             const movieItemsToAdd = newMovieItems.filter(movie => movieIds.indexOf(movie.id) === -1);
-            console.log("Adding movies to state:", newMovieItems.map(movie => movie.name));
+            console.log("Adding movies to state:", newMovieItems.map(movie => movie.title));
+
+            nextOffset += movieCount;
 
             // Use a function, not just a new direct object/array, for mutating state object/array instead of replacing it:
             setState(oldState => ({
                 movies: [
                     ...oldState.movies,
                     ...movieItemsToAdd
-                ],
-                nextOffset: oldState.nextOffset + movieCount
+                ]
             }));
 
             console.log("Added new movies to state / DOM.");
@@ -70,7 +76,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
 
 
     console.log("------------------------- Rendering state.movies:", state.movies.map(movie => movie.title));
-    console.log("Click to add more movies, starting at index", state.nextOffset);
+    console.log("Click to add more movies, starting at index", nextOffset);
 
     return (
         <div id={`movieList_${parentId}`} className="movieList" onClick={() => makeRequest(state)}>

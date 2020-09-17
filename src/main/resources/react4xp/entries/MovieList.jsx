@@ -14,64 +14,9 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
 
     // Setup asunchronous component state that triggers re-render on change.
     const [state, setState] = useState({
-        movies                     // Array of data objects: currently displayed movies
-    });
-
-    // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
-    const synchronousState = {
-        isInitialized: false,
+        movies,                     // Array of data objects: currently displayed movies
         nextOffset: movieCount,     // Index for what will be the next movie to search for in a guillotine request
-        listenForScroll: true,      // Switches off the scroll listener during request and processing, switches back on aftwerwards
-        movieIds: movies.map( movie => movie.id )
-    };
-
-
-
-
-
-    // -----------------------------------------------------  Scroll listener
-
-    // Trigger initialization, but only once: we only want one scroll event listener to be set up.
-    if (!synchronousState.isInitialized) {
-        synchronousState.isInitialized = true;
-        initialize();
-    }
-
-
-    // Set up scroll listener, on the first rendering only.
-    // Causes a trigger func function to be called when the bottom of the visible window is scrolled down to less
-    // than TRIGGER_OFFSET_PX_FROM_BOTTOM of the movie list element.
-    function initialize() {
-
-        // Browser-specific functionality, so this is prevented from running on the SSR
-        if (typeof document === 'object' && typeof document.addEventListener === 'function' && typeof window !== 'undefined') {
-            document.addEventListener("DOMContentLoaded", () => {
-                // console.log("Init scroll listener");
-
-                var movieListElem = document.getElementById(`movieList_${parentId}`);
-
-                // ACTUAL SCROLL LISTENER:
-                window.addEventListener("scroll", () => {
-
-                    if (synchronousState.listenForScroll) {
-                        var movieBounds = movieListElem.getBoundingClientRect();
-
-                        if (movieBounds.bottom < window.innerHeight + TRIGGER_OFFSET_PX_FROM_BOTTOM) {
-                            console.log("!!! SCROLL TRIGGER !!!");
-
-                            // Stop acting on scroll events, until data is returned.
-                            synchronousState.listenForScroll = false;
-
-                            makeRequest();
-
-                        }
-                    } /*else {
-                        console.log("Easy now...");
-                    }*/
-                });
-            });
-        }
-    }
+    });
 
 
     // ------------------------------------------------------
@@ -79,8 +24,8 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
 
     // Makes a (guillotine) request for data with these search parameters and passes updateDOMWithNewMovies as the callback
     // function to use on the returned list of movie data
-    const makeRequest = () => {
-        const nextOffset = synchronousState.nextOffset;
+    const makeRequest = (state) => {
+        const nextOffset = state.nextOffset;
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
         requestMovies({
             apiurl: apiUrl,
@@ -89,7 +34,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
             offset: nextOffset,
             movietype: movieType,
             sort: sortExpression,
-            handleDataFunc: updateDOMWithNewMovies
+            handleDataFunc: (newMovieItems) => updateDOMWithNewMovies(newMovieItems, state)
         });
     };
 
@@ -99,30 +44,27 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // When a movie data array is returned from the guillotine data request, this method is called.
     // Merges incoming movie data into the component state (which react automatically renders to the DOM), preventing duplicates.
     // Also updates the index in the movies data that the next item should start searching at.
-    const updateDOMWithNewMovies = (newMovieItems) => {
+    const updateDOMWithNewMovies = (newMovieItems, state) => {
         console.log("Received data:", newMovieItems);
 
         if (newMovieItems.length > 0) {
-            synchronousState.nextOffset += movieCount;
 
-            // Prevent duplicates
-            newMovieItems = newMovieItems.filter(movie => synchronousState.movieIds.indexOf(movie.id) === -1);
-            synchronousState.movieIds.push(...newMovieItems.map(movie => movie.id));
-            // console.log("Adding movies to state:", newMovieItems.map(movie => movie.name));
+            // Prevent possible duplicates
+            const movieIds = state.movies.map(movie => movie.id);
+            const movieItemsToAdd = newMovieItems.filter(movie => movieIds.indexOf(movie.id) === -1);
+            console.log("Adding movies to state:", newMovieItems.map(movie => movie.name));
 
             // Use a function, not just a new direct object/array, for mutating state object/array instead of replacing it:
             setState(oldState => ({
                 movies: [
                     ...oldState.movies,
-                    ...newMovieItems
-                ]
+                    ...movieItemsToAdd
+                ],
+                nextOffset: oldState.nextOffset + movieCount
             }));
+
+            console.log("Added new movies to state / DOM.");
         }
-
-        // Switch back on the scroll listener's actions.
-        synchronousState.listenForScroll = true;
-
-        console.log("...Ready. Added new movies to state / DOM. Scroll down add more movies, starting at index", synchronousState.nextOffset);
     };
 
 
@@ -131,10 +73,11 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // Actual rendering:
 
 
-    console.log("------------------------- currentMovies rendered:", state.movies.map(movie => movie.title));
+    console.log("------------------------- Rendering state.movies:", state.movies.map(movie => movie.title));
+    console.log("Click to add more movies, starting at index", state.nextOffset);
 
     return (
-        <div id={`movieList_${parentId}`} className="movieList">
+        <div id={`movieList_${parentId}`} className="movieList" onClick={() => makeRequest(state)}>
             {state.movies
                 ? state.movies.map(movie =>
                         <Movie key={movie.id} {...movie} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import './MovieList.scss';
 import requestMovies from "../shared/requestMovies";
@@ -12,11 +12,6 @@ let nextOffset = 0;             // Index for what will be the next movie to sear
 
 
 const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpression}) => {
-
-    // Setup asunchronous component state that triggers re-render on change.
-    const [state, setState] = useState({
-        movies,                     // Array of data objects: currently displayed movies
-    });
 
     if (!isInitialized) {
         isInitialized = true;
@@ -51,13 +46,13 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // Actual rendering:
 
 
-    console.log("------------------------- Rendering state.movies:", state.movies.map(movie => movie.title));
+    console.log("------------------------- Rendering movies:", movies.map(movie => movie.title));
     console.log("Click to add more movies, starting at index", nextOffset);
 
     return (
         <div id={`movieList_${parentId}`} className="movieList" onClick={makeRequest}>
-            {state.movies
-                ? state.movies.map(movie =>
+            {movies
+                ? movies.map(movie =>
                         <Movie key={movie.id} {...movie} />
                     )
                 : null

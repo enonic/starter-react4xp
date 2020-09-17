@@ -29,27 +29,6 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // handleDataFunc (used on the returned list of movie data).
     const makeRequest = () => {
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
-
-        doGuillotineRequest({
-            url: apiUrl,
-
-            query: listMoviesQuery,
-
-            variables: {
-                contentid: parentId,
-                first: movieCount,
-                offset: nextOffset,
-                sort: sortExpression
-            },
-
-            extractDataFunc: extractMovieArray,
-
-            handleDataFunc: (newMovieItems) => {
-                console.log("Received data:", newMovieItems);
-
-                nextOffset += movieCount;
-            }
-        });
     };
 
 

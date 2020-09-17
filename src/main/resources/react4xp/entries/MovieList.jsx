@@ -5,10 +5,6 @@ import requestMovies from "../shared/requestMovies";
 
 import Movie from "./Movie";
 
-const TRIGGER_OFFSET_PX_FROM_BOTTOM = 200;
-
-// Initially, the initialization (scroll listener etc) hasn't been set up. This is permanently switched off on the first rendering.
-
 
 const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpression}) => {
 

@@ -8,6 +8,9 @@ import Movie from "./Movie";
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
+const movieIds = []
+
+
 
 const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpression}) => {
 
@@ -18,7 +21,9 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
 
     if (!isInitialized) {
         isInitialized = true;
+
         nextOffset = movieCount;
+        movieIds.push(...movies.map( movie => movie.id ));
     }
 
     // ------------------------------------------------------
@@ -26,7 +31,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
 
     // Makes a (guillotine) request for data with these search parameters and passes updateDOMWithNewMovies as the callback
     // function to use on the returned list of movie data
-    const makeRequest = (state) => {
+    const makeRequest = () => {
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
         requestMovies({
             apiurl: apiUrl,
@@ -35,7 +40,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
             offset: nextOffset,
             movietype: movieType,
             sort: sortExpression,
-            handleDataFunc: (newMovieItems) => updateDOMWithNewMovies(newMovieItems, state)
+            handleDataFunc: updateDOMWithNewMovies
         });
     };
 
@@ -45,15 +50,16 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // When a movie data array is returned from the guillotine data request, this method is called.
     // Merges incoming movie data into the component state (which react automatically renders to the DOM), preventing duplicates.
     // Also updates the index in the movies data that the next item should start searching at.
-    const updateDOMWithNewMovies = (newMovieItems, state) => {
+    const updateDOMWithNewMovies = (newMovieItems) => {
         console.log("Received data:", newMovieItems);
 
         if (newMovieItems.length > 0) {
 
             // Prevent possible duplicates
-            const movieIds = state.movies.map(movie => movie.id);
             const movieItemsToAdd = newMovieItems.filter(movie => movieIds.indexOf(movie.id) === -1);
-            console.log("Adding movies to state:", newMovieItems.map(movie => movie.title));
+            movieIds.push(...movieItemsToAdd.map(movie => movie.id));
+
+            console.log("Adding movies to state:", movieItemsToAdd.map(movie => movie.title));
 
             nextOffset += movieCount;
 
@@ -79,7 +85,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     console.log("Click to add more movies, starting at index", nextOffset);
 
     return (
-        <div id={`movieList_${parentId}`} className="movieList" onClick={() => makeRequest(state)}>
+        <div id={`movieList_${parentId}`} className="movieList" onClick={makeRequest}>
             {state.movies
                 ? state.movies.map(movie =>
                         <Movie key={movie.id} {...movie} />

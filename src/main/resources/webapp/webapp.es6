@@ -12,7 +12,7 @@ exports.get = req => {
 
     const model = {
         contentId: _id,
-        apiUrl: `${ portalLib.pageUrl({ id: _id, type: `absolute` }) }/api/guillotine`,
+        apiUrl: `http://localhost:8080/admin/site/preview/default/draft/moviesite/api/guillotine`,
         movieType: `${app.name.replace(/\./g, '_')}_Movie`                                         // --> "com_enonic_app_react4xp_Movie" or similar
     };
 

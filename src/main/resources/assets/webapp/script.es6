@@ -58,7 +58,7 @@ const requestAndRenderMovies = () => {
         {
             method: "POST",
             body: JSON.stringify({
-                query: getListMoviesQuery(MOVIE_LIST_PARAMS.movietype),
+                query: getListMoviesQuery(MOVIE_LIST_PARAMS.movieType),
                 variables: {
                     contentid: MOVIE_LIST_PARAMS.contentId,
                     first: MOVIE_LIST_PARAMS.movieCount,
@@ -84,7 +84,7 @@ const requestAndRenderMovies = () => {
 
 
 const renderMovies = (movies) => {
-    log.info("Got movies (" +
+    console.log("Got movies (" +
     	(Array.isArray(movies) ?
     		("array[" + movies.length + "]") :
     		(typeof movies + (movies && typeof movies === 'object' ? (" with keys: " + JSON.stringify(Object.keys(movies))) : ""))
@@ -100,7 +100,7 @@ const renderMovies = (movies) => {
             }
         },
         null,
-        react4xpServiceUrlRoot
+        MOVIE_LIST_PARAMS.serviceUrlRoot
     );
 };
 

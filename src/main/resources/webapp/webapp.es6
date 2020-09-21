@@ -8,11 +8,11 @@ const SITE = '/moviesite'                               // Parent item of the mo
 
 exports.get = req => {
 
-    const { _id } = contentLib.getSite({key: SITE});
+    const { _id, _name } = contentLib.getSite({key: SITE});
 
     const model = {
         contentId: _id,
-        apiUrl: `http://localhost:8080/admin/site/preview/default/draft/moviesite/api/guillotine`,
+        apiUrl: `http://localhost:8080/admin/site/preview/default/draft/${_name}/api/guillotine`,
         movieType: `${app.name.replace(/\./g, '_')}_Movie`                                         // --> "com_enonic_app_react4xp_Movie" or similar
     };
 
@@ -29,3 +29,4 @@ exports.get = req => {
         body: thymeleaf.render(view, model)
     };
 };
+

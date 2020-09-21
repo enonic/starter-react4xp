@@ -2,8 +2,8 @@
 <site>
   <form/>
     <mappings>
-        <mapping controller="/lib/guillotine/api.js" order="50">
-            <pattern>/api/guillotine</pattern>
+        <mapping controller="/headless/guillotineApi.js" order="50">
+            <pattern>/api/headless</pattern>
         </mapping>
     </mappings>
 </site>

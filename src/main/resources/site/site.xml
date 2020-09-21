@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
   <form/>
-    <mappings>
-        <mapping controller="/headless/guillotineApi.js" order="50">
-            <pattern>/api/headless</pattern>
-        </mapping>
-    </mappings>
+  <mappings>
+  </mappings>
 </site>

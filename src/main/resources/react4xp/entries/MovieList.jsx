@@ -9,11 +9,11 @@ let nextOffset = 0;             // Index for what will be the next movie to sear
 
 
 
-const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpression}) => {
+const MovieList = ({movies}) => {
     if (!isInitialized) {
         isInitialized = true;
 
-        nextOffset = movieCount;
+        nextOffset = movies.length;
     }
 
     // ------------------------------------------------------
@@ -22,15 +22,14 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
     // Makes a (guillotine) request for data with these search parameters and passes an anonymous callback function as
     // handleDataFunc (used on the returned list of movie data).
     const makeRequest = () => {
-        console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
+        console.log("Requesting", movies.length, "movies, starting from index", nextOffset);
 
-        nextOffset += movieCount;
+        nextOffset += movies.length;
     };
-
 
     // ------------------------------------------------------------------------------------
     // Actual rendering:
-    
+
     console.log("------------------------- Rendering movies:", movies.map(movie => movie.title));
     console.log("Click to add more movies, starting at index", nextOffset);
 

@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 
 import './MovieList.scss';
-import requestMovies from "../shared/requestMovies";
 
 import Movie from "./Movie";
+
+import doGuillotineRequest from "../../headless/guillotineRequest";
+import { buildQueryListMovies, extractMovieArray } from "../../headless/helpers/movieListRequests";
 
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let isInitialized = false;
@@ -12,12 +14,14 @@ const movieIds = []
 
 
 
-const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpression}) => {
+const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpression}) => {
 
     // Setup asunchronous component state that triggers re-render on change.
     const [state, setState] = useState({
         movies,                     // Array of data objects: currently displayed movies
     });
+
+    const listContainerId = `movieListContainer_${parentPath}`;
 
     if (!isInitialized) {
         isInitialized = true;
@@ -33,13 +37,19 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     // function to use on the returned list of movie data
     const makeRequest = () => {
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
-        requestMovies({
-            apiurl: apiUrl,
-            contentid: parentId,
-            first: movieCount,
-            offset: nextOffset,
-            movietype: movieType,
-            sort: sortExpression,
+
+        doGuillotineRequest({
+            url: apiUrl,
+
+            query: buildQueryListMovies(movieType, parentPath),
+            variables: {
+                first: movieCount,
+                offset: nextOffset,
+                sort: sortExpression,
+            },
+
+            extractDataFunc: extractMovieArray,
+
             handleDataFunc: updateDOMWithNewMovies
         });
     };
@@ -85,7 +95,7 @@ const MovieList = ({movies, apiUrl, parentId, movieCount, movieType, sortExpress
     console.log("Click to add more movies, starting at index", nextOffset);
 
     return (
-        <div id={`movieList_${parentId}`} className="movieList" onClick={makeRequest}>
+        <div id={`${listContainerId}`} className="movieList" onClick={makeRequest}>
             {state.movies
                 ? state.movies.map(movie =>
                         <Movie key={movie.id} {...movie} />

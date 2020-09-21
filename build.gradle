@@ -14,7 +14,7 @@ app {
 }
 
 // This variable is used in the include lib-react4xp below, and also used in the optional tasks in readme.gradle
-rootProject.ext.LIB_REACT4XP_VERSION = "1.1.0"
+rootProject.ext.LIB_REACT4XP_VERSION = "1.1.1"
 
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"

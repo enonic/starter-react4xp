@@ -45,11 +45,11 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.1.0-SNAPSHOT.
+This is version 1.1.0-RC1.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
-| 1.1.0            | 7.3.0  | Simplified the build: NPM package react4xp@1.1.3 replaces a big pile of build setup in this parent project's build.gradle with one line (`apply from:`...) |
+| 1.1.0            | 7.3.0  | Easy-to-set-up guillotine: adds a ready-to-map guillotine API for backend and frontend queries, and a frontend request wrapper. Simplifies the build: NPM package react4xp@1.1.4 replaces a lot of build setup in this parent project's build.gradle with one line (`apply from:`...). And bugfixes style handling in client-side `.renderWithDependencies. |
 | 1.0.1            | 7.3.0  | First full release, compatible with updated guide.  |
 | 0.6.3            | 7.0.0  | Lazy-loading assets on server-side rendering. Collected all the react4xp NPM packages into one. Support: CSS modules with asset handling.  |
 | 0.6.1            | 7.0.0  | Fixed Page/Layout support. Free structure of entry and chunk directories. Babel upgrade.  |

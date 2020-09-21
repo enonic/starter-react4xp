@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:with="serviceUrlRoot=${portal.serviceUrl({'_service='})}, movieCount=${10}">
+<html>
     <head>
         <meta charset="UTF-8">
         <title>All headless</title>
@@ -7,29 +7,34 @@
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 
-        <script data-th-src="|${serviceUrlRoot}/react4xp-client|" src=""></script>
-
+        <script src="http://localhost:8080/webapp/com.enonic.app.react4xp/_/service/com.enonic.app.react4xp/react4xp/shared.0774173ba.js"></script>
+        <script src="http://localhost:8080/webapp/com.enonic.app.react4xp/_/service/com.enonic.app.react4xp/react4xp/MovieList.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/webapp/com.enonic.app.react4xp/_/service/com.enonic.app.react4xp/react4xp/MovieList.css" />
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/webapp/com.enonic.app.react4xp/_/service/com.enonic.app.react4xp/react4xp/2.b38215761.css" />
         <style>
             body { margin:0; padding:0; }
             h1, .faux-spinner{ padding:30px; margin:0 auto; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; }
         </style>
+
     </head>
     <body>
-        <h1 data-th-utext="|Top ${movieCount} movies to put in a list|"></h1>
+
+        <h1>Top 10 movies to put in a list</h1>
 
         <div id="movieListContainer">
             <div class="faux-spinner">Loading movies...</div>
         </div>
 
-        <script data-th-utext="|
-        var MOVIE_LIST_PARAMS= {
-            serviceUrlRoot: '${serviceUrlRoot}',
-            contentId: '${contentId}',
-            apiUrl: '${apiUrl}',
-            movieType: '${movieType}',
-            movieCount: ${movieCount},
-            sortExpression: 'displayName ASC',
-        }|"></script>
-        <script defer data-th-src="${portal.assetUrl({'_path=webapp/script.js'})}"></script>
+        <script>
+            var MOVIE_LIST_PARAMS= {
+                contentId: '6e3f95c8-20f6-45f4-a38b-1b46d0780579',
+                apiUrl: 'http://localhost:8080/site/default/master/moviesite/api/guillotine',
+                movieType: 'com_enonic_app_react4xp_Movie',
+                movieCount: 10,
+                sortExpression: 'displayName ASC',
+            }
+        </script>
+
+        <script defer src="/webapp/com.enonic.app.react4xp/_/asset/com.enonic.app.react4xp:1600700915/webapp/script.js"></script>
     </body>
 </html>

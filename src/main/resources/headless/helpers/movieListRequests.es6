@@ -31,26 +31,4 @@ export const buildQueryListMovies = (movieType, parentPath) => {
         }`;
 }
 
-// Not using util-lib to ensure usability on frontend
-const forceArray = maybeArray => Array.isArray(maybeArray)
-    ? maybeArray
-    : maybeArray
-        ? [maybeArray]
-        : [];
-
-export const extractMovieArray = responseData => responseData.data.guillotine.query
-    .filter( movieItem => movieItem && typeof movieItem === 'object' && Object.keys(movieItem).indexOf('data') !== -1)
-    .map(
-        movieItem => ({
-            id: movieItem._id,
-            title: movieItem.displayName.trim(),
-            imageUrl: movieItem.data.image.imageUrl,
-            year: movieItem.data.year,
-            description: movieItem.data.description,
-            actors: forceArray(movieItem.data.actor)
-                .map( actor => (actor || '').trim())
-                .filter(actor => !!actor)
-        })
-    );
-
 export default {};

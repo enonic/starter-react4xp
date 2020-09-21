@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:with="serviceUrlRoot=${portal.serviceUrl({'_service='})}">
+<html th:with="serviceUrlRoot=${portal.serviceUrl({'_service='})}, movieCount=${10}">
     <head>
         <meta charset="UTF-8">
         <title>All headless</title>
@@ -9,78 +9,24 @@
 
         <script data-th-src="|${serviceUrlRoot}/react4xp-client|" src=""></script>
 
+        <style>
+            body { margin:0; padding:0; }
+            h1, .faux-spinner{ padding:30px; margin:0 auto; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; }
+        </style>
     </head>
     <body>
-        <h1>Top 10 movies to put in a list</h1>
-        <div id="movieListContainer"></div>
+        <h1 data-th-utext="|Top ${movieCount} movies to put in a list|"></h1>
+        <div id="movieListContainer">
+            <div class="faux-spinner">Loading movies...</div>
+        </div>
 
-        <h3>TODO:</h3>
-        <p>Status: Done, now calling...</p>
-        <p><pre>
-        React4xp.CLIENT.renderWithDependencies({
-            MovieList: {
-                targetId: "movieListContainer",
-                props: { movies: movies }
-            }
-        </pre>
-        ...but API call to http://localhost:8080/webapp/com.enonic.app.react4xp/moviesite/api/guillotine fails (403).</p>
-        <p>1. What's a <strong>stable, site-independent</strong> api/guillotine URL (from webapp and anywhere)? <code> portalLib.pageUrl({ id: '&lt;ID-TO-moviesite&gt;', type: 'absolute' })</code>  in controller <em>webapp/webapp.es6</em> yields: <code>http://localhost:8080/<strong>webapp/</strong>com.enonic.app.react4xp/moviesite/</code> - this is wrong!</p>
-        <p>2. How to use <code>imports/require</code> in <em>assets/webapp/script.es6</em>? Is that even possible? Compiled by pure babel-<strong>cli</strong> call in gradle task <code>compileXP</code></p>
-        <p>(3. Make a second, PURE-HTML webapp example (with all compiled assets, and a script section calling regular React rendering instead of <code>React4xp.CLIENT.renderWithDependencies</code>)</p>
-        <p>4. Finally, deconstruct the rest of the example.</p>
-
-        <h3>Alsø wik:</h3>
-        <pre>
-FASIT:
-{
-  guillotine {
-    query(contentTypes: ["com.enonic.app.react4xp:movie"], query: "_parentPath = '/content/moviesite'", first: 3, offset: 0, sort: "displayName ASC") {
-      ... on com_enonic_app_react4xp_Movie {
-        _id
-        displayName
-        data {
-          year
-          description
-          actor
-          image {
-            ... on media_Image {
-              imageUrl(type: absolute, scale: "width(300)")
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-
-- Innfør det queryet. Bruk "com.enonic.app.react4xp:movie" som metodeargument, og ekstrapoler com_enonic_app_react4xp_Movie inni metoden (edited)
-
-- Fjern behovet for extractData --> Rett inn i Movie.jsx
-
-- Fjern headere i API'et (edited)
-
-- API’et skal ikke være lib/guillotine/api.js, men headless/guillotine/api.js.
-
-- Mappingen? api/headless.
-
-- apiUrl? Finn sitepath/api/headless med getSite.
-
-- Fjern <!DOCTYPE html> (edited)
-        </pre>
-
-        <h3>Alsø alsø wik:</h3>
-        <pre>
-- Endepunktet: Heller ha det tydelig på at sikkerhet må implementeres av utviklere selv, tilpasset deres behov, enn å gi et falskt inntrykk av at her har vi noe sikkerhet (light) på plass. (edited)
-
-        </pre>
         <script data-th-utext="|
         var MOVIE_LIST_PARAMS= {
             serviceUrlRoot: '${serviceUrlRoot}',
             contentId: '${contentId}',
             apiUrl: '${apiUrl}',
             movieType: '${movieType}',
-            movieCount: 3,
+            movieCount: ${movieCount},
             sortExpression: 'displayName ASC',
         }|"></script>
         <script defer data-th-src="${portal.assetUrl({'_path=webapp/script.js'})}"></script>

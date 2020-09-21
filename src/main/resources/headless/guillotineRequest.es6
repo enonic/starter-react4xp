@@ -4,7 +4,7 @@
  * Usage: doGuillotineRequest(params);
  *
  * Params (object, mandatory):
- *      @param url (string, mandatory) URL to the guillotine API. This app comes with a default endpoint: ./api.es6 - which is controller mapped to '/api/guillotine'.
+ *      @param url (string, mandatory) URL to the guillotine API. This app comes with a default endpoint: ./guillotineApi.es6 - which is controller mapped to '/api/headless'.
  *      @param query (string, mandatory) Valid guillotine query. See docs at https://developer.enonic.com/templates/headless-cms and https://github.com/enonic/lib-guillotine/blob/master/docs/api.adoc#fields-1
  *      @param extractDataFunc (override function, optional): Takes the output object of response.json() and returns data in the shape required by handleDataFunc. By default just passes the object through unchanged. Must take a response-data argument (object) and return something.
  *      @param handleDataFunc (override function, optional): Takes the output of extractDataFunc and does something with it. By default does nothing.

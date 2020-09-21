@@ -15,13 +15,13 @@ exports.get = function(request) {
         tag: "main",
     };
 
-    return React4xp.render(
+    const output = React4xp.render(
         entry,
         props,
         null,
         {
             id,
-            body: `<!DOCTYPE html>
+            body: `
                 <html>
                     <head>
                         <meta charset="UTF-8" />
@@ -34,4 +34,10 @@ exports.get = function(request) {
             `
         }
     );
+
+    // The unclosed !DOCTYPE tag is not XML-compliant, and causes an error if used in the body parameter of React4xp.render.options above.
+    // Therefore, added here:
+    output.body = '<!DOCTYPE html>' + output.body;
+
+    return output;
 };

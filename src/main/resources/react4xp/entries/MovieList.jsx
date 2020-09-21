@@ -2,7 +2,7 @@ import React from 'react'
 
 import './MovieList.scss';
 
-import Movie from "./Movie";
+import Movie from "../shared/movie/Movie";
 
 const MovieList = ({movies}) => {
 

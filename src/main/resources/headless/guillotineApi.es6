@@ -13,20 +13,28 @@ const SCHEMA = guillotineLib.createSchema();
 
 exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, variables);
 
+
+
+
+
+
 // ----------------------------------------------  FRONTEND EXPOSED METHODS:  ------------------------------------
 
 
-
-
-/** Guillotine API endpoint exposed to browsers.
- *
- * @param req The request. req.body must be a JSON-string, parseable to an object with parameters: body and variables.
- * These will be run through the guillotine engine and JSON data will be returned.
+/** Guillotine API endpoint exposed to browsers - if you add a mapping to site.xml
+ *  (e.g. <mapping controller="/headless/guillotineApi.js" order="50"><pattern>/api/headless</pattern>)
  *
  * ------------   IMPORTANT!   --------------   IMPORTANT!   --------------   IMPORTANT!   --------------
  *
- * This is as bare-bone as it gets, and is open to sending any query into the data layer - including mutating operations.
- * It's strongly recommended to restrict this and implement your own security solution, according to your use case and requirements!
+ * Before you add that mapping and expose the API, consider this:
+ * This API is as-is, and as bare-bone as it gets. It is currently open to sending ANY QUERY into the data layer
+ * - including mutating operations etc! It's meant for developers to expand from, and STRONGLY RECOMMENDED to implement
+ * your own security solution according to your specific use case and requirements!
+ *
+ *-------------------------------------------------------------------------------------------------------
+ *
+ * @param req req.body must be a JSON-string, parseable to an object with parameters: body and variables.
+ * These will be run through the guillotine engine and JSON data will be returned.
  */
 exports.post = req => {
     var body = JSON.parse(req.body);

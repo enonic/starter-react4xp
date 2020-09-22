@@ -2,9 +2,9 @@
 
 export const buildQueryListMovies = () => {
     return `
-        query {
+        query($first:Int!, $offset:Int!, $sort:String!) {
           guillotine {
-            query(contentTypes: ["com.enonic.app.react4xp:movie"], query: "_parentPath = '/content/moviesite'", first: 3, offset: 0, sort: "displayName ASC") {
+            query(contentTypes: ["com.enonic.app.react4xp:movie"], query: "_parentPath = '/content/moviesite'", first: $first, offset: $offset, sort: $sort) {
               ... on com_enonic_app_react4xp_Movie {
                 _id
                 displayName

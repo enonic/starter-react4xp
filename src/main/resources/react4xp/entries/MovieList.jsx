@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import './MovieList.scss';
 
@@ -6,12 +6,21 @@ import Movie from "../shared/movie/Movie";
 
 import doGuillotineRequest from "../../headless/guillotineRequest";
 import { buildQueryListMovies, extractMovieArray } from "../../headless/helpers/movieListRequests";
+
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
 
 
 const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpression}) => {
+
+    // Setup asynchronous component state that triggers re-render on change.
+    const [state, setState] = useState({
+        movies,                     // Array of data objects: currently displayed movies
+    });
+
+    const listContainerId = `movieListContainer_${parentPath}`;
+
     if (!isInitialized) {
         isInitialized = true;
 
@@ -58,13 +67,13 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
     // Actual rendering:
 
 
-    console.log("------------------------- Rendering movies:", movies.map(movie => movie.title));
+    console.log("------------------------- Rendering state.movies:", state.movies.map(movie => movie.title));
     console.log("Click to add more movies, starting at index", nextOffset);
 
     return (
-        <div className="movieList" onClick={makeRequest}>
-            {movies
-                ? movies.map(movie =>
+        <div id={`${listContainerId}`} className="movieList" onClick={makeRequest}>
+            {state.movies
+                ? state.movies.map(movie =>
                         <Movie key={movie.id} {...movie} />
                     )
                 : null

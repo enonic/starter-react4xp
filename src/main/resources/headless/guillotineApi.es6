@@ -39,13 +39,8 @@ exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, v
 exports.post = req => {
     var body = JSON.parse(req.body);
 
-    log.info("body.query: " + body.query);
-    log.info("body.variables (" +
-    	(Array.isArray(body.variables) ?
-    		("array[" + body.variables.length + "]") :
-    		(typeof body.variables + (body.variables && typeof body.variables === 'object' ? (" with keys: " + JSON.stringify(Object.keys(body.variables))) : ""))
-    	) + "): " + JSON.stringify(body.variables, null, 2)
-    );
+    log.info("\n\n------------- body.query: " + body.query);
+    log.info("body.variables: " + JSON.stringify(body.variables, null, 2));
 
     const output = {
         contentType: 'application/json',
@@ -61,7 +56,7 @@ exports.post = req => {
         log.info("The error happened with these request.body.variables: " + JSON.stringify(body.variables));
 
     } else {
-        log.info("output: " + JSON.stringify(output));
+        log.info("--------> output: " + JSON.stringify(output, null, 2));
     }
 
     return {

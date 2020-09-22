@@ -11,7 +11,9 @@ import { buildQueryListMovies, extractMovieArray } from "../../headless/helpers/
 let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
 const movieIds = []
+let listenForScroll = true;     // Switches off the scroll listener during request and processing, switches back on aftwerwards
 
+const TRIGGER_OFFSET_PX_FROM_BOTTOM = 200;
 
 
 const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpression}) => {
@@ -23,12 +25,48 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
 
     const listContainerId = `movieListContainer_${parentPath}`;
 
+    // Set up scroll listener, on the first rendering only.
+    // Causes a trigger func function to be called when the bottom of the visible window is scrolled down to less
+    // than TRIGGER_OFFSET_PX_FROM_BOTTOM of the movie list element.
+    const initScrollListener = () => {
+        // Browser-specific functionality, so this is prevented from running on the SSR
+        if (typeof document === 'object' && typeof document.addEventListener === 'function' && typeof window !== 'undefined') {
+            document.addEventListener("DOMContentLoaded", () => {
+                console.log("Init scroll listener");
+
+                var movieListElem = document.getElementById(listContainerId);
+
+                // ACTUAL SCROLL LISTENER:
+                window.addEventListener("scroll", () => {
+
+                    if (listenForScroll) {
+                        var movieBounds = movieListElem.getBoundingClientRect();
+
+                        if (movieBounds.bottom < window.innerHeight + TRIGGER_OFFSET_PX_FROM_BOTTOM) {
+                            console.log("!!! SCROLL TRIGGER !!!");
+
+                            // Stop acting on scroll events, until data is returned.
+                            listenForScroll = false;
+
+                            makeRequest();
+
+                        }
+                    }
+                });
+            });
+        }
+    }
+
+
     if (!isInitialized) {
         isInitialized = true;
 
         nextOffset = movieCount;
         movieIds.push(...movies.map( movie => movie.id ));
+
+        initScrollListener();
     }
+
 
     // ------------------------------------------------------
     // Set up action methods, triggered by listener:
@@ -82,6 +120,15 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
             }));
 
             console.log("Added new movies to state / DOM.");
+
+            // Switch back on the scroll listener's actions.
+            listenForScroll = true;
+
+        } else {
+            setTimeout(
+                () => {  listenForScroll = true; },
+                500
+            )
         }
     };
 
@@ -95,7 +142,7 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
     console.log("Click to add more movies, starting at index", nextOffset);
 
     return (
-        <div id={`${listContainerId}`} className="movieList" onClick={makeRequest}>
+        <div id={`${listContainerId}`} className="movieList">
             {state.movies
                 ? state.movies.map(movie =>
                         <Movie key={movie.id} {...movie} />

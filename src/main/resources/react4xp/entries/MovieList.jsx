@@ -4,6 +4,8 @@ import './MovieList.scss';
 
 import Movie from "../shared/movie/Movie";
 
+import doGuillotineRequest from "../../headless/guillotineRequest";
+import { buildQueryListMovies, extractMovieArray } from "../../headless/helpers/movieListRequests";
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
@@ -24,12 +26,37 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
     const makeRequest = () => {
         console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
 
+        doGuillotineRequest({
+            url: apiUrl,
+
+            query: buildQueryListMovies(movieType, parentPath),
+            variables: {
+                first: movieCount,
+                offset: nextOffset,
+                sort: sortExpression,
+            },
+
+            extractDataFunc: extractMovieArray,
+
+            handleDataFunc: updateDOMWithNewMovies
+        });
+    };
+
+
+
+
+    // When a movie data array is returned from the guillotine data request, this method is called.
+    const updateDOMWithNewMovies = (newMovieItems) => {
+        console.log("Received data:", newMovieItems);
+        console.log(newMovieItems.map(movie => movie.title));
+
         nextOffset += movieCount;
     };
 
 
     // ------------------------------------------------------------------------------------
     // Actual rendering:
+
 
     console.log("------------------------- Rendering movies:", movies.map(movie => movie.title));
     console.log("Click to add more movies, starting at index", nextOffset);

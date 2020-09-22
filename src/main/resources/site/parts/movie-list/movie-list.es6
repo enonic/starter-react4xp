@@ -1,7 +1,8 @@
 const portal = require('/lib/xp/portal');
-const contentLib = require('/lib/xp/content');
 const React4xp = require('/lib/enonic/react4xp');
-const utilLib = require('/lib/util');
+
+const guillotine = require('/headless/guillotineApi')
+const { buildQueryListMovies, extractMovieArray } = require('/headless/helpers/movieListRequests');
 
 
 exports.get = function(request) {
@@ -12,36 +13,19 @@ exports.get = function(request) {
         component.config.descending ? 'DESC' : 'ASC'
     }`;
 
-    const result = contentLib.getChildren({
-        key: content._path,
-        start: 0,
-        count: component.config.movieCount,
+    const movieType = `${app.name}:movie`;  // --> "com.enonic.app.react4xp:movie" or similar
+
+    const query = buildQueryListMovies(movieType, content._path);
+
+    const variables = {
+        first: component.config.movieCount,
+        offset: 0,
         sort: sortExpression
-    });
-    log.info("result: " +  JSON.stringify(result, null, 2));
+    };
 
-    const hits = result.hits ?
-        utilLib.data.forceArray(result.hits) :
-        [];
+    const guillotineResult = guillotine.executeQuery(query, variables);
 
-    const movies = hits
-        .map( hit => ({
-            id: hit._id,
-            title: hit.displayName,
-            imageUrl: portal.imageUrl({
-                id: hit.data.image,
-                scale: 'width(300)'
-            }),
-            description: hit.data.description,
-            year: hit.data.year,
-            actors: hit.data.actor
-                ? utilLib.data.forceArray(hit.data.actor)
-                    .map( actor => (actor || '').trim())
-                    .filter( actor => !!actor)
-                : null
-        }));
-
-    log.info("\n----> movies: " +  JSON.stringify(movies, null, 2));
+    const movies = extractMovieArray(guillotineResult);
 
     return React4xp.render(
         'MovieList',

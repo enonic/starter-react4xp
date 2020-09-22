@@ -38,6 +38,8 @@ exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, v
  */
 exports.post = req => {
     var body = JSON.parse(req.body);
+    log.info("\n\n------------>\nQuery: " + body.query);
+    log.info(JSON.stringify(body.variables, null, 2));
     const output = {
         contentType: 'application/json',
         headers: CORS_HEADERS,
@@ -51,9 +53,9 @@ exports.post = req => {
         log.error(JSON.stringify(output.body.errors, null, 4));
         log.info("The error happened with these request.body.variables: " + JSON.stringify(body.variables));
 
-    } /*else {
-        log.info("--------> output: " + JSON.stringify(output, null, 2));
-    }*/
+    } else {
+        log.info("Output:\n" + JSON.stringify(output.body, null, 2) + "\n-------->");
+    }
 
     return {
         ...output,

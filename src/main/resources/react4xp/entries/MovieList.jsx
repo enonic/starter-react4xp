@@ -9,11 +9,11 @@ let isInitialized = false;
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
 
 
-const MovieList = ({movies}) => {
+const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpression}) => {
     if (!isInitialized) {
         isInitialized = true;
 
-        nextOffset = movies.length;
+        nextOffset = movieCount;
     }
 
     // ------------------------------------------------------
@@ -22,10 +22,11 @@ const MovieList = ({movies}) => {
     // Makes a (guillotine) request for data with these search parameters and passes an anonymous callback function as
     // handleDataFunc (used on the returned list of movie data).
     const makeRequest = () => {
-        console.log("Requesting", movies.length, "movies, starting from index", nextOffset);
+        console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
 
-        nextOffset += movies.length;
+        nextOffset += movieCount;
     };
+
 
     // ------------------------------------------------------------------------------------
     // Actual rendering:

@@ -103,16 +103,19 @@ const renderMovies = (movies) => {
         sortExpression: MOVIE_LIST_PARAMS.sortExpression
     };
 
-    React4xp.CLIENT.renderWithDependencies(
-        {
-            'MovieList': {
-                targetId: 'movieListContainer',
-                props: props
-            }
-        },
-        null,
-        MOVIE_LIST_PARAMS.serviceUrlRoot
-    );
+    // When compiled, all react4xp entries are exported as functions,
+    // as "default" under the entryName (jsxPath), inside the global object React4xp:
+    const componentFunc = React4xp['MovieList'].default;
+
+    // Run the componentFunc with the props as argument, to build a renderable react component:
+    const component = componentFunc(props);
+
+    // Get the DOM element where the movie list should be rendered:
+    const targetElement = document.getElementById("movieListContainer");
+
+    // Straight call to ReactDOM (loaded from CDN):
+    ReactDOM.render(component, targetElement);
+
 };
 
 requestAndRenderMovies();

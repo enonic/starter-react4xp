@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:with="serviceUrlRoot=${portal.serviceUrl({'_service='})}, movieCount=${3}">
+<html>
     <head>
         <meta charset="UTF-8">
         <title>All headless</title>
@@ -7,7 +7,10 @@
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 
-        <script data-th-src="|${serviceUrlRoot}/react4xp-client|" src=""></script>
+        <script defer data-th-src="${portal.assetUrl({'_path=react4xp/shared.d366a6c1b.js'})}" ></script>
+        <script defer data-th-src="${portal.assetUrl({'_path=react4xp/MovieList.js'})}" ></script>
+        <link rel="stylesheet" type="text/css" data-th-href="${portal.assetUrl({'_path=react4xp/shared.5440dda80.css'})}" />
+        <link rel="stylesheet" type="text/css" data-th-href="${portal.assetUrl({'_path=react4xp/MovieList.css'})}" />
 
         <style>
             body { margin:0; padding:0; }
@@ -15,21 +18,22 @@
         </style>
     </head>
     <body>
-        <h1 data-th-utext="|Top ${movieCount} movies to put in a list|"></h1>
+        <h1>Some movies in a list</h1>
 
         <div id="movieListContainer">
             <div class="faux-spinner">Loading movies...</div>
         </div>
 
-        <script data-th-utext="|
+        <script>
         var MOVIE_LIST_PARAMS= {
-            serviceUrlRoot: '${serviceUrlRoot}',
-            parentPath: '${parentPath}',
-            apiUrl: '${apiUrl}',
-            movieType: '${movieType}',
-            movieCount: ${movieCount},
-            sortExpression: 'data.year ASC',
-        }|"></script>
+            parentPath: '/moviesite',
+            apiUrl: 'http://localhost:8080/site/default/master/moviesite/api/headless',
+            movieType: 'com.enonic.app.react4xp:movie',
+            movieCount: 3,
+            sortExpression: 'data.year ASC'
+        };
+        </script>
+
         <script defer data-th-src="${portal.assetUrl({'_path=webapp/script.js'})}"></script>
     </body>
 </html>

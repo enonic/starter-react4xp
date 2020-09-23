@@ -21,7 +21,7 @@ Requires: installed [Enonic XP 7.x](https://developer.enonic.com/) with [Gradle]
 1. Install the starter from [Enonic Market](https://market.enonic.com/vendors/enonic/react4xp-starter) or clone it down from [the github repo](https://github.com/enonic/starter-react4xp). 
 2. The NPM packages ([react4xp](https://www.npmjs.com/package/react4xp) specifically) must be installed before running the gradle build task. Before you build for the first time, and whenever you wipe the _node_modules_ folder, run: 
     ```commandline
-    npm i
+    npm install
     ```
 
 3. Build it locally from [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master) (which runs gradle build behind the scenes): 
@@ -45,7 +45,7 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.1.0-RC1.
+This is version 1.1.0.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|

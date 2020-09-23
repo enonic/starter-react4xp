@@ -26,10 +26,11 @@ exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, v
  *
  * ------------   IMPORTANT!   --------------   IMPORTANT!   --------------   IMPORTANT!   --------------
  *
- * Before you add that mapping and expose the API, consider this:
- * This API is as-is, and as bare-bone as it gets. It is currently open to sending ANY QUERY into the data layer
- * - including mutating operations etc! It's meant for developers to expand from, and STRONGLY RECOMMENDED to implement
- * your own security solution according to your specific use case and requirements!
+ * Before you add that mapping and expose this API, consider this:
+ * This API is as-is, and as bare-bone as it gets. Guillotine is a read-only interface, but this endpoint still exposes
+ * the possibility to send ANY QUERY, so any data will technically be readable from your repo.
+ * This is meant for developers to expand from, and it's strongly recommended to implement your own security solution
+ * according to your specific use case and requirements.
  *
  *-------------------------------------------------------------------------------------------------------
  *
@@ -38,14 +39,6 @@ exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, v
  */
 exports.post = req => {
     var body = JSON.parse(req.body);
-
-    log.info("body.query: " + body.query);
-    log.info("body.variables (" +
-    	(Array.isArray(body.variables) ?
-    		("array[" + body.variables.length + "]") :
-    		(typeof body.variables + (body.variables && typeof body.variables === 'object' ? (" with keys: " + JSON.stringify(Object.keys(body.variables))) : ""))
-    	) + "): " + JSON.stringify(body.variables, null, 2)
-    );
 
     const output = {
         contentType: 'application/json',
@@ -60,8 +53,6 @@ exports.post = req => {
         log.error(JSON.stringify(output.body.errors, null, 4));
         log.info("The error happened with these request.body.variables: " + JSON.stringify(body.variables));
 
-    } else {
-        log.info("output: " + JSON.stringify(output));
     }
 
     return {

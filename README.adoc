@@ -24,7 +24,7 @@ Requires: installed link:https://developer.enonic.com/[Enonic XP 7.x] with link:
 +
 [source,commandline,options="nowrap"]
 ----
-    npm i
+    npm install
 ----
 
 3. Build it locally from link:https://developer.enonic.com/docs/enonic-cli/master[the Enonic CLI] (which runs gradle build behind the scenes): 
@@ -50,7 +50,7 @@ Crash course, after getting this starter running:
 
 == Versions and compatibility
 
-This is version 1.1.0-RC1.
+This is version 1.1.0.
 
 [%header,cols=3]
 |===

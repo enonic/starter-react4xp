@@ -27,10 +27,17 @@ exports.get = function(request) {
 
     const movies = extractMovieArray(guillotineResult);
 
+    const sitePath = portal.getSite()._path;
+
     return React4xp.render(
         'MovieList',
         {
-            movies
+            movies,
+            apiUrl: `./${sitePath}/api/headless`,
+            parentPath: content._path,
+            movieCount: component.config.movieCount,
+            movieType,
+            sortExpression
         },
         request
         // , { clientRender: true }

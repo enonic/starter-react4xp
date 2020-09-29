@@ -18,12 +18,34 @@ exports.get = function(request) {
         actors: util.data.forceArray( content.data.actor )
             .map( actor => (actor || '').trim())
             .filter(actor => !!actor)
-    }
+    };
 
-    return React4xp.render(
+    const id = content._id;
+
+    const output = React4xp.render(
         'Movie',
         props,
-        request
-        // , { clientRender: true }
+        request,
+        {
+            id,
+            body: `
+                <html>
+                    <head>
+                        <meta charset="UTF-8" />
+                        <title>${content.displayName}</title>
+                    </head>
+                    <body class="xp-page">
+                        <div id="${id}"></div>
+                    </body>
+                </html>
+            `
+        }
     );
+
+    // The unclosed !DOCTYPE tag is not XML-compliant, and causes an error if used in the body parameter of React4xp.render.options above.
+    // Therefore, added here:
+    output.body = '<!DOCTYPE html>' + output.body;
+
+    return output;
 };
+

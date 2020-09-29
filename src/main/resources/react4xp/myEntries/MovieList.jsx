@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 
 import './MovieList.scss';
 
-import Movie from "../shared/movie/Movie";
+import Movie from "../shared/Movie";
 
 import doGuillotineRequest from "../../headless/guillotineRequest";
 import { buildQueryListMovies, extractMovieArray } from "../../headless/helpers/movieListRequests";

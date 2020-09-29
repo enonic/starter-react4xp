@@ -29,7 +29,7 @@ export const buildQueryListMovies = (movieType, parentPath) => {
             }
           }
         }`;
-}
+};
 
 // Not using util-lib to ensure usability on frontend
 const forceArray = maybeArray => Array.isArray(maybeArray)

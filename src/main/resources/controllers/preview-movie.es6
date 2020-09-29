@@ -42,8 +42,7 @@ exports.get = function(request) {
         }
     );
 
-    // The unclosed !DOCTYPE tag is not XML-compliant, and causes an error if used in the body parameter of React4xp.render.options above.
-    // Therefore, added here:
+    // Workaround: https://github.com/enonic/lib-react4xp/issues/107
     output.body = '<!DOCTYPE html>' + output.body;
 
     return output;

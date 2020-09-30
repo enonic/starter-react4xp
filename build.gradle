@@ -33,6 +33,9 @@ dependencies {
     include "com.enonic.lib:lib-util:2.3.0"
     include "com.enonic.lib:lib-guillotine:4.2.0"
 
+    // For including the graphql playground
+    include "com.enonic.lib:lib-graphql-playground:0.0.1"
+
     include "com.enonic.lib:lib-react4xp:${rootProject.ext.LIB_REACT4XP_VERSION}"
 }
 

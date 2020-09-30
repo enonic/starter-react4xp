@@ -69,3 +69,46 @@ exports.options = req => ({
     contentType: 'text/plain;charset=utf-8',
     headers: CORS_HEADERS
 });
+
+
+
+// ----------------------------------  Graphql playground, at the same URL as the API  -----------------
+
+var graphqlPlaygroundLib = require('/lib/graphql-playground');
+var authLib = require('/lib/xp/auth');
+
+// GraphQL playground
+exports.get = function (req) {
+    if (req.webSocket) {
+
+        return {
+            webSocket: {
+                subProtocols: ['graphql-ws']
+            }
+        };
+    }
+
+    // Simple authentication control for the playground
+    if (!authLib.hasRole('system.authenticated')) {
+        return {
+            status: 401,
+            body: {
+                "errors": [ {"errorType": "401", "message": "Unauthorized"} ]
+            }
+        };
+    }
+    if (!(authLib.hasRole('system.admin') || authLib.hasRole('system.admin.login'))) {
+        return {
+            status: 403,
+            body: {
+                "errors": [ {"errorType": "403", "message": "Forbidden"} ]
+            }
+        };
+    }
+
+    var body = graphqlPlaygroundLib.render();
+    return {
+        contentType: 'text/html; charset=utf-8',
+        body: body
+    };
+};

@@ -19,7 +19,7 @@
                 <option value="data.year">Release year</option>
                 <option value="createdTime">Date added to this db</option>
             </config>
-            <default>_createdTime</default>
+            <default>createdTime</default>
         </input>
 
         <input  name="descending" type="CheckBox">

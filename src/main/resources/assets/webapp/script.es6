@@ -1,16 +1,10 @@
-const buildQueryListMovies = (movieType, parentPath) => {
-    const matched = movieType.match(/(\w+(\.\w+)*):(\w+)/i);  // verifies content type names like "com.enonic.app.react4xp:movie" and matches up groups before and after the colon
-    if (!matched) {
-        throw Error(`movieType '${movieType}' is not a valid format. Expecting <appName>:<XP content type>, for example: 'com.enonic.app.react4xp:movie' etc`);
-    }
-    const appNameUnderscored = matched[1].replace(/\./g, '_');      // e.g. "com.enonic.app.react4xp" --> "com_enonic_app_react4xp
-    const ctyCapitalized = matched[3][0].toUpperCase() + matched[3].substr(1);       // e.g. "movie" --> "Movie"
+const buildParentPathQuery = (parentPath) => `_parentPath = '/content${parentPath}'`;
 
-    return `
-query($first:Int!, $offset:Int!, $sort:String!) {
+const buildQueryListMovies = () => `
+query($first:Int!, $offset:Int!, $sort:String!, $parentPathQuery:String!) {
   guillotine {
-    query(contentTypes: ["${movieType}"], query: "_parentPath = '/content${parentPath}'", first: $first, offset: $offset, sort: $sort) {
-      ... on ${appNameUnderscored}_${ctyCapitalized} {
+    query(contentTypes: ["com.enonic.app.react4xp:movie"], query: $parentPathQuery, first: $first, offset: $offset, sort: $sort) {
+      ... on com_enonic_app_react4xp_Movie {
         _id
         displayName
         data {
@@ -27,7 +21,6 @@ query($first:Int!, $offset:Int!, $sort:String!) {
     }
   }
 }`;
-};
 
 // Not using util-lib to ensure usability on frontend
 const forceArray = maybeArray => Array.isArray(maybeArray)
@@ -63,14 +56,12 @@ const requestAndRenderMovies = () => {
         {
             method: "POST",
             body: JSON.stringify({
-                query: buildQueryListMovies(
-                    MOVIE_LIST_PARAMS.movieType,
-                    MOVIE_LIST_PARAMS.parentPath
-                ),
+                query: buildQueryListMovies(),
                 variables: {
                     first: MOVIE_LIST_PARAMS.movieCount,
                     offset: 0,
-                    sort: MOVIE_LIST_PARAMS.sortExpression
+                    sort: MOVIE_LIST_PARAMS.sortExpression,
+                    parentPathQuery: buildParentPathQuery(MOVIE_LIST_PARAMS.parentPath)
                 }}
             ),
         }

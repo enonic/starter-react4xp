@@ -6,7 +6,7 @@ import './MovieList.scss';
 import Movie from "../shared/Movie";
 
 import doGuillotineRequest from "../../headless/guillotineRequest";
-import { buildQueryListMovies, extractMovieArray } from "../../headless/helpers/movieListRequests";
+import { buildQueryListMovies, buildParentPathQuery, extractMovieArray } from "../../headless/helpers/movieListRequests";
 
 // State values that don't need re-rendering capability, but need to be synchronously read/writable across closures.
 let nextOffset = 0;             // Index for what will be the next movie to search for in a guillotine request
@@ -75,11 +75,13 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
         doGuillotineRequest({
             url: apiUrl,
 
-            query: buildQueryListMovies(movieType, parentPath),
+            query: buildQueryListMovies(),
+
             variables: {
                 first: movieCount,
                 offset: nextOffset,
                 sort: sortExpression,
+                parentPathQuery: buildParentPathQuery(parentPath)
             },
 
             extractDataFunc: extractMovieArray,

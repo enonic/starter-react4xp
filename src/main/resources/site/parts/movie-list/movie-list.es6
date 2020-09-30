@@ -2,7 +2,7 @@ const portal = require('/lib/xp/portal');
 const React4xp = require('/lib/enonic/react4xp');
 
 const guillotine = require('/headless/guillotineApi')
-const { buildQueryListMovies, extractMovieArray } = require('/headless/helpers/movieListRequests');
+const { buildQueryListMovies, buildParentPathQuery, extractMovieArray } = require('/headless/helpers/movieListRequests');
 
 
 exports.get = function(request) {
@@ -15,12 +15,13 @@ exports.get = function(request) {
 
     const movieType = `${app.name}:movie`;  // --> "com.enonic.app.react4xp:movie" or similar
 
-    const query = buildQueryListMovies(movieType, content._path);
+    const query = buildQueryListMovies();
 
     const variables = {
         first: component.config.movieCount,
         offset: 0,
-        sort: sortExpression
+        sort: sortExpression,
+        parentPathQuery: buildParentPathQuery(content._path)
     };
 
     const guillotineResult = guillotine.executeQuery(query, variables);

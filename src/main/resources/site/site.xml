@@ -5,7 +5,7 @@
         <mapping controller="/headless/guillotineApi.js" order="50">
             <pattern>/api/headless</pattern>
         </mapping>
-        <mapping controller="/controllers/preview-movie.js" order="50">
+        <mapping controller="/controllers/previewMovie.js" order="50">
             <match>type:'com.enonic.app.react4xp:movie'</match>
         </mapping>
     </mappings>

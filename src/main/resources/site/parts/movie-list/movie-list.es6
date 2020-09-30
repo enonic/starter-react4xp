@@ -13,8 +13,6 @@ exports.get = function(request) {
         component.config.descending ? 'DESC' : 'ASC'
     }`;
 
-    const movieType = `${app.name}:movie`;  // --> "com.enonic.app.react4xp:movie" or similar
-
     const query = buildQueryListMovies();
 
     const variables = {
@@ -28,16 +26,13 @@ exports.get = function(request) {
 
     const movies = extractMovieArray(guillotineResult);
 
-    const sitePath = portal.getSite()._path;
-
     return React4xp.render(
         'MovieList',
         {
             movies,
-            apiUrl: `./${sitePath}/api/headless`,
+            apiUrl: `./${portal.getSite()._path}/api/headless`,
             parentPath: content._path,
             movieCount: component.config.movieCount,
-            movieType,
             sortExpression
         },
         request

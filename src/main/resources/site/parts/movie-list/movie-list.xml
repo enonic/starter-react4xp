@@ -7,9 +7,7 @@
         <input name="movieCount" type="Long">
             <label>Number of movies to display</label>
             <occurrences minimum="1" maximum="1"/>
-            <config>
-                <min>1</min>
-            </config>
+            <config/>
             <default>5</default>
         </input>
 

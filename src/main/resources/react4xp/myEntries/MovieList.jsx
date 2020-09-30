@@ -14,7 +14,7 @@ let listenForScroll = true;     // Switches off the scroll listener during reque
 const TRIGGER_OFFSET_PX_FROM_BOTTOM = 200;
 
 
-const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpression}) => {
+const MovieList = ({movies, apiUrl, parentPath, movieCount, sortExpression}) => {
 
     // Setup asynchronous component state that triggers re-render on change.
     const [state, setState] = useState({

@@ -14,13 +14,6 @@ let nextOffset = 0;             // Index for what will be the next movie to sear
 
 const MovieList = ({movies, apiUrl, parentPath, movieCount, sortExpression}) => {
 
-    // Setup asynchronous component state that triggers re-render on change.
-    const [state, setState] = useState({
-        movies,                     // Array of data objects: currently displayed movies
-    });
-
-    const listContainerId = `movieListContainer_${parentPath}`;
-
     // UseEffect with these arguments ( function, [] ) corresponds to componentDidMount in the old-school class-based react components.
     // So now, isInitialized is obsolete.
     useEffect(
@@ -54,37 +47,20 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, sortExpression}) => 
 
             extractDataFunc: extractMovieArray,
 
-            handleDataFunc: updateDOMWithNewMovies
+            handleDataFunc: (newMovieItems) => {
+                console.log("Received data:", newMovieItems);
+                nextOffset += movieCount;
+            }
         });
-    };
-
-    // When a movie data array is returned from the guillotine data request, this method is called.
-    const updateDOMWithNewMovies = (newMovieItems) => {
-        console.log("Received data:", newMovieItems);
-        if (newMovieItems.length > 0) {
-            console.log("Adding movies to state:", newMovieItems.map(movie => movie.title));
-
-            nextOffset += movieCount;
-
-            // Use a function, not just a new direct object/array, for mutating state object/array instead of replacing it:
-            setState(oldState => ({
-                movies: [
-                    ...oldState.movies,
-                    ...newMovieItems
-                ]
-            }));
-
-            console.log("Added new movies to state / DOM.");
-        }
     };
 
     // ------------------------------------------------------------------------------------
     // Actual rendering:
 
     return (
-        <div id={listContainerId} className="movieList" onClick={makeRequest}>
-            {state.movies
-                ? state.movies.map(movie =>
+        <div className="movieList" onClick={makeRequest}>
+            {movies
+                ? movies.map(movie =>
                         <Movie key={movie.id} {...movie} />
                     )
                 : null

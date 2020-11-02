@@ -13,4 +13,3 @@ exports.get = req => {
         body: thymeleaf.render(view, model)
     };
 };
-

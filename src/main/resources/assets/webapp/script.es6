@@ -77,7 +77,10 @@ const requestAndRenderMovies = () => {
     )
         .then(response => {
             if (!(response.status < 300)) {
-                throw Error(`Guillotine API response:\n\n${response.status} - ${response.statusText}.\n\nAPI url: ${response.url}\n\nInspect the request and/or the server log.`);
+                throw Error(`Guillotine API response:\n
+                \n${response.status} - ${response.statusText}.\n
+                \nAPI url: ${response.url}\n
+                \nInspect the request and/or the server log.`);
             }
             return response;
         })

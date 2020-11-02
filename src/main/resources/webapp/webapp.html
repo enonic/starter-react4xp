@@ -10,26 +10,29 @@
         <script data-th-src="|${portal.serviceUrl({'_service=react4xp-client'})}|" src=""></script>
 
         <style>
-            body { margin:0; padding:0; }
-            h1, .faux-spinner{ padding:30px; margin:0 auto; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; }
+            body { margin: 0; padding: 0; }
+            h1, p, .faux-spinner { padding: 30px; margin: 0 auto; font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif; }
         </style>
     </head>
+
     <body>
-        <h1 data-th-utext="|Top 3 movies to put in a list|"></h1>
+        <h1>Top 3 movies to put in a list</h1>
+        <p>#4 will blow your mind!</p>
 
         <div id="movieListContainer">
             <div class="faux-spinner">Loading movies...</div>
         </div>
 
         <script data-th-utext="|
-        var MOVIE_LIST_PARAMS= {
-            serviceUrlRoot: '${portal.serviceUrl({'_service='})}',
-            parentPath: '${sitePath}',
-            apiUrl: '/admin/site/preview/default/draft${sitePath}/api/headless',
-            movieType: '${movieType}',
-            movieCount: 3,
-            sortExpression: 'data.year ASC',
-        }|"></script>
+                var MOVIE_LIST_PARAMS= {
+                    serviceUrlRoot: '${portal.serviceUrl({'_service='})}',
+                    parentPath: '${sitePath}',
+                    apiUrl: '/admin/site/preview/default/draft${sitePath}/api/headless',
+                    movieType: '${movieType}',
+                    movieCount: 3,
+                    sortExpression: 'data.year ASC',
+                }|"></script>
+
         <script defer data-th-src="${portal.assetUrl({'_path=webapp/script.js'})}"></script>
     </body>
 </html>

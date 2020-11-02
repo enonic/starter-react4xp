@@ -95,8 +95,13 @@ const requestAndRenderMovies = () => {
 
 
 const renderMovies = (movies) => {
-    console.log("Rendering movies:", movies);
+    console.log("Rendering initial movies:", movies);
 
+    // When compiled, all react4xp entries are exported as functions,
+    // as "default" under the entryName (jsxPath), inside the global object React4xp:
+    const componentFunc = React4xp['MovieList'].default;
+
+    // Run the componentFunc with the props as argument, to build a renderable react component:
     const props = {
         movies: movies,
         apiUrl: MOVIE_LIST_PARAMS.apiUrl,
@@ -105,17 +110,13 @@ const renderMovies = (movies) => {
         movieType: MOVIE_LIST_PARAMS.movieType,
         sortExpression: MOVIE_LIST_PARAMS.sortExpression
     };
+    const component = componentFunc(props);
 
-    React4xp.CLIENT.renderWithDependencies(
-        {
-            'MovieList': {
-                targetId: 'movieListContainer',
-                props: props
-            }
-        },
-        null,
-        MOVIE_LIST_PARAMS.serviceUrlRoot
-    );
+    // Get the DOM element where the movie list should be rendered:
+    const targetElement = document.getElementById("movieListContainer");
+
+    // Straight call to ReactDOM (loaded from CDN):
+    ReactDOM.render(component, targetElement);
 };
 
 requestAndRenderMovies();

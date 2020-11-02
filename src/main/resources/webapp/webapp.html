@@ -7,7 +7,11 @@
         <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 
-        <script data-th-src="|${portal.serviceUrl({'_service=react4xp-client'})}|" src=""></script>
+        <script src="/webapp/com.enonic.app.react4xp/_/asset/com.enonic.app.react4xp:1604314030/react4xp/shared.d366a6c1b.js"></script>
+        <link rel="stylesheet" type="text/css" href="/webapp/com.enonic.app.react4xp/_/asset/com.enonic.app.react4xp:1604314030/react4xp/shared.5440dda80.css" />
+        <link rel="stylesheet" type="text/css" href="/webapp/com.enonic.app.react4xp/_/asset/com.enonic.app.react4xp:1604314030/react4xp/MovieList.css" />
+
+        <script src="/webapp/com.enonic.app.react4xp/_/asset/com.enonic.app.react4xp:1604314030/react4xp/MovieList.js"></script>
 
         <style>
             body { margin: 0; padding: 0; }
@@ -23,16 +27,16 @@
             <div class="faux-spinner">Loading movies...</div>
         </div>
 
-        <script data-th-utext="|
-                var MOVIE_LIST_PARAMS= {
-                    serviceUrlRoot: '${portal.serviceUrl({'_service='})}',
-                    parentPath: '${sitePath}',
-                    apiUrl: '/admin/site/preview/default/draft${sitePath}/api/headless',
-                    movieType: '${movieType}',
-                    movieCount: 3,
-                    sortExpression: 'data.year ASC',
-                }|"></script>
+        <script>
+            var MOVIE_LIST_PARAMS= {
+                parentPath: '/moviesite',
+                apiUrl: '/admin/site/preview/default/draft/moviesite/api/headless',
+                movieType: 'com.enonic.app.react4xp:movie',
+                movieCount: 3,
+                sortExpression: 'data.year ASC',
+            };
+        </script>
 
-        <script defer data-th-src="${portal.assetUrl({'_path=webapp/script.js'})}"></script>
+        <script defer src="/webapp/com.enonic.app.react4xp/_/asset/com.enonic.app.react4xp:1604314030/webapp/script.js"></script>
     </body>
 </html>

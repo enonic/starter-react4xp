@@ -12,13 +12,9 @@
                 <hideToggleIcon>true</hideToggleIcon>
             </config>
         </input>
-        <input name="description" type="HtmlArea">
+        <input name="description" type="TextArea">
             <label>Description</label>
-            <config>
-                <exclude>*</exclude>
-                <include>Format | Bold Italic Underline | BulletedList NumberedList | Link SpecialChar Blockquote</include>
-                <allowHeadings>h3 h4 h5 h6</allowHeadings>
-            </config>
+            <config />
         </input>
         <input name="year" type="Long">
             <label>Release year</label>

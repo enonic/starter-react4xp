@@ -14,9 +14,7 @@ const InfoContainer = ({title, year, description, actors}) => (
         </Info>
 
         <Info heading="Description">
-            <div className="description"
-                 dangerouslySetInnerHTML={{ __html: description }}>
-            </div>
+            <div className="description">{description}</div>
         </Info>
 
         { (actors && actors.length > 0) ?

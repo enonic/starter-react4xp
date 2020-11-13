@@ -32,7 +32,7 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
             nextOffset = movieCount;
 
             // Browser-specific functionality, so this is prevented from running on the SSR
-            if (typeof document === 'object' && typeof document.addEventListener === 'function' && typeof window !== 'undefined') {
+            if (typeof document === 'object' && typeof document.addEventListener === 'function') {
                 initScrollListener();
             }
         },

@@ -13,9 +13,7 @@ exports.get = function(request) {
             }) :
             undefined,
         title: content.displayName,
-        description: portal.processHtml({
-            value: content.data.description
-        }),
+        description: content.data.description,
         year: content.data.year,
         actors: util.data.forceArray( content.data.actor )
         .map( actor => (actor || '').trim())

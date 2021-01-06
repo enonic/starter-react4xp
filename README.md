@@ -40,7 +40,7 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.1.0.
+This is version 1.2.0.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|

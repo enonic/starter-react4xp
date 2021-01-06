@@ -14,7 +14,7 @@ app {
 }
 
 // This variable is used in the include lib-react4xp below, and also used in the optional tasks in readme.gradle
-rootProject.ext.LIB_REACT4XP_VERSION = "1.1.1"
+rootProject.ext.LIB_REACT4XP_VERSION = "1.1.2-SNAPSHOT"
 
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"
@@ -47,9 +47,24 @@ repositories {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+// The react4xp NPM package also carries additional .gradle files that are required by this gradle setup (further below).
+// If they don't exist, run 'npm install' as a shell command (can't be done as a regular gradle task,
+// since they are needed in the gradle config phase).
+def react4xpGradlePath = 'node_modules/react4xp/react4xp.gradle'
+def react4xpGradleFile = new File(react4xpGradlePath)
+if (!react4xpGradleFile.exists()) {
+    println "\nNot found: $react4xpGradlePath"
+    def command = "npm install"
+    println "Running shell command: $command"
+    def proc = command.execute()
+    proc.in.eachLine { line -> println line }
+    proc.out.close()
+    proc.waitFor()
+}
+
 // Necessary react4xp build setup.
-// Used by the mandatory 'jar' task, so 'npm i' or 'gradlew npmInstall' must be run separately before e.g. 'gradlew build' or 'enonic project deploy'.
-apply from: 'node_modules/react4xp/react4xp.gradle'
+// node_modules/react4xp/react4xp.gradle (react4xpGradlePath) etc. are used by the gradle tasks, so 'npm install' should have been run automatically by now (above).
+apply from: react4xpGradlePath
 
 // Optional dev convenience:
 // Adjusts the regular 'npmInstall' gradle task with two improvements:

@@ -19,17 +19,13 @@ Requires: installed [Enonic XP 7.x](https://developer.enonic.com/) with [Gradle]
 ## Install
 
 1. Install the starter from [Enonic Market](https://market.enonic.com/vendors/enonic/react4xp-starter) or clone it down from [the github repo](https://github.com/enonic/starter-react4xp). 
-2. The NPM packages ([react4xp](https://www.npmjs.com/package/react4xp) specifically) must be installed before running the gradle build task. Before you build for the first time, and whenever you wipe the _node_modules_ folder, run: 
-    ```commandline
-    npm install
-    ```
 
-3. Build it locally from [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master) (which runs gradle build behind the scenes): 
+2. Build it locally from [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master) (which runs gradle build behind the scenes): 
     ```commandline
     enonic project deploy
     ```
 
-
+NOTE: if you use a version of the starter with version 1.1.2 or lower, you will need to run `npm install` before "enonic project deploy" or other gradle/enonic CLI commands.
 
 ## Easy Content Studio setup after building
 
@@ -49,6 +45,7 @@ This is version ###STARTER_VERSION###.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
+| 1.2.0            | 7.3.0  | Easier build: no longer needs "npm install" before gradle tasks or "enopnic project deploy".
 | 1.1.0            | 7.3.0  | Easy-to-set-up guillotine: adds a ready-to-map guillotine API for backend and frontend queries, and a frontend request wrapper. Simplifies the build: NPM package react4xp@1.1.4 replaces a lot of build setup in this parent project's build.gradle with one line (`apply from:`...). And bugfixes style handling in client-side `.renderWithDependencies. |
 | 1.0.1            | 7.3.0  | First full release, compatible with updated guide.  |
 | 0.6.3            | 7.0.0  | Lazy-loading assets on server-side rendering. Collected all the react4xp NPM packages into one. Support: CSS modules with asset handling.  |

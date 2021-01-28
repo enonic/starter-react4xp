@@ -2,11 +2,12 @@
 <site>
   <form/>
     <mappings>
-        <mapping controller="/headless/guillotineApi.js" order="50">
-            <pattern>/api/headless</pattern>
-        </mapping>
-        <mapping controller="/controllers/previewMovie.js" order="50">
-            <match>type:'com.enonic.app.react4xp:movie'</match>
-        </mapping>
-    </mappings>
+        <!-- Maps the path <domain/site>/api/headless up to the controller src/main/resources/headless/guillotineApi.es6 (.js after compilation), to open it up as a guillotine API endpoint. BEFORE USING THIS, READ THE COMMENT IN THE CONTROLLER, ABOUT USAGE AND SECURITY.-->
+    <mapping controller="/headless/guillotineApi.js" order="50">
+        <pattern>/api/headless</pattern>
+    </mapping>
+    <mapping controller="/controllers/previewMovie.js" order="50">
+        <match>type:'com.enonic.app.react4xp:movie'</match>
+    </mapping>
+</mappings>
 </site>

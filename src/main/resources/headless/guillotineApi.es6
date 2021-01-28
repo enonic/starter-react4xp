@@ -4,7 +4,7 @@ const graphQlLib = require('/lib/graphql');
 const CORS_HEADERS = {
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Origin': '*'
+    // 'Access-Control-Allow-Origin': '*'
 };
 
 const SCHEMA = guillotineLib.createSchema();
@@ -26,10 +26,11 @@ exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, v
  *
  * ------------   IMPORTANT!   --------------   IMPORTANT!   --------------   IMPORTANT!   --------------
  *
- * Before you add that mapping and expose the API, consider this:
- * This API is as-is, and as bare-bone as it gets. It is currently open to sending ANY QUERY into the data layer
- * - including mutating operations etc! It's meant for developers to expand from, and STRONGLY RECOMMENDED to implement
- * your own security solution according to your specific use case and requirements!
+ * Before you add that mapping and expose this API, consider this:
+ * This API is as-is, and as bare-bone as it gets. Guillotine is a read-only interface, but this endpoint still exposes
+ * the possibility to send ANY QUERY, so any data will technically be readable from your repo.
+ * This is meant for developers to expand from, and it's strongly recommended to implement your own security solution
+ * according to your specific use case and requirements.
  *
  *-------------------------------------------------------------------------------------------------------
  *

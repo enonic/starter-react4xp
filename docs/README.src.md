@@ -18,9 +18,14 @@ Requires: installed [Enonic XP 7.x](https://developer.enonic.com/) with [Gradle]
 
 ## Install
 
-1. Install the starter from [Enonic Market](https://market.enonic.com/vendors/enonic/react4xp-starter) or clone it down from [the github repo](https://github.com/enonic/starter-react4xp). 
-
-2. Build it locally from [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master) (which runs gradle build behind the scenes): 
+1. The three usual options: 
+   - install the starter from [Enonic Market](https://market.enonic.com/vendors/enonic/react4xp-starter), 
+   - or clone it down from [the github repo](https://github.com/enonic/starter-react4xp), 
+   - or use [the Enonic CLI](https://developer.enonic.com/docs/enonic-cli/master):
+    ```commandline
+    enonic project create -r starter-react4xp
+    ```
+2. Build it locally: 
     ```commandline
     enonic project deploy
     ```
@@ -45,6 +50,7 @@ This is version ###STARTER_VERSION###.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
+| 1.2.1            | 7.6.0  | Update XP version, remove unused libraries
 | 1.2.0            | 7.5.0  | Easier build: no longer needs "npm install" before gradle tasks or "enopnic project deploy".
 | 1.1.0            | 7.3.0  | Easy-to-set-up guillotine: adds a ready-to-map guillotine API for backend and frontend queries, and a frontend request wrapper. NPM package react4xp@1.1.4 replaces a lot of build setup in this parent project's build.gradle with one line (`apply from:`...), and bugfixes style handling in client-side `.renderWithDependencies. |
 | 1.0.1            | 7.3.0  | First full release, compatible with updated guide.  |
@@ -66,4 +72,4 @@ Other versions can be found in this repo, but may be differently structured and/
 For now there are some [known issues](https://github.com/enonic/lib-react4xp/issues) we are looking into. Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are **very welcome here** - it will hugely help us improve the React support in XP!
 
 ### Some notes:
-  - You'll note that after (re)starting the server or (re)deploying the app, the SSR engine takes a few seconds to start up. This is for caching the react components on the first rendering, making subsequent server-side renderings of the same component very fast, even with different props.
+- You'll note that after (re)starting the server or (re)deploying the app, the SSR engine [takes a few seconds to start up](https://developer.enonic.com/docs/react4xp/master/hello-react#first_serverside_render_can_be_slow). This is for caching the react components on the first rendering, making subsequent server-side renderings of the same component very fast, even with different props.

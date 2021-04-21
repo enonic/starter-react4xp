@@ -51,9 +51,9 @@ repositories {
 def react4xpGradlePath = 'node_modules/react4xp/react4xp.gradle'
 def react4xpGradleFile = new File(react4xpGradlePath)
 if (!react4xpGradleFile.exists()) {
-    println "\nNot found: $react4xpGradlePath"
     def command = "npm install"
-    println "Running shell command: $command"
+    println "\nNot found: $react4xpGradlePath - running shell command:"
+    println command
     def proc = command.execute()
     proc.in.eachLine { line -> println line }
     proc.out.close()
@@ -84,10 +84,12 @@ apply from: 'node_modules/react4xp/updaters.gradle'
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// This task takes care of es6 under src/main/resources/site. You can replace it with build steps of your own if you want.
-// IMPORTANT: IF YOU DON'T USE THIS TASK TO COMPILE THE REGULAR XP JS (/ES6/TS etc),
-// MAKE SURE THAT YOUR OWN TASK/SCRIPT/LOGIC IGNORES .JSX FILES THAT ARE LOCATED UNDER src/main/resources/site !
-// It's safer to let React4xp's tasks (in react4xp.gradle) handle those.
+// This task takes care of XP non-react (and therefore non-react4xp) es6 files under src/main/resources/site.
+// This is independent of react4xp, so you can replace this with your own build steps if you want.
+// IMPORTANT: Note how this task ignores .jsx files under src/main/resources. If you use your own logic to compile non-react
+// XP files (i.e. replace this task or add more to it), you should usually make it ignore .jsx files the same way, to
+// ensure that those are handled only by the react4xp build (node_modules/react4xp/react4xp.gradle, aka. react4xpGradlePath)
+// and not compiled twice.
 task compileXP(type: NodeTask) {
     group 'enonic xp'
     description 'Babel-compile Enonic XP ES6 source files (important: ignoring JSX components since they are left to react4xp)'

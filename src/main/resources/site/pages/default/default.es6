@@ -77,6 +77,8 @@ const React4xp = require('/lib/enonic/react4xp');
                                                                                                                             };
 
 exports.get = function(request) {
+
+    																													log.info(prettify(request, "Default page request"));
     const content = portal.getContent();
     const entry = portal.getComponent();
 

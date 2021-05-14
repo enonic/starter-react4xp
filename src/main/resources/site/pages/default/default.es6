@@ -1,4 +1,9 @@
-/** Simple page controller, as an example of how to render an XP page with Regions, using only server-side React. */
+/** Simple page controller, as an example of how to render an XP page with Regions, using only server-side React.
+ *
+ *  NOTE:   Parts and layouts rendered with react4xp DO NOT need a page controller like this to work. Putting react4xp-
+ *          rendered XP components inside regions in a thymeleaf-rendered page controller (or hardcoded, etc) is
+ *          perfectly fine. This is just a demo of how to do it if you need to make the page controller in react4xp.
+ */
 
 const portal = require('/lib/xp/portal');
 const React4xp = require('/lib/enonic/react4xp');

@@ -46,10 +46,11 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.2.1.
+This is version 1.5.0.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
+| 1.5.0            | 7.6.0  | Version leap: sync with versions of lib-react4xp (1.5.0) and npm-react4xp (1.5.4), which bring SSR-engine improvements to error reporting and concurrent multi-thread  rendering.
 | 1.2.1            | 7.6.0  | Update XP version, remove unused libraries
 | 1.2.0            | 7.5.0  | Easier build: no longer needs "npm install" before gradle tasks or "enopnic project deploy".
 | 1.1.0            | 7.3.0  | Easy-to-set-up guillotine: adds a ready-to-map guillotine API for backend and frontend queries, and a frontend request wrapper. NPM package react4xp@1.1.4 replaces a lot of build setup in this parent project's build.gradle with one line (`apply from:`...), and bugfixes style handling in client-side `.renderWithDependencies. |
@@ -67,7 +68,7 @@ Other versions can be found in this repo, but may be differently structured and/
 
 ## Future development
 
-**Being a first-release**, we will keep working on this intensely. 
+React4xp is a work in progress and frequently updated. 
 
 For now there are some [known issues](https://github.com/enonic/lib-react4xp/issues) we are looking into. Feedback, suggestions, uncovered use cases, problems, or stories of ensuing hilarity are **very welcome here** - it will hugely help us improve the React support in XP!
 

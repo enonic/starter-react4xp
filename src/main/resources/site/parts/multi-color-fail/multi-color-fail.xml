@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part>
+    <display-name>Multi-Color FAIL</display-name>
+    <description>Add your first FAIL</description>
+
+    <form>
+        <input name="SSR" type="CheckBox">
+            <label>Server-side rendering</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+
+        <input name="colors" type="TextLine">
+            <label>Color</label>
+            <occurrences minimum="0" maximum="0"/>
+        </input>
+    </form>
+</part>

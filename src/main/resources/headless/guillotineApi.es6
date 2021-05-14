@@ -40,8 +40,8 @@ exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, v
 exports.post = req => {
     var body = JSON.parse(req.body);
 
-    log.info("\n\n------------- body.query: " + body.query);
-    log.info("body.variables: " + JSON.stringify(body.variables, null, 2));
+    //log.info("\n\n------------- body.query: " + body.query);
+    //log.info("body.variables: " + JSON.stringify(body.variables, null, 2));
 
     const output = {
         contentType: 'application/json',

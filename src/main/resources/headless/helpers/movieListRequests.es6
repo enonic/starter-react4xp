@@ -44,7 +44,7 @@ export const extractMovieArray = responseData => responseData.data.guillotine.qu
         movieItem => ({
             id: movieItem._id,
             title: movieItem.displayName.trim(),
-            imageUrl: movieItem.data.image.imageUrl,
+            imageUrl: (movieItem.data.image || {}).imageUrl,
             year: movieItem.data.year,
             description: movieItem.data.description,
             actors: forceArray(movieItem.data.actor)

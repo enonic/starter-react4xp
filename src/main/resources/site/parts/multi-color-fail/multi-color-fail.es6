@@ -7,14 +7,14 @@ exports.get = function(request) {
 
     const clientRender = !content.page.config.SSR && !component.config.SSR
 
-    const colors = (component.config.colors || [])
-        .map( c => (c || '').trim())
-        .filter(c => !!c);
+    //const colors = (component.config.colors || [])
+    //    .map( c => (c || '').trim())
+    //    .filter(c => !!c);
 
     return React4xp.render(
         "MultiColor",
-        { colors },
+        null,
         request,
-        { clientRender, id: "Moolteecoller" }
+        { clientRender, id: "RenderFail" }
     );
 };

@@ -1,8 +1,10 @@
-const util = require('/lib/util');
 const portal = require('/lib/xp/portal');
 const React4xp = require('/lib/enonic/react4xp');
 
 exports.get = function(request) {
+
+    //log.info("\n\n000000000000000000000000000000000000000000000000000000000000\n\n\n\n\nGET SINGLE MOVIE: " + request.path + "\n\n\n");
+
     const content = portal.getContent();
 
     const props = {
@@ -15,7 +17,9 @@ exports.get = function(request) {
         title: content.displayName,
         description: portal.processHtml({value: content.data.description }),
         year: content.data.year,
-        actors: util.data.forceArray( content.data.actor )
+        actors: (Array.isArray( content.data.actor )
+            ? content.data.actor
+            : content.data.actor ? [content.data.actor] : [])
             .map( actor => (actor || '').trim())
             .filter(actor => !!actor)
     }

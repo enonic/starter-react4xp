@@ -27,7 +27,7 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
     // So now, isInitialized is obsolete.
     useEffect(
         ()=>{
-            console.log("Initializing...");
+            //console.log("Initializing...");
 
             nextOffset = movieCount;
 
@@ -43,7 +43,7 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
     // Causes a trigger func function to be called when the bottom of the visible window is scrolled down to less
     // than TRIGGER_OFFSET_PX_FROM_BOTTOM of the movie list element.
     const initScrollListener = () => {
-        console.log("Init scroll listener");
+        //console.log("Init scroll listener");
 
         var movieListElem = document.getElementById(listContainerId);
 
@@ -53,7 +53,7 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
                 var movieBounds = movieListElem.getBoundingClientRect();
 
                 if (movieBounds.bottom < window.innerHeight + TRIGGER_OFFSET_PX_FROM_BOTTOM) {
-                    console.log("!!! SCROLL TRIGGER !!!");
+                    //console.log("!!! SCROLL TRIGGER !!!");
 
                     // Stop acting on scroll events, until data is returned.
                     listenForScroll = false;
@@ -71,7 +71,7 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
     // Makes a (guillotine) request for data with these search parameters and passes an anonymous callback function as
     // handleDataFunc (used on the returned list of movie data).
     const makeRequest = () => {
-        console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
+        //console.log("Requesting", movieCount, "movies, starting from index", nextOffset);
         doGuillotineRequest({
             url: apiUrl,
 
@@ -90,9 +90,9 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
 
     // When a movie data array is returned from the guillotine data request, this method is called.
     const updateDOMWithNewMovies = (newMovieItems) => {
-        console.log("Received data:", newMovieItems);
+        //console.log("Received data:", newMovieItems);
         if (newMovieItems.length > 0) {
-            console.log("Adding movies to state:", newMovieItems.map(movie => movie.title));
+            //console.log("Adding movies to state:", newMovieItems.map(movie => movie.title));
 
             nextOffset += movieCount;
 
@@ -104,7 +104,7 @@ const MovieList = ({movies, apiUrl, parentPath, movieCount, movieType, sortExpre
                 ]
             }));
 
-            console.log("Added new movies to state / DOM.");
+            //console.log("Added new movies to state / DOM.");
 
             // Switch back on the scroll listener's actions.
             listenForScroll = true;

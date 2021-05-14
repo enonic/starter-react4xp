@@ -4,8 +4,12 @@ import './Movie.scss';
 
 import InfoContainer from "./InfoContainer";
 
-const Movie = ({imageUrl, title, description, year, actors}) => (
-    <div className="movie">
+const Movie = ({imageUrl, title, description, year, actors}) => {
+
+    if (!imageUrl) {
+        throw Error("Where's my movie image yo!?");
+    }
+    return <div className="movie">
         <img className="poster"
              src={imageUrl}
              alt={`Movie poster: ${title}`}
@@ -17,6 +21,6 @@ const Movie = ({imageUrl, title, description, year, actors}) => (
                        actors={actors}
         />
     </div>
-);
+};
 
-export default Movie;
+export default props => <Movie {...props}/>;

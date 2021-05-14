@@ -14,7 +14,7 @@ app {
 }
 
 // This variable is used in the include lib-react4xp below, and also used in the optional tasks in readme.gradle
-rootProject.ext.LIB_REACT4XP_VERSION = "1.1.2"
+rootProject.ext.LIB_REACT4XP_VERSION = "1.5.0-SNAPSHOT"
 
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"
@@ -63,7 +63,6 @@ if (!react4xpGradleFile.exists()) {
 // Necessary react4xp build setup.
 // node_modules/react4xp/react4xp.gradle (react4xpGradlePath) etc. are used by the gradle tasks, so 'npm install' should have been run automatically by now (above).
 apply from: react4xpGradlePath
-
 
 // Optional dev convenience:
 // Adjusts the regular 'npmInstall' gradle task with two improvements:

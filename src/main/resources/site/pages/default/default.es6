@@ -7,6 +7,7 @@ exports.get = function(request) {
     const content = portal.getContent();
     const entry = portal.getComponent();
 
+
     const id = `react4xp_${content._id}`;
 
     const props = {
@@ -15,13 +16,7 @@ exports.get = function(request) {
         tag: "main",
     };
 
-    const output = React4xp.render(
-        entry,
-        props,
-        null,
-        {
-            id,
-            body: `
+    const htmlBody = `
                 <html>
                     <head>
                         <meta charset="UTF-8" />
@@ -31,9 +26,19 @@ exports.get = function(request) {
                         <div id="${id}"></div>
                     </body>
                 </html>
-            `
+            `;
+
+    const output = React4xp.render(
+        entry,
+        props,
+        null,
+        {
+            id,
+            body: htmlBody
         }
     );
+
+
 
     // The unclosed !DOCTYPE tag is not XML-compliant, and causes an error if used in the body parameter of React4xp.render.options above.
     // Therefore, added here:

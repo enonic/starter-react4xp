@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import Button from '../shared/multicolor/Button';
-import ColorButtons from '../shared/multicolor/ColorButtons';
-import ActiveColorOval from '../shared/multicolor/ActiveColorOval';
+import Button from '../multicolor/Button';
+import ColorButtons from '../multicolor/ColorButtons';
+import ActiveColorOval from '../multicolor/ActiveColorOval';
 
 import './MultiColor.scss';
 import '../shared/multicolor.scss';

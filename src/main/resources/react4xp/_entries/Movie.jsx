@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Movie from '../shared/movie/Movie';
+import Movie from '../movie/Movie';
 
 console.log("Okay.");
 

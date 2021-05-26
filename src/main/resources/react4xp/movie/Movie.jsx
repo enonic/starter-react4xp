@@ -6,9 +6,9 @@ import InfoContainer from "./InfoContainer";
 
 const Movie = ({imageUrl, title, description, year, actors}) => {
 
-    if (!imageUrl) {
-        throw Error("Where's my movie image yo!?");
-    }
+    console.log("Navigator.permissions:");
+    console.log(navigator.permissions);
+
     return <div className="movie">
         <img className="poster"
              src={imageUrl}

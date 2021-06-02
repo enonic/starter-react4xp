@@ -5,9 +5,10 @@ const React4xp = require('/lib/enonic/react4xp');
 
 exports.get = function(request) {
     const content = portal.getContent();
+    const clientRender = (!content.page.config.SSR) ? "clientRender" : "SSR";
+    const req = (content.page.config.req) ? "sending request" : "NO request";
+
     const entry = portal.getComponent();
-
-
     const id = `react4xp_${content._id}`;
 
     const props = {
@@ -23,6 +24,9 @@ exports.get = function(request) {
                         <title>${content.displayName}</title>
                     </head>
                     <body class="xp-page">
+                        <p>View mode: ${request.mode}</p>
+                        <p>Page setting: ${clientRender}, ${req}</p>
+                        <hr/>
                         <div id="${id}"></div>
                     </body>
                 </html>

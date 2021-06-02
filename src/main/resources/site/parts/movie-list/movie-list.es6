@@ -9,6 +9,9 @@ exports.get = function(request) {
     const content = portal.getContent();
     const component = portal.getComponent();
 
+    const clientRender = !content.page.config.SSR;
+    const req = content.page.config.req ? request : undefined;
+
     const sortExpression = `${component.config.sortBy} ${
         component.config.descending ? 'DESC' : 'ASC'
     }`;
@@ -39,7 +42,9 @@ exports.get = function(request) {
             movieType,
             sortExpression
         },
-        request
-        // , { clientRender: true }
+        req,
+        {
+            clientRender
+        }
     );
 };

@@ -3,10 +3,9 @@ const React4xp = require('/lib/enonic/react4xp');
 
 exports.get = function(request) {
     const content = portal.getContent();
-    const component = portal.getComponent();
 
-    const isInsideContentStudio = request.mode === 'edit' || request.mode === 'inline';
-    const clientRender = !content.page.config.SSR && !component.config.SSR && !isInsideContentStudio;
+    const clientRender = !content.page.config.SSR;
+    const req = content.page.config.req ? request : undefined;
 
     //const colors = (component.config.colors || [])
     //    .map( c => (c || '').trim())
@@ -14,13 +13,17 @@ exports.get = function(request) {
 
     const multiColorObj = new React4xp('MultiColor2')
         //.setProps({})
-        .setId('BodyPagecontribDayum2')
+        .setId('Multi-Color-2-Fail-With-Custom')
         .uniqueId();
 
-    const body = multiColorObj.renderBody({clientRender});
+    const body = multiColorObj.renderBody({
+        clientRender,
+        request: req
+    });
     const pageContributions = multiColorObj.renderPageContributions({
         clientRender,
-        suppressJS: isInsideContentStudio});
+        request: req
+    });
 
     return {body, pageContributions};
 };

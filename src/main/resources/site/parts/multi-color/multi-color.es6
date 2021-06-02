@@ -5,7 +5,8 @@ exports.get = function(request) {
     const content = portal.getContent();
     const component = portal.getComponent();
 
-    const clientRender = !content.page.config.SSR && !component.config.SSR
+    const clientRender = !content.page.config.SSR;
+    const req = content.page.config.req ? request : undefined;
 
     const colors = (component.config.colors || [])
         .map( c => (c || '').trim())
@@ -14,7 +15,10 @@ exports.get = function(request) {
     return React4xp.render(
         "MultiColor",
         { colors },
-        request,
-        { clientRender, id: "Moolteecoller" }
+        req,
+        {
+            clientRender,
+            id: "Multicolor-With-Render"
+        }
     );
 };

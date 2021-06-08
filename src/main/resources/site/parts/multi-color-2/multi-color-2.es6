@@ -17,8 +17,14 @@ exports.get = function(request) {
         .setId('Multi-Color-2-With-Custom-No-Request')
         .uniqueId();
 
-    const body = multiColorObj.renderBody({clientRender, request: req});
-    const pageContributions = multiColorObj.renderPageContributions({clientRender, request: req});
+    const body = multiColorObj.renderBody({
+        clientRender,
+        request: req
+    });
+    const pageContributions = multiColorObj.renderPageContributions({
+        clientRender,
+        request: req
+    });
 
     return {body, pageContributions};
 };

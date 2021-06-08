@@ -8,6 +8,27 @@ import './MultiColor.scss';
 import '../shared/multicolor.scss';
 
 const MultiColor2 = ({colors}) => {
+    if (typeof document === 'undefined') {
+        console.error("What's document, prescious?");
+    } else {
+        console.log("document is: " + typeof document);
+    }
+    if (typeof window === 'undefined') {
+        console.error("What's window, prescious?");
+    }else {
+        console.log("window is: " + typeof window);
+    }
+    if (typeof navigator === 'undefined') {
+        console.error("What's navigator, prescious?");
+    }else {
+        console.log("navigator is: " + typeof navigator);
+    }
+    if (typeof window.navigator === 'undefined') {
+        console.error("What's window.navigator, prescious?");
+    }else {
+        console.log("window.navigator is: " + typeof window.navigator);
+    }
+
     const [selected, setSelected] = useState(0);
 
     useEffect(() => {

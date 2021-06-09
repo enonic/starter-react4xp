@@ -28,11 +28,17 @@
     },
     "homepage": "https://github.com/enonic/starter-react4xp#readme",
     "dependencies": {
+        "css-loader": "^4.2.2",
+        "fibers": "^3.1.1",
+        "mini-css-extract-plugin": "^0.11.0",
         "node-fetch": "^2.6.1",
+        "node-sass": "^4.14.1",
         "prop-types": "^15.7.2",
         "react": "^16.14.0",
         "react-dom": "^16.14.0",
-        "react4xp": "1.7.0"
+        "react4xp": "1.7.0",
+        "sass": "^1.34.0",
+        "sass-loader": "^10.2.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.14.3",

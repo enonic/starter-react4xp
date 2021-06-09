@@ -1,0 +1,26 @@
+<content-type>
+    <display-name>Movie</display-name>
+    <description>Moving images often reflecting culture</description>
+    <super-type>base:structured</super-type>
+
+    <form>
+        <input name="image" type="ImageSelector">
+            <label>Movie poster</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+
+        <input name="description" type="TextArea">
+            <label>Description</label>
+        </input>
+
+        <input name="year" type="Long">
+            <label>Release year</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+
+        <input name="actor" type="TextLine">
+            <label>Actor</label>
+            <occurrences minimum="0" maximum="0"/>
+        </input>
+    </form>
+</content-type>

@@ -12,6 +12,8 @@ exports.get = function(request) {
     const content = portal.getContent();
     const entry = portal.getComponent();
 
+    const clientRender = (!content.page.config.SSR) ? "clientRender" : "SSR";
+    const req = (content.page.config.req) ? "sending request" : "NO request";
 
     const id = `react4xp_${content._id}`;
 
@@ -28,6 +30,9 @@ exports.get = function(request) {
                         <title>${content.displayName}</title>
                     </head>
                     <body class="xp-page">
+                        <p>View mode: ${request.mode}</p>
+                        <p>Page setting: ${clientRender}, ${req}</p>
+                        <hr/>
                         <div id="${id}"></div>
                     </body>
                 </html>

@@ -15,6 +15,12 @@ exports.get = function(request) {
     const clientRender = (!content.page.config.SSR) ? "clientRender" : "SSR";
     const req = (content.page.config.req) ? "sending request" : "NO request";
 
+    const otherModeLink = request.mode === 'preview'
+        ? ` <span class="modeswitch">(go to <a href="/site/default/master/${content._name}">Live</a> view)</span>`
+        : request.mode === 'live'
+            ? ` <span class="modeswitch">(go to <a href="/admin/site/preview/default/draft/${content._name}">Preview</a>)</span>`
+            : '';
+
     const id = `react4xp_${content._id}`;
 
     const props = {
@@ -30,7 +36,7 @@ exports.get = function(request) {
                         <title>${content.displayName}</title>
                     </head>
                     <body class="xp-page">
-                        <p>View mode: ${request.mode}</p>
+                        <p>View mode: <strong>${request.mode}</strong>${otherModeLink}</p>
                         <p>Page setting: ${clientRender}, ${req}</p>
                         <hr/>
                         <div id="${id}"></div>

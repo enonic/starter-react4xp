@@ -46,10 +46,12 @@ Crash course, after getting this starter running:
 
 ## Versions and compatibility
 
-This is version 1.5.0.
+This is version 2.0.0.
 
 | Version / tag    | Minimum XP version | Notes |
 | ---------------- | ---------- | --------------|
+| 2.0.0            | 7.6.0  | Updates to lib-react4xp@2.0.0 and npm-react4xp@2.0.0, for using **webpack 5** and webpack-cli 4.
+| 1.7.1            | 7.6.0  | Bugfixes
 | 1.5.0            | 7.6.0  | Version leap: sync with versions of lib-react4xp (1.5.0) and npm-react4xp (1.5.4), which bring SSR-engine improvements to error reporting and concurrent multi-thread  rendering.
 | 1.2.1            | 7.6.0  | Update XP version, remove unused libraries
 | 1.2.0            | 7.5.0  | Easier build: no longer needs "npm install" before gradle tasks or "enopnic project deploy".

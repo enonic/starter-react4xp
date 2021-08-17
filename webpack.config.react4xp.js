@@ -42,7 +42,7 @@ module.exports = function(env, config) {
     config.plugins = [
         ...(config.plugins || []),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: '[name].[contenthash:9].css',
             chunkFilename: '[id].[contenthash:9].css',
         }),
     ];

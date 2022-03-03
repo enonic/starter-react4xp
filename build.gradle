@@ -35,10 +35,20 @@ dependencies {
     include "com.enonic.lib:lib-react4xp:${rootProject.ext.LIB_REACT4XP_VERSION}"
 }
 
+processResources {
+  exclude '**/.gitkeep'
+  exclude '**/*.es6'
+  exclude '**/*.jsx'
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
     xp.enonicRepo()
+}
+
+tasks.withType(Copy) {
+  includeEmptyDirs = false
 }
 
 
@@ -106,6 +116,3 @@ task compileXP(type: NodeTask) {
 }
 compileXP.dependsOn += npmInstall
 jar.dependsOn += 'compileXP'
-
-
-

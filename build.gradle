@@ -51,7 +51,7 @@ repositories {
     // com.enonic.xp:lib-content
     // com.enonic.xp:lib-io
     // com.enonic.xp:lib-portal
-    xp.enonicRepo()
+    xp.enonicRepo('dev')
 
     // com.graphql-java
     // jaxen:jaxen

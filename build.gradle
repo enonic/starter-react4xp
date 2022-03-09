@@ -9,7 +9,7 @@ plugins {
 }
 
 repositories {
-    // com.enonic.lib:lib-react4xp:3.0.0-SNAPSHOT
+    // com.enonic.lib:lib-react4xp:x.x.x-SNAPSHOT
     mavenLocal()
 
     // com.enonic.lib:lib-cache

@@ -39,7 +39,8 @@ exports.get = function(request) {
         null,
         {
             id,
-            body: htmlBody
+            body: htmlBody//,
+            //clientRender: true // Doesn't work for page
         }
     );
 

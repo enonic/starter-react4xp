@@ -15,7 +15,7 @@ app {
 }
 
 // This variable is used in the include lib-react4xp below, and also used in the optional tasks in readme.gradle
-rootProject.ext.LIB_REACT4XP_VERSION = "2.0.2"
+rootProject.ext.LIB_REACT4XP_VERSION = "3.0.0-SNAPSHOT"
 
 dependencies {
     implementation "com.enonic.xp:core-api:${xpVersion}"
@@ -42,9 +42,25 @@ processResources {
 }
 
 repositories {
+    // com.enonic.lib:lib-react4xp:3.0.0-SNAPSHOT
     mavenLocal()
-    mavenCentral()
+
+    // com.enonic.lib:lib-cache
+    // com.enonic.lib:lib-guillotine
+    // com.enonic.lib:lib-thymeleaf
+    // com.enonic.xp:lib-content
+    // com.enonic.xp:lib-io
+    // com.enonic.xp:lib-portal
     xp.enonicRepo()
+
+    // com.graphql-java
+    // jaxen:jaxen
+    // io.reactivex.rxjava2:rxjava
+    // org.apache.commons:commons-pool2
+    // org.jdom:jdom
+    // org.json:json
+    // org.thymeleaf:thymeleaf
+    mavenCentral()
 }
 
 tasks.withType(Copy) {
@@ -59,7 +75,7 @@ tasks.withType(Copy) {
 // The react4xp NPM package also carries additional .gradle files that are required by this gradle setup (further below).
 // If they don't exist, run 'npm install' as a shell command (can't be done as a regular gradle task,
 // since they are needed in the gradle config phase).
-def react4xpGradlePath = 'node_modules/react4xp/react4xp.gradle'
+def react4xpGradlePath = 'node_modules/@enonic/react4xp/react4xp.gradle'
 def react4xpGradleFile = new File(react4xpGradlePath)
 if (!react4xpGradleFile.exists()) {
     String npm = 'npm'
@@ -76,7 +92,7 @@ if (!react4xpGradleFile.exists()) {
 }
 
 // Necessary react4xp build setup.
-// node_modules/react4xp/react4xp.gradle (react4xpGradlePath) etc. are used by the gradle tasks, so 'npm install' should have been run automatically by now (above).
+// node_modules/@enonic/react4xp/react4xp.gradle (react4xpGradlePath) etc. are used by the gradle tasks, so 'npm install' should have been run automatically by now (above).
 apply from: react4xpGradlePath
 
 // Optional dev convenience:
@@ -85,11 +101,11 @@ apply from: react4xpGradlePath
 //      - faster gradle up-to-date check during build (only checks content of package.json and package-lock.json,
 //          and a marker file for whether node_module exists as a regular or NSI-linked version. Runs NSI if it's linked.
 //          Does not check the entire node_modules subtree).
-apply from: 'node_modules/react4xp/npmInstall.gradle'
+apply from: 'node_modules/@enonic/react4xp/npmInstall.gradle'
 
 // Optional dev convenience:
 // Adds the 'updateReadme' gradle task which generates readme files at root from docs/README.src.md
-apply from: 'node_modules/react4xp/updaters.gradle'
+apply from: 'node_modules/@enonic/react4xp/updaters.gradle'
 
 
 
@@ -102,7 +118,7 @@ apply from: 'node_modules/react4xp/updaters.gradle'
 // This is independent of react4xp, so you can replace this with your own build steps if you want.
 // IMPORTANT: Note how this task ignores .jsx files under src/main/resources. If you use your own logic to compile non-react
 // XP files (i.e. replace this task or add more to it), you should usually make it ignore .jsx files the same way, to
-// ensure that those are handled only by the react4xp build (node_modules/react4xp/react4xp.gradle, aka. react4xpGradlePath)
+// ensure that those are handled only by the react4xp build (node_modules/@enonic/react4xp/react4xp.gradle, aka. react4xpGradlePath)
 // and not compiled twice.
 task compileXP(type: NodeTask) {
     group 'enonic xp'

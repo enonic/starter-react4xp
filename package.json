@@ -3,6 +3,7 @@
     "version": "2.1.0",
     "description": "React4xp starter for Enonic XP7.0",
     "scripts": {
+        "browserSync": "npx browser-sync start --proxy 'localhost:8080' --files build/resources/main/**/*",
         "install:dev": "nsi",
         "install:prod": "npm install",
         "clean": "./gradlew clean --refresh-dependencies  --info",
@@ -11,11 +12,11 @@
         "rebuild": "npm run clean && npm run build",
         "redeploy": "npm run rebuild && npm run deploy",
         "dev": "npm run redeploy && npm run watch:all",
-        "watch": "npm-run-all --parallel watch:xp watch:r4xp",
+        "watch": "npm-run-all --parallel watch:xp watch:react4xp",
         "watch:all": "npm-run-all --parallel watch:gradle watch:xp watch:react4xp",
         "watch:gradle": "./gradlew deploy --info -t",
-        "watch:react4xp": "webpack --env.REACT4XP_CONFIG_FILE=build/react4xp_constants.json --config node_modules/@enonic/react4xp/buildComponents/webpack.config.js --progress --watch",
-        "watch:xp": "babel src/main/resources --out-dir build/resources/main --ignore **/*.jsx --progress --watch"
+        "watch:react4xp": "npx webpack --env REACT4XP_CONFIG_FILE=build/react4xp_constants.json --config node_modules/@enonic/react4xp/buildComponents/webpack.config.js --progress --watch",
+        "watch:xp": "npx babel src/main/resources --out-dir build/resources/main --ignore **/*.jsx --watch"
     },
     "repository": {
         "type": "git",
@@ -44,8 +45,10 @@
         "@babel/plugin-transform-arrow-functions": "^7.16.7",
         "@babel/preset-env": "^7.16.11",
         "@babel/preset-react": "^7.16.7",
-        "@enonic/react4xp": "^3.0.4",
+        "@enonic/react4xp": "^3.0.5",
+        "babel": "^6.23.0",
         "babel-loader": "^8.2.5",
+        "browser-sync": "^2.27.9",
         "npm-run-all": "^4.1.5",
         "webpack": "^5.72.0",
         "webpack-cli": "^4.9.2"

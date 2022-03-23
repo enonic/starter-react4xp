@@ -4,6 +4,7 @@
 
 
 module.exports = function(env, config) {
+    //console.debug('Inside the OVERRIDE_COMPONENT_WEBPACK file', env, config);
 
     // Makes symlinks under node_modules work, e.g. 'npm link' and possibly PNPM etc:
     config.resolve.symlinks = true;

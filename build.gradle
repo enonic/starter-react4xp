@@ -36,9 +36,11 @@ dependencies {
 }
 
 processResources {
+  // find src -type f ! -name "*.es6" -a ! -name "*.jsx" -a ! -name "*.gitkeep" -a ! -name "*.png" -a ! -name "*.svg" -a ! -name "*.xml"
+  // Files that are simply copied by gradle: png svg xml
   exclude '**/.gitkeep'
-  exclude '**/*.es6'
-  exclude '**/*.jsx'
+  exclude '**/*.es6' // non-react ones handled by task compileXP
+  exclude '**/*.jsx' // handled by @enonic/react4xp gradle files
 }
 
 repositories {

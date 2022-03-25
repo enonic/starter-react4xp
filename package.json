@@ -5,8 +5,7 @@
     "scripts": {
         "browserSync": "npx browser-sync start --proxy 'localhost:8080' --files build/resources/main/**/* --reload-delay 15000",
         "build": "./gradlew build --info",
-        "build:react4xp": "npm-run-all --parallel build:react4xp:client build:react4xp:components build:react4xp:externals build:react4xp:nashornPolyfills",
-        "build:react4xp:client": "npm explore @enonic/react4xp -- npm run webpack:client -- --env DIR_PATH_ABSOLUTE_PROJECT=$PWD",
+        "build:react4xp": "npm-run-all --parallel build:react4xp:components build:react4xp:externals build:react4xp:nashornPolyfills",
         "build:react4xp:components": "npm explore @enonic/react4xp -- npm run webpack:components -- --env DIR_PATH_ABSOLUTE_PROJECT=$PWD",
         "build:react4xp:externals": "npm explore @enonic/react4xp -- npm run webpack:externals -- --env DIR_PATH_ABSOLUTE_PROJECT=$PWD",
         "build:react4xp:nashornPolyfills": "npm explore @enonic/react4xp -- npm run webpack:nashornPolyfills -- --env DIR_PATH_ABSOLUTE_PROJECT=$PWD",
@@ -21,7 +20,7 @@
         "watch": "npm-run-all --parallel watch:xp:babel watch:gradle:react4xp",
         "watch:all": "npm-run-all --parallel watch:gradle watch:xp:babel watch:gradle:react4xp",
         "watch:gradle": "./gradlew deploy --info -t",
-        "watch:gradle:react4xp": "./gradlew react4xpComponents react4xpExternals react4xpClient react4xpNashornPolyfills --info -t",
+        "watch:gradle:react4xp": "./gradlew react4xpComponents react4xpExternals react4xpNashornPolyfills --info -t",
         "watch:react4xp:old": "npx webpack --config node_modules/@enonic/react4xp/buildComponents/webpack.config.js --progress --watch",
         "watch:xp:babel": "npx babel src/main/resources --out-dir build/resources/main --ignore **/*.jsx --watch"
     },

@@ -6,6 +6,32 @@ plugins {
     id "com.github.node-gradle.node" version "3.2.1"
 }
 
+repositories {
+    // com.enonic.lib:lib-react4xp:3.0.0-SNAPSHOT
+    mavenLocal()
+
+    // com.enonic.lib:lib-cache
+    // com.enonic.lib:lib-guillotine
+    // com.enonic.lib:lib-thymeleaf
+    // com.enonic.xp:lib-content
+    // com.enonic.xp:lib-io
+    // com.enonic.xp:lib-portal
+    xp.enonicRepo('dev')
+
+    // com.graphql-java
+    // jaxen:jaxen
+    // io.reactivex.rxjava2:rxjava
+    // org.apache.commons:commons-pool2
+    // org.jdom:jdom
+    // org.json:json
+    // org.thymeleaf:thymeleaf
+    mavenCentral()
+
+    maven {
+  		url 'https://openxp.jfrog.io/artifactory/public'
+  	}
+}
+
 app {
     name = "${appName}"
     displayName = "${appDisplayName}"
@@ -41,28 +67,6 @@ processResources {
   exclude '**/.gitkeep'
   exclude '**/*.es6' // non-react ones handled by task compileXP
   exclude '**/*.jsx' // handled by @enonic/react4xp gradle files
-}
-
-repositories {
-    // com.enonic.lib:lib-react4xp:3.0.0-SNAPSHOT
-    mavenLocal()
-
-    // com.enonic.lib:lib-cache
-    // com.enonic.lib:lib-guillotine
-    // com.enonic.lib:lib-thymeleaf
-    // com.enonic.xp:lib-content
-    // com.enonic.xp:lib-io
-    // com.enonic.xp:lib-portal
-    xp.enonicRepo('dev')
-
-    // com.graphql-java
-    // jaxen:jaxen
-    // io.reactivex.rxjava2:rxjava
-    // org.apache.commons:commons-pool2
-    // org.jdom:jdom
-    // org.json:json
-    // org.thymeleaf:thymeleaf
-    mavenCentral()
 }
 
 tasks.withType(Copy) {

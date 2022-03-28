@@ -26,10 +26,6 @@ repositories {
     // org.json:json
     // org.thymeleaf:thymeleaf
     mavenCentral()
-
-    maven {
-  		url 'https://openxp.jfrog.io/artifactory/public'
-  	}
 }
 
 app {
@@ -57,8 +53,6 @@ dependencies {
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
     include "com.enonic.lib:lib-thymeleaf:2.0.1"
     include "com.enonic.lib:lib-guillotine:4.2.0"
-
-    include "com.enonic.lib:lib-react4xp:${rootProject.ext.LIB_REACT4XP_VERSION}"
 }
 
 processResources {

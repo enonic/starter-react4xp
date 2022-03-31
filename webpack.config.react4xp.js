@@ -1,10 +1,14 @@
-/** Use this file to adjust the webpack config.
- *  Uncomment the overrideComponentWebpack property in react4xp.properties, and add this file there.
- */
-
+//──────────────────────────────────────────────────────────────────────────────
+// Use this file to adjust the webpack config.
+//──────────────────────────────────────────────────────────────────────────────
+// A template version of this, with upated properties and explanations,
+//  can always be found in the react4xp NPM package:
+//   node_modules/react4xp/examples/webpack.config.react4xp.js after installing,
+//  or:
+//   https://github.com/enonic/enonic-react4xp/blob/master/examples/webpack.config.react4xp.js
+//──────────────────────────────────────────────────────────────────────────────
 
 module.exports = function(env, config) {
-    //console.debug('Inside the OVERRIDE_COMPONENT_WEBPACK file', env, config);
 
     // Makes symlinks under node_modules work, e.g. 'npm link' and possibly PNPM etc:
     config.resolve.symlinks = true;

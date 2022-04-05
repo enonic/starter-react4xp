@@ -4,6 +4,8 @@ plugins {
     id 'com.enonic.defaults' version '2.0.1'
     id 'com.enonic.xp.app' version '3.1.0'
     id "com.github.node-gradle.node" version "3.2.1"
+
+    //id 'org.barfuin.gradle.taskinfo' version '1.0.1' // ./gradlew tiTree deploy
 }
 
 repositories {
@@ -57,12 +59,24 @@ dependencies {
     include "com.enonic.lib:lib-react4xp:${rootProject.ext.LIB_REACT4XP_VERSION}"
 }
 
+sourceSets {
+  main {
+    resources {
+      ['.gitkeep','*.es6','*.jsx','*.scss','*.tsx'].each { ext ->
+        exclude "**/$ext"
+      }
+    }
+  }
+}
+
 processResources {
   // find src -type f ! -name "*.es6" -a ! -name "*.jsx" -a ! -name "*.gitkeep" -a ! -name "*.png" -a ! -name "*.svg" -a ! -name "*.xml"
   // Files that are simply copied by gradle: png svg xml
   exclude '**/.gitkeep'
   exclude '**/*.es6' // non-react ones handled by task compileXP
   exclude '**/*.jsx' // handled by @enonic/react4xp gradle files
+  exclude '**/*.tsx' // handled by @enonic/react4xp gradle files
+  exclude '**/*.scss' // handled by @enonic/react4xp gradle files
 }
 
 tasks.withType(Copy) {
@@ -129,8 +143,60 @@ task compileXP(type: NodeTask) {
     script = file('node_modules/@babel/cli/bin/babel.js')
     args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
 
-    inputs.dir 'src/main/resources'
-    outputs.dir("build/resources/main")
+    //inputs.dir 'src/main/resources'
+    //inputs.files fileTree(dir: 'src/main/resources', include: '**/*.es6')
+    inputs.files fileTree(dir: 'src/main/resources', exclude: [
+      '**/.gitkeep',
+      '**/*.jsx',
+      '**/*.html',
+      '**/*.png',
+      '**/*.scss',
+      '**/*.svg',
+      '**/*.tsx',
+      '**/*.xml'
+    ])
+    outputs.dir 'build/resources/main'
 }
 compileXP.dependsOn += npmInstall
 jar.dependsOn += 'compileXP'
+
+
+task printSourceSetInformation(){
+    doLast{
+        sourceSets.each { srcSet ->
+            println "["+srcSet.name+"]"
+            print "-->Source directories: "+srcSet.allJava.srcDirs+"\n"
+            print "-->Resources directories: "+srcSet.resources.srcDirs+"\n"
+            print "-->Output directories: "+srcSet.output.classesDirs.files+"\n"
+            /*print "-->Compile classpath:\n"
+            srcSet.compileClasspath.files.each {
+                print "  "+it.path+"\n"
+            }*/
+            println "Resources"
+            srcSet.resources.files.each {
+                print "  "+it.path+"\n"
+            }
+            println ""
+        }
+    }
+}
+
+
+/*gradle.taskGraph.afterTask { task ->
+  StringBuffer taskDetails = new StringBuffer()
+  taskDetails << "-------------\n"
+  taskDetails << "name:$task.name group:'$task.group' : $task.description\n"
+  taskDetails << "conv:$task.convention.plugins\n"
+
+  taskDetails << "inputs:\n"
+  task.inputs.files.each{ it ->
+    taskDetails << "${it.absolutePath}\n"
+  }
+
+  taskDetails << "outputs:\n"
+  task.outputs.files.each{ it ->
+    taskDetails << "${it.absolutePath}\n"
+  }
+  taskDetails << "-------------"
+  println taskDetails
+}*/

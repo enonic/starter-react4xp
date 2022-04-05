@@ -10,7 +10,7 @@
 
 module.exports = function(env, config) {
 
-    // Makes symlinks under node_modules work, e.g. 'npm link' and possibly PNPM etc:
+    // This makes 'npm link' symlinks in node_modules work:
     config.resolve.symlinks = true;
 
     return config;

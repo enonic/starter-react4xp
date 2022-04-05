@@ -9,7 +9,7 @@
 
         <mapping controller="/headless/guillotineApi.js" order="50">
             <pattern>/api/headless</pattern>
-        </mapping
+        </mapping>
 
     -->
   </mappings>

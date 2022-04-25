@@ -38,7 +38,7 @@
         "@babel/plugin-transform-arrow-functions": "^7.16.7",
         "@babel/preset-env": "^7.16.11",
         "@babel/preset-react": "^7.16.7",
-        "@enonic/react4xp": "^3.0.14",
+        "@enonic/react4xp": "^3.0.16",
         "babel": "^6.23.0",
         "babel-loader": "^8.2.5",
         "browser-sync": "^2.27.9",

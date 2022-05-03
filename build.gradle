@@ -54,7 +54,7 @@ dependencies {
     //include "com.enonic.xp:lib-repo:${xpVersion}"
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
     include "com.enonic.lib:lib-thymeleaf:2.0.1"
-    include "com.enonic.lib:lib-guillotine:4.2.0"
+    include "com.enonic.lib:lib-guillotine:5.5.0"
 
     include "com.enonic.lib:lib-react4xp:${rootProject.ext.LIB_REACT4XP_VERSION}"
 }

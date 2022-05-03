@@ -1,5 +1,4 @@
 const guillotineLib = require('/lib/guillotine');
-const graphQlLib = require('/lib/graphql');
 
 const CORS_HEADERS = {
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -11,7 +10,11 @@ const SCHEMA = guillotineLib.createSchema();
 
 // ----------------------------------------------  FOR USE IN CONTROLLERS:    ------------------------------------
 
-exports.executeQuery = (query, variables) => graphQlLib.execute(SCHEMA, query, variables);
+exports.executeQuery = (query, variables) => guillotineLib.execute({
+    query: query,
+    variables: variables,
+    schema: SCHEMA
+});
 
 
 

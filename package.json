@@ -1,6 +1,6 @@
 {
     "name": "starter-react4xp",
-    "version": "2.1.0",
+    "version": "2.3.1",
     "description": "React4xp starter for Enonic XP7.0",
     "scripts": {
         "browserSync": "npx browser-sync start --proxy 'localhost:8080' --files build/resources/main/**/* --reload-delay 5000",

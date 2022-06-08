@@ -39,7 +39,7 @@ app {
 }
 
 // This variable is used in the include lib-react4xp below, and also used in the optional tasks in readme.gradle
-rootProject.ext.LIB_REACT4XP_VERSION = "3.1.0"
+rootProject.ext.LIB_REACT4XP_VERSION = "3.2.1"
 
 dependencies {
     implementation "com.enonic.xp:core-api:${xpVersion}"
@@ -143,8 +143,6 @@ task compileXP(type: NodeTask) {
     script = file('node_modules/@babel/cli/bin/babel.js')
     args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
 
-    //inputs.dir 'src/main/resources'
-    //inputs.files fileTree(dir: 'src/main/resources', include: '**/*.es6')
     inputs.files fileTree(dir: 'src/main/resources', exclude: [
       '**/.gitkeep',
       '**/*.jsx',
@@ -168,10 +166,6 @@ task printSourceSetInformation(){
             print "-->Source directories: "+srcSet.allJava.srcDirs+"\n"
             print "-->Resources directories: "+srcSet.resources.srcDirs+"\n"
             print "-->Output directories: "+srcSet.output.classesDirs.files+"\n"
-            /*print "-->Compile classpath:\n"
-            srcSet.compileClasspath.files.each {
-                print "  "+it.path+"\n"
-            }*/
             println "Resources"
             srcSet.resources.files.each {
                 print "  "+it.path+"\n"
@@ -180,23 +174,3 @@ task printSourceSetInformation(){
         }
     }
 }
-
-
-/*gradle.taskGraph.afterTask { task ->
-  StringBuffer taskDetails = new StringBuffer()
-  taskDetails << "-------------\n"
-  taskDetails << "name:$task.name group:'$task.group' : $task.description\n"
-  taskDetails << "conv:$task.convention.plugins\n"
-
-  taskDetails << "inputs:\n"
-  task.inputs.files.each{ it ->
-    taskDetails << "${it.absolutePath}\n"
-  }
-
-  taskDetails << "outputs:\n"
-  task.outputs.files.each{ it ->
-    taskDetails << "${it.absolutePath}\n"
-  }
-  taskDetails << "-------------"
-  println taskDetails
-}*/

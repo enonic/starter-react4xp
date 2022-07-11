@@ -15,17 +15,9 @@ if (
   project.ext.react4xp.BUILD_ENV='development';
 }
 
-
-// Used in ./npmInstall.gradle
-if (project.hasProperty("link") || project.hasProperty("linked") || project.ext.react4xp.BUILD_ENV == "development") {
-  project.ext.react4xp.NPMLINKED = true
-}
-
-
 if (gradle.startParameter.logLevel == LogLevel.INFO) {
   project.ext.react4xp.VERBOSE = 'true';
 }
-
 
 task react4xpComponents(type: NpmTask) {
   group 'React4xp'
@@ -109,50 +101,5 @@ StartParameter startParameter = project.gradle.startParameter;
   task.doFirst {
     if (startParameter.isContinuous()) { throw new StopExecutionException() }
   }
-
-}
-
-// Adds optional dev convenience: adjusts the regular 'npmInstall' gradle task with two improvements:
-//      - NSI allows npm-linked local development (https://www.npmjs.com/package/npm-safe-install)
-//      - faster gradle up-to-date check during build (only checks content of package.json and package-lock.json,
-//          and a marker file for whether node_module exists as a regular or NSI-linked version. Runs NSI if it's linked.
-//          Does not check the entire node_modules subtree).
-
-
-// These are not supplied from react4xp, they are just names used for buildtime housekeeping:
-def markerName = "node_modules/@enonic/react4xp/npmInstalled.marker"
-
-if (project.ext.react4xp.NPMLINKED == true) {
-  task nsiInstall(type: NodeTask) {
-    doFirst {
-      println "react4xp build mode is set to '${project.ext.react4xp.BUILD_ENV}':\nOVERRIDING VANILLA npmInstall IN FAVOR OF node-safe-install (nsi) for retaining 'npm link' symlinks. For easy (POSIX) symlinking to npm-react4xp, stand in this projects root directory and run getlinks.sh with a relative link to a local npm-react4xp directory."
-    }
-
-    def buildSystemNsiPath = 'node_modules/@enonic/react4xp/node_modules/npm-safe-install/out/cli.js';
-    def buildSystemNsi = new File(buildSystemNsiPath);
-    if (buildSystemNsi.exists()) {
-      script = file(buildSystemNsiPath)
-    }
-
-    def localNsiPath = 'node_modules/npm-safe-install/out/cli.js';
-    def localNsi = new File(localNsiPath);
-    if (localNsi.exists()) {
-      script = file(localNsiPath)
-    }
-
-    doLast {
-      def marker = new File(markerName)
-      new File(marker.getParent()).mkdirs()
-      marker.text = """
-Marker file, indicating that the **nsiInstall** gradle task (yes, NSI - node-safe-install) has been run in this subproject - retaining any locally linked react4xp packages in node_module.
-"""
-    }
-  }
-  nsiInstall.inputs.files('package.json', 'package-lock.json', 'build.gradle')
-  nsiInstall.outputs.file('package-lock.json')
-  nsiInstall.outputs.file file(markerName)
-
-  npmInstall.enabled = false
-  npmInstall.dependsOn nsiInstall
 
 }

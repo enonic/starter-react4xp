@@ -22,7 +22,7 @@
     },
     "homepage": "https://github.com/enonic/starter-react4xp#readme",
     "dependencies": {
-        "@enonic/js-utils": "^0.38.8",
+        "@enonic/js-utils": "^0.38.9",
         "@enonic/react-components": "^3.0.1",
         "node-fetch": "^3.2.7",
         "prop-types": "^15.8.1",

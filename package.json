@@ -30,7 +30,7 @@
         "react-dom": "^18.2.0"
     },
     "devDependencies": {
-        "@babel/cli": "^7.18.10",
+        "@babel/cli": "^7.19.3",
         "@babel/compat-data": "^7.19.1",
         "@babel/core": "^7.19.1",
         "@babel/plugin-proposal-class-properties": "^7.17.12",

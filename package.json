@@ -32,7 +32,7 @@
     "devDependencies": {
         "@babel/cli": "^7.19.3",
         "@babel/compat-data": "^7.20.0",
-        "@babel/core": "^7.19.6",
+        "@babel/core": "^7.20.2",
         "@babel/plugin-proposal-class-properties": "^7.17.12",
         "@babel/plugin-proposal-object-rest-spread": "^7.19.4",
         "@babel/plugin-transform-arrow-functions": "^7.16.7",

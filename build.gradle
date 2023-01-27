@@ -55,8 +55,9 @@ processResources {
   exclude '**/.gitkeep'
   exclude '**/*.es6' // non-react ones handled by task compileXP
   exclude '**/*.jsx' // handled by @enonic/react4xp gradle files
-  exclude '**/*.tsx' // handled by @enonic/react4xp gradle files
+  exclude '**/*.sass' // handled by @enonic/react4xp gradle files
   exclude '**/*.scss' // handled by @enonic/react4xp gradle files
+  exclude '**/*.tsx' // handled by @enonic/react4xp gradle files
 }
 
 tasks.withType(Copy) {
@@ -83,6 +84,7 @@ task compileXP(type: NodeTask) {
       '**/*.jsx',
       '**/*.html',
       '**/*.png',
+      '**/*.sass',
       '**/*.scss',
       '**/*.svg',
       '**/*.tsx',

@@ -1,60 +1,96 @@
 {
-    "scripts": {
-        "browserSync": "npx browser-sync start --proxy 'localhost:8080' --files build/resources/main/**/* --reload-delay 5000",
-        "build": "./gradlew build",
-        "clean": "rm -r build 2>/dev/null; true",
-        "deploy": "./gradlew deploy",
-        "deps": "./gradlew --refresh-dependencies",
-        "rewatch": "./gradlew clean deploy && ./gradlew -t deploy",
-        "watch": "./gradlew -t deploy"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/enonic/starter-react4xp.git"
-    },
-    "author": "Espen Norderud",
-    "license": "Apache-2.0",
-    "bugs": {
-        "url": "https://github.com/enonic/starter-react4xp/issues"
-    },
-    "homepage": "https://github.com/enonic/starter-react4xp#readme",
-    "dependencies": {
-        "@enonic/js-utils": "^1.0.0",
-        "@enonic/react-components": "^3.1.1",
-        "node-fetch": "^3.3.1",
-        "prop-types": "^15.8.1",
-        "react": "^18.0.0",
-        "react-dom": "^18.2.0"
-    },
-    "devDependencies": {
-        "@babel/cli": "^7.21.0",
-        "@babel/compat-data": "^7.21.0",
-        "@babel/core": "^7.21.3",
-        "@babel/plugin-proposal-class-properties": "^7.17.12",
-        "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-        "@babel/plugin-transform-arrow-functions": "^7.20.7",
-        "@babel/preset-env": "^7.20.2",
-        "@babel/preset-react": "^7.18.6",
-        "@enonic/react4xp": "^3.1.0",
-        "babel": "^6.23.0",
-        "babel-loader": "^9.1.2",
-        "browser-sync": "^2.29.0",
-        "css-loader": "^6.7.3",
-        "mini-css-extract-plugin": "^2.7.5",
-        "npm-run-all": "^4.1.5",
-        "sass": "^1.59.3",
-        "sass-loader": "^13.2.1",
-        "webpack": "^5.76.2",
-        "webpack-cli": "^4.10.0"
-    },
-    "babel": {
-        "presets": [
-            "@babel/preset-env"
-        ],
-        "plugins": [
-            "@babel/plugin-proposal-object-rest-spread",
-            "@babel/plugin-transform-arrow-functions"
-        ]
-    },
-    "private": true
+  "author": "Espen Norderud",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-transform-arrow-functions"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/enonic/starter-react4xp/issues"
+  },
+  "contributors": [
+    "Christian Andreas Westgaard <cwe@enonic.com>"
+  ],
+  "dependencies": {
+    "@enonic/js-utils": "^1.0.0",
+    "@enonic/react-components": "^3.1.1",
+    "node-fetch": "^3.3.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/compat-data": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/plugin-transform-arrow-functions": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@enonic-types/global": "^7",
+    "@enonic-types/lib-admin": "^7",
+    "@enonic-types/lib-app": "^7",
+    "@enonic-types/lib-auditlog": "^7",
+    "@enonic-types/lib-auth": "^7",
+    "@enonic-types/lib-cluster": "^7",
+    "@enonic-types/lib-common": "^7",
+    "@enonic-types/lib-content": "^7",
+    "@enonic-types/lib-context": "^7",
+    "@enonic-types/lib-event": "^7",
+    "@enonic-types/lib-export": "^7",
+    "@enonic-types/lib-grid": "^7",
+    "@enonic-types/lib-i18n": "^7",
+    "@enonic-types/lib-io": "^7",
+    "@enonic-types/lib-mail": "^7",
+    "@enonic-types/lib-node": "^7",
+    "@enonic-types/lib-portal": "^7",
+    "@enonic-types/lib-project": "^7",
+    "@enonic-types/lib-repo": "^7",
+    "@enonic-types/lib-scheduler": "^7",
+    "@enonic-types/lib-schema": "^7",
+    "@enonic-types/lib-task": "^7",
+    "@enonic-types/lib-value": "^7",
+    "@enonic-types/lib-vhost": "^7",
+    "@enonic-types/lib-websocket": "^7",
+    "@enonic/react4xp": "^3.1.0",
+    "@swc/core": "^1",
+    "@types/react": "^18",
+    "babel": "^6.23.0",
+    "babel-loader": "^9.1.2",
+    "browser-sync": "^2.29.0",
+    "css-loader": "^6.7.3",
+    "glob": "^9.2.1",
+    "mini-css-extract-plugin": "^2.7.5",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^4.3.0",
+    "sass": "^1.59.3",
+    "sass-loader": "^13.2.1",
+    "tslib": "^2",
+    "tsup": "^6",
+    "typescript": "^4",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^4.10.0"
+  },
+  "homepage": "https://github.com/enonic/starter-react4xp#readme",
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enonic/starter-react4xp.git"
+  },
+  "scripts": {
+    "browserSync": "npx browser-sync start --proxy 'localhost:8080' --files build/resources/main/**/* --reload-delay 5000",
+    "build": "./gradlew build",
+    "build:xp": "npx tsup -d build/resources/main",
+    "clean": "rimraf build",
+    "deploy": "./gradlew deploy",
+    "deps": "./gradlew --refresh-dependencies",
+    "rewatch": "./gradlew clean deploy && ./gradlew -t deploy",
+    "watch": "./gradlew -t deploy"
+  }
 }

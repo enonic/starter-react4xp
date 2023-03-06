@@ -60,6 +60,7 @@ processResources {
   exclude '**/*.sass' // handled by @enonic/react4xp gradle files
   exclude '**/*.scss' // handled by @enonic/react4xp gradle files
   exclude '**/*.tsx' // handled by @enonic/react4xp gradle files
+  exclude '**/*.ts' // handled by tsup
 }
 
 tasks.withType(Copy) {
@@ -68,31 +69,23 @@ tasks.withType(Copy) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// This task takes care of XP non-react (and therefore non-react4xp) es6 files under src/main/resources/site.
-// This is independent of react4xp, so you can replace this with your own build steps if you want.
-// IMPORTANT: Note how this task ignores .jsx files under src/main/resources. If you use your own logic to compile non-react
-// XP files (i.e. replace this task or add more to it), you should usually make it ignore .jsx files the same way, to
-// ensure that those are handled only by the react4xp build (node_modules/@enonic/react4xp/react4xp.gradle, aka. react4xpGradlePath)
+// This task takes care of XP non-react (and therefore non-react4xp) ts files
+// under src/main/resources. This is independent of react4xp, so you can replace
+// this with your own build steps if you want.
+// IMPORTANT:
+// This task only handles .ts files under src/main/resources.
+// If you use your own logic to compile non-react XP files
+// (i.e. replace this task or add more to it),
+// you should usually make it ignore .tsx and .jsx files,
+// to ensure that those are handled only by the react4xp build
+// (node_modules/@enonic/react4xp/react4xp.gradle, aka. react4xpGradlePath)
 // and not compiled twice.
-task compileXP(type: NodeTask) {
+task compileXP(type: NpmTask) {
+    args = ['run', 'build:xp']
+    dependsOn npmInstall
+    mustRunAfter npmInstall
     group 'enonic xp'
-    description 'Babel-compile Enonic XP ES6 source files (important: ignoring JSX components since they are left to react4xp)'
-
-    script = file('node_modules/@babel/cli/bin/babel.js')
-    args = ["src/main/resources", "--out-dir", "build/resources/main", "--ignore", "**/*.jsx"]      // <-- Ignoring JSX in the XP structure is important!
-
-    inputs.files fileTree(dir: 'src/main/resources', exclude: [
-      '**/.gitkeep',
-      '**/*.jsx',
-      '**/*.html',
-      '**/*.png',
-      '**/*.sass',
-      '**/*.scss',
-      '**/*.svg',
-      '**/*.tsx',
-      '**/*.xml'
-    ])
+    description 'tsup transpile Enonic XP TypeScript source files (important: ignoring TSX/JSX components since they are left to react4xp)'
     outputs.dir 'build/resources/main'
 }
-compileXP.dependsOn += npmInstall
 jar.dependsOn += 'compileXP'

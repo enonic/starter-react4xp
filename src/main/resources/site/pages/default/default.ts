@@ -5,12 +5,15 @@
  *          perfectly fine. This is just a demo of how to do it if you need to make the page controller in react4xp.
  */
 
-const portal = require('/lib/xp/portal');
-const React4xp = require('/lib/enonic/react4xp');
+import {
+    getComponent,
+    getContent,
+} from '/lib/xp/portal';
+import {render} from '/lib/enonic/react4xp';
 
-exports.get = function(request) {
-    const content = portal.getContent();
-    const entry = portal.getComponent();
+export function get(request) {
+    const content = getContent();
+    const entry = getComponent();
 
 
     const id = `react4xp_${content._id}`;
@@ -33,7 +36,7 @@ exports.get = function(request) {
                 </html>
             `;
 
-    const output = React4xp.render(
+    const output = render(
         entry,
         props,
         null,
@@ -51,4 +54,4 @@ exports.get = function(request) {
     output.body = '<!DOCTYPE html>' + output.body;
 
     return output;
-};
+}

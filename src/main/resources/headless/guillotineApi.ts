@@ -1,4 +1,8 @@
-const guillotineLib = require('/lib/guillotine');
+import {
+    createSchema,
+    execute,
+    //@ts-ignore // no types
+} from '/lib/guillotine';
 
 const CORS_HEADERS = {
     'Access-Control-Allow-Headers': 'Content-Type',
@@ -6,11 +10,11 @@ const CORS_HEADERS = {
     // 'Access-Control-Allow-Origin': '*'
 };
 
-const SCHEMA = guillotineLib.createSchema();
+const SCHEMA = createSchema();
 
 // ----------------------------------------------  FOR USE IN CONTROLLERS:    ------------------------------------
 
-exports.executeQuery = (query, variables) => guillotineLib.execute({
+export const executeQuery = (query, variables) => execute({
     query: query,
     variables: variables,
     schema: SCHEMA
@@ -40,7 +44,7 @@ exports.executeQuery = (query, variables) => guillotineLib.execute({
  * @param req req.body must be a JSON-string, parseable to an object with parameters: body and variables.
  * These will be run through the guillotine engine and JSON data will be returned.
  */
-exports.post = req => {
+export const post = req => {
     var body = JSON.parse(req.body);
 
     const output = {
@@ -64,7 +68,7 @@ exports.post = req => {
     }
 };
 
-exports.options = req => ({
+export const options = req => ({
     contentType: 'text/plain;charset=utf-8',
     headers: CORS_HEADERS
 });

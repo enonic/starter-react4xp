@@ -1,3 +1,4 @@
+import React from 'react';
 import './example.sass';
 
 function Example() {

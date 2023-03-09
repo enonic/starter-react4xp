@@ -55,9 +55,10 @@ export default defineConfig((options) => {
 				'/lib/xp/vhost',
 				'/lib/xp/websocket',
 			],
-			minify: true,
+			minify: false, // minified server-side code makes debugging harder!
 			platform: 'node',
 			shims: true,
+			sourcemap: false,
 			target: 'es5'
 		};
 	}

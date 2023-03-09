@@ -25,7 +25,7 @@ export default defineConfig((options) => {
 	// print(options, { maxItems: Infinity });
 	if (options.d === 'build/resources/main') {
 		return {
-			entry: SERVER_FILES,
+			entry: SERVER_FILES.map(dir => dir.replace(/\\/g,'/')),
 			external: [
 				'/lib/enonic/react4xp',
 				'/lib/guillotine',
@@ -64,7 +64,7 @@ export default defineConfig((options) => {
 	}
 	if (options.d === 'build/resources/main/assets') {
 		return {
-			entry: CLIENT_FILES,
+			entry: CLIENT_FILES.map(dir => dir.replace(/\\/g,'/')),
 			external: [
 				'react'
 			],

@@ -12,7 +12,7 @@ repositories {
 
 node {
     download = true
-    version = '16.0.0'
+    version = '18.15.0'
 }
 
 app {
@@ -55,7 +55,6 @@ sourceSets {
 processResources {
   // Files that are simply copied by gradle: png svg xml
   exclude '**/.gitkeep'
-  exclude '**/*.es6' // non-react ones handled by task compileXP
   exclude '**/*.jsx' // handled by @enonic/react4xp gradle files
   exclude '**/*.sass' // handled by @enonic/react4xp gradle files
   exclude '**/*.scss' // handled by @enonic/react4xp gradle files
@@ -80,11 +79,23 @@ tasks.withType(Copy) {
 // to ensure that those are handled only by the react4xp build
 // (node_modules/@enonic/react4xp/react4xp.gradle, aka. react4xpGradlePath)
 // and not compiled twice.
-task compileXP(type: NpmTask) {
-    args = ['run', 'build:xp']
-    dependsOn npmInstall
+task buildXpResources(type: NpmTask) {
+    args = ['run', 'build:xp:resources']
+    // dependsOn npmInstall
     group 'enonic xp'
     description 'tsup transpile Enonic XP TypeScript source files (important: ignoring TSX/JSX components since they are left to react4xp)'
     outputs.dir 'build/resources/main'
+    // This is just so gradle is able to do incremental builds:
+    inputs.files fileTree(dir: 'src/main/resources', exclude: [
+      '**/.gitkeep',
+      '**/*.jsx',
+      '**/*.html',
+      '**/*.png',
+      '**/*.sass',
+      '**/*.scss',
+      '**/*.svg',
+      '**/*.tsx',
+      '**/*.xml'
+    ])
 }
-jar.dependsOn += 'compileXP'
+jar.dependsOn += 'buildXpResources'

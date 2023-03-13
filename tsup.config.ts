@@ -57,7 +57,7 @@ export default defineConfig((options) => {
 			],
 			minify: false, // minified server-side code makes debugging harder!
 			platform: 'node',
-			shims: true,
+			shims: false, // https://tsup.egoist.dev/#inject-cjs-and-esm-shims
 			sourcemap: false,
 			target: 'es5'
 		};

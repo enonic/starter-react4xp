@@ -1,7 +1,7 @@
 /** Wraps Regions from https://www.npmjs.com/package/react4xp-regions */
 import React from 'react';
 //import {toStr} from '@enonic/js-utils/dist/cjs';
-import Regions from '@enonic/react-components/Regions';
+import {Regions} from '@enonic/react-components';
 
 
 /*function testNashornPolyfills() {

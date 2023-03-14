@@ -1,45 +1,63 @@
 { // https://www.typescriptlang.org/tsconfig
 	"compilerOptions": {
-	//──────────────────────────────────────────────────────────────────────────
-	// Modules
-	//──────────────────────────────────────────────────────────────────────────
-	"allowUmdGlobalAccess": true,
-	"baseUrl": "./",
+		//──────────────────────────────────────────────────────────────────────
+		// Modules
+		//──────────────────────────────────────────────────────────────────────
+		"allowUmdGlobalAccess": true,
+		"baseUrl": "./",
 
-	"paths": {
-		"/lib/enonic/react4xp": [
-			// "@enonic-types/lib-react4xp", // TODO
-			"../lib-react4xp/build/resources/main/lib/enonic/react4xp"
+		"paths": {
+			// Development (should be commented out, when commiting)
+			// "@enonic/react-components": ["../enonic-react-components"],
+			"/lib/enonic/react4xp": [
+				// "@enonic-types/lib-react4xp", // TODO
+				"../lib-react4xp/packages/@enonic-types/lib-react4xp"
+			],
+			// Production (should be commented in, when commiting)
+			"/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
+			"/*": ["src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
+		},
+
+		// By default all visible ”@types” packages are included in your compilation.
+		// Packages in node_modules/@types of any enclosing folder are considered visible.
+		// For example, that means packages within ./node_modules/@types/,
+		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
+		// If typeRoots is specified, only packages under typeRoots will be included.
+		"typeRoots": [
+			"node_modules/@types",
+			"node_modules/@enonic-types"
 		],
-		"/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
-		"/*": ["src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
+
+		// By default all visible ”@types” packages are included in your compilation.
+		// Packages in node_modules/@types of any enclosing folder are considered visible.
+		// For example, that means packages within ./node_modules/@types/,
+		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
+		// If types is specified, only packages listed will be included in the global scope.
+		// This feature differs from typeRoots in that it is about specifying only the exact
+		// types you want included, whereas typeRoots supports saying you want particular folders.
+		// "types": [
+			// "@enonic-types/global", // No point, already added via typeRoots
+			// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
+			// "@types/react"
+		// ],
+		//──────────────────────────────────────────────────────────────────────
+		// Language and Environment
+		//──────────────────────────────────────────────────────────────────────
+		"jsx": "react",
+
+		//──────────────────────────────────────────────────────────────────────
+		// Completeness
+		//──────────────────────────────────────────────────────────────────────
+		// Even though the setting disables type checking for d.ts files,
+		// TypeScript still type checks the code you specifically
+		// refer to in your application's source code.
+		"skipLibCheck": true, // Disable type checking for node_modules
 	},
+	"exclude": [],
+	"include": [
+				// Make sure default types matches Nashorn
+				"node_modules/typescript/lib/lib.es5.d.ts",
 
-	// By default all visible ”@types” packages are included in your compilation.
-	// Packages in node_modules/@types of any enclosing folder are considered visible.
-	// For example, that means packages within ./node_modules/@types/,
-	// ../node_modules/@types/, ../../node_modules/@types/, and so on.
-	// If typeRoots is specified, only packages under typeRoots will be included.
-	"typeRoots": [
-		"node_modules/@types",
-		"node_modules/@enonic-types"
-	],
-
-	// By default all visible ”@types” packages are included in your compilation.
-	// Packages in node_modules/@types of any enclosing folder are considered visible.
-	// For example, that means packages within ./node_modules/@types/,
-	// ../node_modules/@types/, ../../node_modules/@types/, and so on.
-	// If types is specified, only packages listed will be included in the global scope.
-	// This feature differs from typeRoots in that it is about specifying only the exact
-	// types you want included, whereas typeRoots supports saying you want particular folders.
-	// "types": [
-		// "@enonic-types/global", // No point, already added via typeRoots
-		// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
-		// "@types/react"
-	// ],
-	//──────────────────────────────────────────────────────────────────────────
-	// Language and Environment
-	//──────────────────────────────────────────────────────────────────────────
-	// "jsx": "react",
-	}
+				"src/main/resources/**/*.ts"
+	]
 }

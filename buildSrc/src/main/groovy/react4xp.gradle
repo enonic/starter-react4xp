@@ -19,6 +19,21 @@ if (gradle.startParameter.logLevel == LogLevel.INFO) {
   project.ext.react4xp.VERBOSE = 'true';
 }
 
+
+task react4xpClient(type: NpmTask) {
+  group 'React4xp'
+  description 'Compile the client'
+  args = [
+    'explore', '@enonic/react4xp', '--',
+    'npm', 'run', 'tsup:client', '--',
+    '--env.DIR_PATH_ABSOLUTE_PROJECT=' + project.projectDir
+  ]
+  //inputs.files fileTree(dir: './src', include: 'client.js')
+  outputs.dir 'build/resources/main/assets/react4xp'
+}
+jar.dependsOn += 'react4xpClient'
+
+
 task react4xpComponents(type: NpmTask) {
   group 'React4xp'
   description 'Compile the parent projects react components'
@@ -56,6 +71,20 @@ task react4xpExternals(type: NpmTask) {
   outputs.dir 'build/resources/main/assets/react4xp'
 }
 jar.dependsOn += 'react4xpExternals'
+
+
+task react4xpExecutor(type: NpmTask) {
+  group 'React4xp'
+  description 'Compile the executor'
+  args = [
+    'explore', '@enonic/react4xp', '--',
+    'npm', 'run', 'tsup:executor', '--',
+    '--env.DIR_PATH_ABSOLUTE_PROJECT=' + project.projectDir
+  ]
+  //inputs.files fileTree(dir: './src', include: 'executor.js')
+  outputs.dir 'build/resources/main/assets/react4xp'
+}
+jar.dependsOn += 'react4xpExecutor'
 
 
 task react4xpNashornPolyfills(type: NpmTask) {

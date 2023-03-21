@@ -1,7 +1,12 @@
 import {globSync} from 'glob';
 import {print} from 'q-i';
 import {join} from 'path';
-import { defineConfig } from 'tsup';
+import { defineConfig, type Options } from 'tsup';
+
+
+interface MyOptions extends Options {
+	d?: string
+}
 
 
 const RESOURCES_PATH = 'src/main/resources';
@@ -21,7 +26,7 @@ const SERVER_FILES = globSync(
 );
 // print(SERVER_FILES, { maxItems: Infinity });
 
-export default defineConfig((options) => {
+export default defineConfig((options: MyOptions) => {
 	// print(options, { maxItems: Infinity });
 	if (options.d === 'build/resources/main') {
 		return {
@@ -171,5 +176,5 @@ export default defineConfig((options) => {
 			sourcemap: true
 		};
 	}
-	throw new Error(`Unconfigured directory:${d}!`)
+	throw new Error(`Unconfigured directory:${options.d}!`)
 })

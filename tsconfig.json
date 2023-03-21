@@ -38,12 +38,11 @@
 		// "types": [
 			// "@enonic-types/global", // No point, already added via typeRoots
 			// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
-			// "@types/react"
 		// ],
 		//──────────────────────────────────────────────────────────────────────
 		// Language and Environment
 		//──────────────────────────────────────────────────────────────────────
-		"jsx": "react",
+		"noLib": true,
 
 		//──────────────────────────────────────────────────────────────────────
 		// Completeness
@@ -53,11 +52,13 @@
 		// refer to in your application's source code.
 		"skipLibCheck": true, // Disable type checking for node_modules
 	},
-	"exclude": [],
+	"exclude": [
+		"src/main/resources/**/*.tsx"
+	],
 	"include": [
-				// Make sure default types matches Nashorn
-				"node_modules/typescript/lib/lib.es5.d.ts",
+		// Make sure default types matches Nashorn
+		"node_modules/typescript/lib/lib.es5.d.ts",
 
-				"src/main/resources/**/*.ts"
+		"src/main/resources/**/*.ts"
 	]
 }

@@ -1,0 +1,64 @@
+{ // https://www.typescriptlang.org/tsconfig
+	// "extends": "../../../tsconfig.json",
+	"compilerOptions": {
+		//──────────────────────────────────────────────────────────────────────
+		// Modules
+		//──────────────────────────────────────────────────────────────────────
+		"allowUmdGlobalAccess": true,
+		"baseUrl": ".",
+		"moduleResolution": "node",
+		"paths": {},
+		"rootDir": ".",
+		"typeRoots": [
+			"../../../node_modules/@types",
+			"../../../node_modules/@enonic-types"
+		],
+		"types": [
+			"../../../node_modules/@types/react"
+		],
+
+		//──────────────────────────────────────────────────────────────────────
+		// Interop Constraints
+		//──────────────────────────────────────────────────────────────────────
+		"allowSyntheticDefaultImports": true,
+
+		//──────────────────────────────────────────────────────────────────────
+		// Language and Environment
+		//──────────────────────────────────────────────────────────────────────
+		"jsx": "react",
+		"lib": [
+			"DOM", // console
+			"ES2015",
+			// See note above target
+			// "ES2016",
+			// "ES2017",
+			// "ES2018",
+			// "ES2019",
+			// "ES2020",
+			// "ES2021",
+			// "ES2022",
+		],
+		"noLib": false,
+
+		// As of 2023-03-15 GraalJS support ES2022
+		// https://github.com/oracle/graaljs/blob/master/docs/user/JavaScriptCompatibility.md
+		// But Almost every modern browser is still missing features from ES2017-ES2020
+		// https://stackoverflow.com/questions/61835971/es7-es8-es9-es10-es11-browser-support
+		// Since the output can be used both server-side (GraalJS) and
+		// client-side (modern browsers) we have to use the "lowest" supported version.
+		"target": "ES2015",
+
+		//──────────────────────────────────────────────────────────────────────
+		// Completeness
+		//──────────────────────────────────────────────────────────────────────
+		"skipLibCheck": true
+	},
+	"include": [
+		// "../../../node_modules/typescript/lib/lib.es2015.d.ts",
+		// "../../../node_modules/typescript/lib/lib.dom.d.ts",
+		"./**/*.tsx"
+	],
+	"exclude": [
+		"./**/*.ts"
+	],
+}

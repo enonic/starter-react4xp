@@ -4,7 +4,7 @@
     "presets": [
       "@babel/preset-env"
     ],
-		"plugins": [
+    "plugins": [
       "@babel/plugin-proposal-object-rest-spread",
       "@babel/plugin-transform-arrow-functions"
     ]
@@ -50,6 +50,7 @@
     "@enonic-types/lib-node": "^7",
     "@enonic-types/lib-portal": "^7",
     "@enonic-types/lib-project": "^7",
+    "@enonic-types/lib-react4xp": "^4.0.0-B2",
     "@enonic-types/lib-repo": "^7",
     "@enonic-types/lib-scheduler": "^7",
     "@enonic-types/lib-schema": "^7",
@@ -57,12 +58,13 @@
     "@enonic-types/lib-value": "^7",
     "@enonic-types/lib-vhost": "^7",
     "@enonic-types/lib-websocket": "^7",
-    "@enonic/react4xp": "^3",
+    "@enonic/react4xp": "^4.0.0-B1",
     "@swc/core": "^1",
     "@types/react": "^18",
     "babel": "^6",
     "babel-loader": "^9",
     "browser-sync": "^2",
+    "concurrently": "^7.6.0",
     "css-loader": "^6",
     "glob": "^9",
     "mini-css-extract-plugin": "^2",
@@ -72,7 +74,7 @@
     "sass-loader": "^13",
     "tslib": "^2",
     "tsup": "^6",
-    "typescript": "^4",
+    "typescript": "^5",
     "webpack": "^5",
     "webpack-cli": "^5"
   },
@@ -91,7 +93,10 @@
     "deploy": "./gradlew deploy",
     "deps": "./gradlew --refresh-dependencies",
     "rewatch": "./gradlew clean deploy && ./gradlew -t deploy",
-    "tsc": "npx tsc --noEmit",
+    "verify:types": "concurrently -r npm:verify:types:*",
+    "verify:types:guillotineRequest": "npx tsc --noEmit -p tsconfig.guillotineRequest.json",
+    "verify:types:react4xp": "npx tsc --noEmit -p tsconfig.react4xp.json",
+    "verify:types:server": "npx tsc --noEmit",
     "watch": "./gradlew -t deploy"
   }
 }

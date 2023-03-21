@@ -7,13 +7,7 @@
 		"baseUrl": "./",
 
 		"paths": {
-			// Development (should be commented out, when commiting)
-			// "@enonic/react-components": ["../enonic-react-components"],
-			"/lib/enonic/react4xp": [
-				// "@enonic-types/lib-react4xp", // TODO
-				"../lib-react4xp/packages/@enonic-types/lib-react4xp"
-			],
-			// Production (should be commented in, when commiting)
+			"/lib/enonic/react4xp": ["node_modules/@enonic-types/lib-react4xp"],
 			"/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
 			"/*": ["src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
 		},
@@ -35,10 +29,11 @@
 		// If types is specified, only packages listed will be included in the global scope.
 		// This feature differs from typeRoots in that it is about specifying only the exact
 		// types you want included, whereas typeRoots supports saying you want particular folders.
-		// "types": [
-			// "@enonic-types/global", // No point, already added via typeRoots
+		"types": [
+			"@enonic-types/global", // No point, already added via typeRoots
 			// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
-		// ],
+			// "@enonic-types/lib-react4xp"
+		],
 		//──────────────────────────────────────────────────────────────────────
 		// Language and Environment
 		//──────────────────────────────────────────────────────────────────────
@@ -53,7 +48,8 @@
 		"skipLibCheck": true, // Disable type checking for node_modules
 	},
 	"exclude": [
-		"src/main/resources/**/*.tsx"
+		"src/main/resources/**/*.tsx",
+		"src/main/resources/headless/guillotineRequest.ts"
 	],
 	"include": [
 		// Make sure default types matches Nashorn

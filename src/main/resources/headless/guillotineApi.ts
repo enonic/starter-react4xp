@@ -50,7 +50,7 @@ export const post = req => {
     const output = {
         contentType: 'application/json',
         headers: CORS_HEADERS,
-        body: exports.executeQuery(body.query, body.variables)
+        body: executeQuery(body.query, body.variables)
     };
 
     let status = 200;

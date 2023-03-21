@@ -10,11 +10,11 @@
 		"paths": {},
 		"rootDir": ".",
 		"typeRoots": [
-			"../../../node_modules/@types",
-			"../../../node_modules/@enonic-types"
+			"./node_modules/@types",
+			"./node_modules/@enonic-types"
 		],
 		"types": [
-			"../../../node_modules/@types/react"
+			"./node_modules/@types/react"
 		],
 
 		//──────────────────────────────────────────────────────────────────────
@@ -54,11 +54,9 @@
 		"skipLibCheck": true
 	},
 	"include": [
-		// "../../../node_modules/typescript/lib/lib.es2015.d.ts",
-		// "../../../node_modules/typescript/lib/lib.dom.d.ts",
-		"./**/*.tsx"
+		// "./node_modules/typescript/lib/lib.es2015.d.ts",
+		// "./node_modules/typescript/lib/lib.dom.d.ts",
+		"./src/main/resources/**/*.tsx"
 	],
-	"exclude": [
-		"./**/*.ts"
-	],
+	"exclude": [],
 }

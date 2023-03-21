@@ -6,52 +6,50 @@
  */
 
 import {
-    getComponent,
-    getContent,
+	getComponent,
+	getContent,
 } from '/lib/xp/portal';
 import {render} from '/lib/enonic/react4xp';
 
 export function get(request) {
-    const content = getContent();
-    const entry = getComponent();
+	const content = getContent();
+	const entry = getComponent();
 
 
-    const id = `react4xp_${content._id}`;
+	const react4xpId = `react4xp_${content._id}`;
 
-    const props = {
-        regionsData: content.page.regions,
-        names: "main",
-        tag: "main",
-    };
+	const props = {
+		regionsData: content.page.regions,
+		names: "main",
+		tag: "main",
+	};
 
-    const htmlBody = `
-                <html>
-                    <head>
-                        <meta charset="UTF-8" />
-                        <title>${content.displayName}</title>
-                    </head>
-                    <body class="xp-page">
-                        <div id="${id}"></div>
-                    </body>
-                </html>
-            `;
+	const htmlBody = `
+				<html>
+					<head>
+						<meta charset="UTF-8" />
+						<title>${content.displayName}</title>
+					</head>
+					<body class="xp-page">
+						<div id="${react4xpId}"></div>
+					</body>
+				</html>
+			`;
 
-    const output = render(
-        entry,
-        props,
-        null,
-        {
-            id,
-            body: htmlBody//,
-            //clientRender: true // Doesn't work for page
-        }
-    );
+	const output = render(
+		entry,
+		props,
+		null,
+		{
+			body: htmlBody,
+			// clientRender: true // Doesn't work for page
+			react4xpId,
+		}
+	);
 
+	// The unclosed !DOCTYPE tag is not XML-compliant, and causes an error if used in the body parameter of React4xp.render.options above.
+	// Therefore, added here:
+	output.body = '<!DOCTYPE html>' + output.body;
 
-
-    // The unclosed !DOCTYPE tag is not XML-compliant, and causes an error if used in the body parameter of React4xp.render.options above.
-    // Therefore, added here:
-    output.body = '<!DOCTYPE html>' + output.body;
-
-    return output;
+	return output;
 }

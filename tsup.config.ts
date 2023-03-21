@@ -1,6 +1,5 @@
 import {globSync} from 'glob';
-import {print} from 'q-i';
-import {join} from 'path';
+// import {print} from 'q-i';
 import { defineConfig, type Options } from 'tsup';
 
 

@@ -81,7 +81,7 @@ tasks.withType(Copy) {
 // and not compiled twice.
 task buildXpResources(type: NpmTask) {
     args = ['run', 'build:xp:resources']
-    // dependsOn npmInstall
+    dependsOn npmInstall
     group 'enonic xp'
     description 'tsup transpile Enonic XP TypeScript source files (important: ignoring TSX/JSX components since they are left to react4xp)'
     outputs.dir 'build/resources/main'

@@ -1,7 +1,12 @@
+import type {Enonic} from '@enonic/js-utils/types/Request';
+// import { toStr } from '@enonic/js-utils/value/toStr';
 import { render } from '/lib/enonic/react4xp';
 import { getComponent } from '/lib/xp/portal';
 
-export function get() {
+
+export function get(request: Enonic.Xp.Http.Request) {
+	// log.debug('request:%s', toStr(request));
+
 	const component = getComponent();
 
 	const props = {};
@@ -9,9 +14,12 @@ export function get() {
 	return render(
 		component,
 		props,
-		{},
-		{
-			clientRender: true
-		}
+		// React4xp Enforces SSR if a request object is not passed
+		// It also Enforces SSR if request.mode is 'edit' or 'inline'
+		request,
+		// This is not needed when app.config['react4xp.clientRender'] === 'true'
+		// {
+		// 	clientRender: true // default is false, which means SSR
+		// }
 	);
 }

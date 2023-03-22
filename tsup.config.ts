@@ -103,6 +103,14 @@ export default defineConfig((options: MyOptions) => {
 
 			minify: false, // minified server-side code makes debugging harder!
 
+			// tsup automatically excludes packages specified in the
+			// dependencies and peerDependencies fields in the packages.json
+			// You can still use the noExternal option to reinclude packages in
+			// the bundle
+			noExternal: [
+				'@enonic/js-utils'
+			],
+
 			// https://esbuild.github.io/api/#platform
 			//
 			// node:
@@ -157,7 +165,8 @@ export default defineConfig((options: MyOptions) => {
 
 			shims: false, // https://tsup.egoist.dev/#inject-cjs-and-esm-shims
 			sourcemap: false,
-			target: 'es5'
+			target: 'es5',
+			tsconfig: 'tsconfig.json'
 		};
 	}
 	if (options.d === 'build/resources/main/assets') {
@@ -172,7 +181,8 @@ export default defineConfig((options: MyOptions) => {
 			],
 			minify: true,
 			platform: 'browser',
-			sourcemap: true
+			sourcemap: true,
+			// tsconfig: 'tsconfig.assets.json'
 		};
 	}
 	throw new Error(`Unconfigured directory:${options.d}!`)

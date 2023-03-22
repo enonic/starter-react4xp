@@ -4,17 +4,18 @@
  *          rendered XP components inside regions in a thymeleaf-rendered page controller (or hardcoded, etc) is
  *          perfectly fine. This is just a demo of how to do it if you need to make the page controller in react4xp.
  */
+import type { Enonic } from '@enonic/js-utils/types/Request';
+import { toStr } from '@enonic/js-utils/value/toStr';
+import { getContent } from '/lib/xp/portal';
+import { render } from '/lib/enonic/react4xp';
 
-import {
-	getComponent,
-	getContent,
-} from '/lib/xp/portal';
-import {render} from '/lib/enonic/react4xp';
 
-export function get(request) {
+export function get(request: Enonic.Xp.Http.Request) {
 	const content = getContent();
-	const entry = getComponent();
+	// log.debug('content:%s', toStr(content));
 
+	const {page: entry} = content;
+	// log.debug('entry:%s', toStr(entry));
 
 	const react4xpId = `react4xp_${content._id}`;
 
@@ -24,32 +25,30 @@ export function get(request) {
 		tag: "main",
 	};
 
-	const htmlBody = `
-				<html>
-					<head>
-						<meta charset="UTF-8" />
-						<title>${content.displayName}</title>
-					</head>
-					<body class="xp-page">
-						<div id="${react4xpId}"></div>
-					</body>
-				</html>
-			`;
+	const htmlBody = `<!DOCTYPE html><html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>${content.displayName}</title>
+	</head>
+	<body class="xp-page">
+		<div id="${react4xpId}"></div>
+	</body>
+</html>`;
 
 	const output = render(
 		entry,
 		props,
-		null,
+		// React4xp Enforces SSR if a request object is not passed
+		// It also Enforces SSR if request.mode is 'edit' or 'inline'
+		request,
 		{
 			body: htmlBody,
-			// clientRender: true // Doesn't work for page
+			// Defaults to SSR for page even when
+			// app.config['react4xp.clientRender'] === 'true'
+			// clientRender: true, // client-side rendering of page isn't supported yet
 			react4xpId,
 		}
 	);
-
-	// The unclosed !DOCTYPE tag is not XML-compliant, and causes an error if used in the body parameter of React4xp.render.options above.
-	// Therefore, added here:
-	output.body = '<!DOCTYPE html>' + output.body;
 
 	return output;
 }

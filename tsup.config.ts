@@ -182,7 +182,6 @@ export default defineConfig((options: MyOptions) => {
 			minify: true,
 			platform: 'browser',
 			sourcemap: true,
-			// tsconfig: 'tsconfig.assets.json'
 		};
 	}
 	throw new Error(`Unconfigured directory:${options.d}!`)

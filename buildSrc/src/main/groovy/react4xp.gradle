@@ -2,105 +2,25 @@ plugins {
   id "com.github.node-gradle.node"
 }
 
-project.ext.react4xp = [
-    BUILD_ENV: 'production',
-    VERBOSE: 'false'
-]
-
-
-if (
-    project.hasProperty('dev')
-        || project.hasProperty('development')
-) {
-  project.ext.react4xp.BUILD_ENV='development';
-}
-
-if (gradle.startParameter.logLevel == LogLevel.INFO) {
-  project.ext.react4xp.VERBOSE = 'true';
-}
-
-
-task react4xpClient(type: NpmTask) {
-  group 'React4xp'
-  description 'Compile the client'
+task react4xp(type: NpmTask) {
   args = [
     'explore', '@enonic/react4xp', '--',
-    'npm', 'run', 'tsup:client', '--',
-    '--env.DIR_PATH_ABSOLUTE_PROJECT=' + project.projectDir
+    'npm', 'run', 'build:react4xp'
   ]
-  //inputs.files fileTree(dir: './src', include: 'client.js')
-  outputs.dir 'build/resources/main/assets/react4xp'
-}
-jar.dependsOn += 'react4xpClient'
-
-
-task react4xpComponents(type: NpmTask) {
+  dependsOn npmInstall
+  description 'Compile react4xp resources'
+  environment = [
+    'DIR_PATH_ABSOLUTE_PROJECT': project.projectDir.toString(),
+    'GRADLE_LOG_LEVEL': gradle.startParameter.logLevel.toString(),
+    'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
+  ]
   group 'React4xp'
-  description 'Compile the parent projects react components'
-  args = [
-      'explore', '@enonic/react4xp', '--',
-      'npm', 'run', 'webpack:components', '--',
-      '--env', 'DIR_PATH_ABSOLUTE_PROJECT=' + project.projectDir,
-      '--env', 'BUILD_ENV=' + project.ext.react4xp.BUILD_ENV,
-      '--env', 'VERBOSE=' + project.ext.react4xp.VERBOSE
-  ]
-  inputs.files fileTree(
-      dir: './',
-      include: [
-          'webpack.config.react4xp.js',
-          'src/main/resources/**/*.jsx',
-          'src/main/resources/**/*.tsx'
-      ]
-  )
+  // It also watches package.json and package-lock.json :)
+  inputs.dir 'node_modules/@enonic/react4xp'
+  inputs.dir 'src/main/resources'
   outputs.dir 'build/resources/main'
 }
-jar.dependsOn += 'react4xpComponents'
-
-
-task react4xpExternals(type: NpmTask) {
-  group 'React4xp'
-  description 'Compile the externals (react and react-dom)'
-  args = [
-      'explore', '@enonic/react4xp', '--',
-      'npm', 'run', 'webpack:externals', '--',
-      '--env', 'DIR_PATH_ABSOLUTE_PROJECT=' + project.projectDir,
-      '--env', 'BUILD_ENV=' + project.ext.react4xp.BUILD_ENV,
-      '--env', 'VERBOSE=' + project.ext.react4xp.VERBOSE
-  ]
-  inputs.files fileTree(dir: './', include: 'react4xp.config.js')
-  outputs.dir 'build/resources/main/assets/react4xp'
-}
-jar.dependsOn += 'react4xpExternals'
-
-
-task react4xpExecutor(type: NpmTask) {
-  group 'React4xp'
-  description 'Compile the executor'
-  args = [
-    'explore', '@enonic/react4xp', '--',
-    'npm', 'run', 'tsup:executor', '--',
-    '--env.DIR_PATH_ABSOLUTE_PROJECT=' + project.projectDir
-  ]
-  //inputs.files fileTree(dir: './src', include: 'executor.js')
-  outputs.dir 'build/resources/main/assets/react4xp'
-}
-jar.dependsOn += 'react4xpExecutor'
-
-
-task react4xpNashornPolyfills(type: NpmTask) {
-  group 'React4xp'
-  description 'Run the imported react4xp webpack scripts that compile the components and externals (as well as nashorn polyfills if needed)'
-  args = [
-      'explore', '@enonic/react4xp', '--',
-      'npm', 'run', 'webpack:nashornPolyfills', '--',
-      '--env', 'DIR_PATH_ABSOLUTE_PROJECT=' + project.projectDir,
-      '--env', 'BUILD_ENV=' + project.ext.react4xp.BUILD_ENV,
-      '--env', 'VERBOSE=' + project.ext.react4xp.VERBOSE
-  ]
-  inputs.files fileTree(dir: 'src/main/resources', include: 'react4xpNashornPolyfills.es6')
-  outputs.dir 'build/resources/main/lib/enonic/react4xp'
-}
-jar.dependsOn += 'react4xpNashornPolyfills'
+jar.dependsOn += 'react4xp'
 
 
 StartParameter startParameter = project.gradle.startParameter;

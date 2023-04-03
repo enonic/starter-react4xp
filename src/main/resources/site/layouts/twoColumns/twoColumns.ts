@@ -22,12 +22,18 @@ export function get(request: Enonic.Xp.Http.Request) {
 		component,
 		props,
 		// React4xp Enforces SSR if a request object is not passed
-		// It also Enforces SSR if request.mode is 'edit' or 'inline'
+		// It also Enforces SSR if request.mode is 'edit'
 		request,
-		// {
-		// 	// Defaults to SSR for layouts even when
-		// 	// app.config['react4xp.clientRender'] === 'true'
-		// 	// clientRender: true // client-side rendering of layouts aren't supported yet
-		// }
+		{
+			// If your layout react component doesn't use fetch or hooks you may
+			// disable hydration:
+			hydrate: false,
+
+			// Client-side rendering of layout isn't fully supported yet.
+			// Therefore the default is SSR even when
+			// app.config['react4xp.ssr'] === 'false'
+			// You can still try it out by disabling SSR here:
+			// ssr: false,
+		}
 	);
 } // get

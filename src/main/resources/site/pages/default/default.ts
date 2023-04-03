@@ -39,13 +39,21 @@ export function get(request: Enonic.Xp.Http.Request) {
 		entry,
 		props,
 		// React4xp Enforces SSR if a request object is not passed
-		// It also Enforces SSR if request.mode is 'edit' or 'inline'
+		// It also Enforces SSR if request.mode is 'edit'
 		request,
 		{
 			body: htmlBody,
-			// Defaults to SSR for page even when
-			// app.config['react4xp.clientRender'] === 'true'
-			// clientRender: true, // client-side rendering of page isn't supported yet
+
+			// If your page react component doesn't use fetch or hooks you may
+			// disable hydration:
+			hydrate: false,
+
+			// Client-side rendering of page isn't fully supported yet.
+			// Therefore the default is SSR with hydration even when
+			// app.config['react4xp.ssr'] === 'false'
+			// You can still try it out by disabling SSR here:
+			// ssr: false,
+
 			react4xpId,
 		}
 	);

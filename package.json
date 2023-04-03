@@ -58,7 +58,7 @@
     "@enonic-types/lib-value": "^7",
     "@enonic-types/lib-vhost": "^7",
     "@enonic-types/lib-websocket": "^7",
-    "@enonic/react4xp": "^4.0.0-B1",
+    "@enonic/react4xp": "^4.0.0-B2",
     "@swc/core": "^1",
     "@types/react": "^18",
     "babel": "^6",
@@ -88,6 +88,7 @@
   "scripts": {
     "browserSync": "npx browser-sync start --proxy 'localhost:8080' --files build/resources/main/**/* --reload-delay 5000",
     "build": "./gradlew build",
+    "build:react4xp": "npm explore @enonic/react4xp -- npm run build:react4xp",
     "build:xp:resources": "npx tsup -d build/resources/main",
     "clean": "rimraf build",
     "deploy": "./gradlew deploy",

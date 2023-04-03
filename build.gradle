@@ -1,13 +1,12 @@
 plugins {
     id 'com.enonic.xp.app' version '3.2.0'
     id "com.github.node-gradle.node" version "3.5.1"
-    id 'react4xp'
 }
 
 repositories {
     mavenLocal()
     mavenCentral()
-    xp.enonicRepo()
+    xp.enonicRepo('dev')
 }
 
 node {
@@ -39,7 +38,7 @@ dependencies {
     // The version numbers must be here (or dependabot will fail)
     include 'com.enonic.lib:lib-thymeleaf:2.0.2'
     include 'com.enonic.lib:lib-guillotine:5.5.0'
-    include 'com.enonic.lib:lib-react4xp:4.0.0-B1'
+    include 'com.enonic.lib:lib-react4xp:4.0.0-SNAPSHOT'
 }
 
 sourceSets {
@@ -79,9 +78,8 @@ tasks.withType(Copy) {
 // to ensure that those are handled only by the react4xp build
 // (node_modules/@enonic/react4xp/react4xp.gradle, aka. react4xpGradlePath)
 // and not compiled twice.
-task buildXpResources(type: NpmTask) {
+task buildXpResources(type: NpmTask, dependsOn: npmInstall) {
     args = ['run', 'build:xp:resources']
-    dependsOn npmInstall
     group 'enonic xp'
     description 'tsup transpile Enonic XP TypeScript source files (important: ignoring TSX/JSX components since they are left to react4xp)'
     outputs.dir 'build/resources/main'
@@ -99,3 +97,23 @@ task buildXpResources(type: NpmTask) {
     ])
 }
 jar.dependsOn += 'buildXpResources'
+
+
+task react4xp(type: NpmTask, dependsOn: npmInstall) {
+  args = [
+    'run', 'build:react4xp'
+  ]
+  description 'Compile react4xp resources'
+  environment = [
+	'R4X_APP_NAME': "${appName}",
+    'R4X_BUILD_LOG_LEVEL': gradle.startParameter.logLevel.toString(),
+    'R4X_DIR_PATH_ABSOLUTE_PROJECT': project.projectDir.toString(),
+    'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
+  ]
+  group 'react4xp'
+  // It also watches package.json and package-lock.json :)
+  inputs.dir 'node_modules/@enonic/react4xp'
+  inputs.dir 'src/main/resources'
+  outputs.dir 'build/resources/main'
+}
+jar.dependsOn 'react4xp'

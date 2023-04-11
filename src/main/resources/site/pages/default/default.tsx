@@ -2,7 +2,7 @@
 import React from 'react';
 //import {toStr} from '@enonic/js-utils/dist/cjs';
 import {Regions} from '@enonic/react-components';
-
+import dayjs from 'dayjs';
 
 /*function testNashornPolyfills() {
   console.debug('context', toStr(context)); // undefined
@@ -59,6 +59,7 @@ export default (props) => {
   return (
     <div className="default-page">
         <Regions {...props} />
+		<div>{dayjs().format()}</div>
     </div>
   );
 };

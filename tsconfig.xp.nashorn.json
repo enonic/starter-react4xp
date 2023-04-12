@@ -1,7 +1,3 @@
-// This file is used by your code editor so it must be permissive to support
-// * Enonic XP serverside files running on Nashorn
-// * React4xp files running both on Graal-JS and in the browser
-// * Potential assets running in the browser only
 { // https://www.typescriptlang.org/tsconfig
 	"compilerOptions": {
 		//──────────────────────────────────────────────────────────────────────
@@ -13,10 +9,7 @@
 		"paths": {
 			"/lib/enonic/react4xp": ["node_modules/@enonic-types/lib-react4xp"],
 			"/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
-			// So one can import local files using absolute path same as
-			// * react4xp resolves during build time
-			// * and Enonic XP resolves during runtime
-			"/*": ["src/main/resources/*"], // For some reason this doesn't work in Visual Studio Code :(
+			"/*": ["src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
 		},
 
 		// By default all visible ”@types” packages are included in your compilation.
@@ -41,23 +34,10 @@
 			// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
 			// "@enonic-types/lib-react4xp"
 		],
-
-		//──────────────────────────────────────────────────────────────────────
-		// Interop Constraints
-		//──────────────────────────────────────────────────────────────────────
-		"esModuleInterop": true, // Allow import React from 'react';
-
 		//──────────────────────────────────────────────────────────────────────
 		// Language and Environment
 		//──────────────────────────────────────────────────────────────────────
-		"jsx": "react", // Support jsx and tsx
-		"lib": [
-			// Keep in mind that DOM doesn't exist serverside, so only use it
-			// in clientSide assets or pure clientSide React4xp components.
-			"DOM",
-
-			"ES2015"
-		],
+		"noLib": true,
 
 		//──────────────────────────────────────────────────────────────────────
 		// Completeness
@@ -67,8 +47,14 @@
 		// refer to in your application's source code.
 		"skipLibCheck": true, // Disable type checking for node_modules
 	},
+	"exclude": [
+		"src/main/resources/**/*.tsx",
+		"src/main/resources/headless/guillotineRequest.ts"
+	],
 	"include": [
-		"src/main/resources/**/*.ts",
-		"src/main/resources/**/*.tsx"
+		// Make sure default types matches Nashorn
+		"node_modules/typescript/lib/lib.es5.d.ts",
+
+		"src/main/resources/**/*.ts"
 	]
 }

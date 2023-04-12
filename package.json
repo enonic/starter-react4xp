@@ -98,7 +98,7 @@
     "verify:types": "concurrently -r npm:verify:types:*",
     "verify:types:guillotineRequest": "npx tsc --noEmit -p tsconfig.guillotineRequest.json",
     "verify:types:react4xp": "npx tsc --noEmit -p tsconfig.react4xp.json",
-    "verify:types:server": "npx tsc --noEmit",
+    "verify:types:xp": "npx tsc --noEmit -p tsconfig.xp.nashorn.json",
     "watch": "./gradlew -t deploy"
   }
 }

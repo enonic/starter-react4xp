@@ -11,42 +11,51 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = function(env, config) {
 
-    // This makes 'npm link' symlinks in node_modules work:
-    config.resolve.symlinks = true;
+	// Comment in and customize the lines below to improve incremental builds in
+	// development mode. (see https://webpack.js.org/configuration/cache/)
+	//
+	// if (process.env.NODE_ENV === 'development') {
+	// 	config.cache = {
+	// 		type: 'filesystem'
+	// 	}
+	// }
 
-    config.module.rules = [
-        ...(config.module.rules || []),
-        {
-            test: /\.((sa|sc|c))ss$/i,
-            use: [
-                MiniCssExtractPlugin.loader,
-                {
-                    loader: 'css-loader',
-                    options: {
-                        importLoaders: 1,
-                        modules: { auto: true }
-                    }
-                },
-                {
-                    loader: 'sass-loader',
-                    options: {
-                        sassOptions: {
-                            outputStyle: 'compressed'
-                        }
-                    }
-                }
-            ]
-        }
-    ]
+	// This makes 'npm link' symlinks in node_modules work:
+	config.resolve.symlinks = true;
 
-    // Set up how the compiled assets are exported:
-    config.plugins = [
-        ...(config.plugins || []),
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].[contenthash:9].css'
-        })
-    ]
+	config.module.rules = [
+		...(config.module.rules || []),
+		{
+			test: /\.((sa|sc|c))ss$/i,
+			use: [
+				MiniCssExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					options: {
+						importLoaders: 1,
+						modules: { auto: true }
+					}
+				},
+				{
+					loader: 'sass-loader',
+					options: {
+						sassOptions: {
+							outputStyle: 'compressed'
+						}
+					}
+				}
+			]
+		}
+	]
 
-    return config;
+	// Set up how the compiled assets are exported:
+	config.plugins = [
+		...(config.plugins || []),
+		new MiniCssExtractPlugin({
+			filename: '[name].css',
+			chunkFilename: '[id].[contenthash:9].css'
+		})
+	]
+
+	return config;
 };

@@ -1,5 +1,5 @@
 import type {Enonic} from '@enonic/js-utils/types/Request';
-// import { toStr } from '@enonic/js-utils/value/toStr';
+import { toStr } from './toStr';
 import { render } from '/lib/enonic/react4xp';
 import { getComponent } from '/lib/xp/portal';
 
@@ -8,10 +8,11 @@ export function get(request: Enonic.Xp.Http.Request) {
 	// log.debug('request:%s', toStr(request));
 
 	const component = getComponent();
+	log.debug('component:%s', toStr(component));
 
 	const props = {};
 
-	return render(
+	const response = render(
 		component,
 		props,
 		// React4xp Enforces SSR if a request object is not passed
@@ -32,7 +33,9 @@ export function get(request: Enonic.Xp.Http.Request) {
 			// components in this enonic xp application, you may disable
 			// server-side in the application config.
 			// You can still enable if for specific part react components.
-			// ssr: true,
 		}
 	);
+	// log.debug('response:%s', toStr(response));
+
+	return response;
 }

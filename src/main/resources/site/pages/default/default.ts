@@ -25,9 +25,9 @@ export function get(request: Enonic.Xp.Http.Request) {
 		tag: "main",
 	};
 
-	const htmlBody = `<!DOCTYPE html><html>
+	const htmlBody = `<!DOCTYPE html><html lang="en">
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="UTF-8">
 		<title>${content.displayName}</title>
 	</head>
 	<body class="xp-page">
@@ -54,7 +54,7 @@ export function get(request: Enonic.Xp.Http.Request) {
 			// You can still try it out by disabling SSR here:
 			// ssr: false,
 
-			react4xpId,
+			id: react4xpId,
 		}
 	);
 

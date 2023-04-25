@@ -1,6 +1,6 @@
 plugins {
     id 'com.enonic.xp.app' version '3.2.0'
-    id "com.github.node-gradle.node" version "3.5.1"
+    id "com.github.node-gradle.node" version "4.0.0"
 }
 
 repositories {
@@ -11,7 +11,7 @@ repositories {
 
 node {
     download = true
-    version = '16.19.1'
+    version = '18.16.0'
 }
 
 app {
@@ -111,7 +111,6 @@ task react4xp(type: NpmTask, dependsOn: npmInstall) {
     'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
   ]
   group 'react4xp'
-  // It also watches package.json and package-lock.json :)
   inputs.dir 'node_modules/@enonic/react4xp'
   inputs.dir 'src/main/resources'
   outputs.dir 'build/resources/main'

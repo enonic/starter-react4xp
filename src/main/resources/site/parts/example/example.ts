@@ -22,7 +22,7 @@ export function get(request: Enonic.Xp.Http.Request) {
 		{
 			// If your part react component doesn't use fetch or hooks you may
 			// disable hydration:
-			hydrate: false,
+			// hydrate: false,
 
 			// If you don't need Search Engines to scrape the text from your
 			// part react component, you may disable server-side rendering for

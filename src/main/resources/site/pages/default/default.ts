@@ -5,6 +5,7 @@
  *          perfectly fine. This is just a demo of how to do it if you need to make the page controller in react4xp.
  */
 import type { Enonic } from '@enonic/js-utils/types/Request';
+import type { PageComponentProps } from './default.d';
 import { toStr } from '@enonic/js-utils/value/toStr';
 import { getContent } from '/lib/xp/portal';
 import { render } from '/lib/enonic/react4xp';
@@ -19,7 +20,7 @@ export function get(request: Enonic.Xp.Http.Request) {
 
 	const react4xpId = `react4xp_${content._id}`;
 
-	const props = {
+	const props: PageComponentProps = {
 		regionsData: content.page.regions,
 		names: "main",
 		tag: "main",

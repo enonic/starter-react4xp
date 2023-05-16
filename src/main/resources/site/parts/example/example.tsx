@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './example.sass';
 import dayjs from 'dayjs';
 
@@ -10,10 +10,12 @@ import Hello from '/lib/myReactComponents/Hello';
 
 
 function Example() {
+	const [count, setCount] = useState(0);
 	return <div>
 		<Hello/>
-		{dayjs().format()}
+		<div>Part: {dayjs().format()}</div>
+		<button onClick={() => setCount(prev => prev + 1)}>{count}</button>
 	</div>;
 }
 
-export default Example;
+export default () => <Example />;

@@ -20,7 +20,7 @@
     "@enonic/js-utils": "^1",
     "@enonic/react-components": "^3",
     "cross-env": "^7.0.3",
-    "dayjs": "^1.11.8",
+    "dayjs": "^1.11.9",
     "node-fetch": "^3",
     "prop-types": "^15",
     "react": "^18",

@@ -34,6 +34,15 @@ export function get(request: Enonic.Xp.Http.Request) {
 			// app.config['react4xp.ssr'] === 'false'
 			// You can still try it out by disabling SSR here:
 			// ssr: false,
+
+			// Generate server relative urls or fully qualified urls.
+			// Will use what is set here:
+			// urlType: 'absolute'
+			// urlType: 'server'
+			// Or in application config:
+			// app.config['react4xp.urlType'] === 'absolute'
+			// app.config['react4xp.urlType'] === 'server'
+			// Or fallback to the default, which is 'server'
 		}
 	);
 } // get

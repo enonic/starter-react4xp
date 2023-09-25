@@ -33,6 +33,15 @@ export function get(request: Enonic.Xp.Http.Request) {
 			// components in this enonic xp application, you may disable
 			// server-side in the application config.
 			// You can still enable if for specific part react components.
+
+			// Generate server relative urls or fully qualified urls.
+			// Will use what is set here:
+			// urlType: 'absolute'
+			// urlType: 'server'
+			// Or in application config:
+			// # react4xp.urlType = absolute
+			// # react4xp.urlType = server
+			// Or fallback to the default, which is 'server'
 		}
 	);
 	// log.debug('response:%s', toStr(response));

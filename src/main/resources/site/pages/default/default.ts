@@ -56,6 +56,15 @@ export function get(request: Enonic.Xp.Http.Request) {
 			// ssr: false,
 
 			id: react4xpId,
+
+			// Generate server relative urls or fully qualified urls.
+			// Will use what is set here:
+			// urlType: 'absolute'
+			// urlType: 'server'
+			// Or in application config:
+			// # react4xp.urlType = absolute
+			// # react4xp.urlType = server
+			// Or fallback to the default, which is 'server'
 		}
 	);
 

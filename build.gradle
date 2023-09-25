@@ -11,7 +11,7 @@ repositories {
 
 node {
     download = true
-    version = '18.17.1'
+    version = '18.18.0'
 }
 
 app {
@@ -38,7 +38,7 @@ dependencies {
     // The version numbers must be here (or dependabot will fail)
     include 'com.enonic.lib:lib-thymeleaf:2.1.0'
     include 'com.enonic.lib:lib-guillotine:5.5.0'
-    include 'com.enonic.lib:lib-react4xp:5.0.0'
+    include 'com.enonic.lib:lib-react4xp:5.1.0'
 }
 
 sourceSets {

@@ -61,8 +61,8 @@ processResources {
   exclude '**/*.ts' // handled by tsup
 }
 
-tasks.withType(Copy) {
-  includeEmptyDirs = false
+tasks.withType(Copy).configureEach {
+    includeEmptyDirs = false
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,8 @@ tasks.withType(Copy) {
 // to ensure that those are handled only by the react4xp build
 // (node_modules/@enonic/react4xp/react4xp.gradle, aka. react4xpGradlePath)
 // and not compiled twice.
-task buildXpResources(type: NpmTask, dependsOn: npmInstall) {
+tasks.register('buildXpResources', NpmTask) {
+    dependsOn( npmInstall )
     args = ['run', 'build:xp:resources']
     group 'enonic xp'
     description 'tsup transpile Enonic XP TypeScript source files (important: ignoring TSX/JSX components since they are left to react4xp)'
@@ -98,23 +99,27 @@ task buildXpResources(type: NpmTask, dependsOn: npmInstall) {
       '**/*.xml'
     ])
 }
-jar.dependsOn += 'buildXpResources'
 
-
-task react4xp(type: NpmTask, dependsOn: npmInstall) {
-  args = [
-    'run', 'build:react4xp'
-  ]
-  description 'Compile react4xp resources'
-  environment = [
-	'R4X_APP_NAME': "${appName}",
-    'R4X_BUILD_LOG_LEVEL': gradle.startParameter.logLevel.toString(),
-    'R4X_DIR_PATH_ABSOLUTE_PROJECT': project.projectDir.toString(),
-    'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
-  ]
-  group 'react4xp'
-  inputs.dir 'node_modules/@enonic/react4xp'
-  inputs.dir 'src/main/resources'
-  outputs.dir 'build/resources/main'
+tasks.register('react4xp', NpmTask) {
+    args = [
+        'run', 'build:react4xp'
+    ]
+    dependsOn( npmInstall )
+    description 'Compile react4xp resources'
+    environment = [
+        'R4X_APP_NAME': "${appName}",
+        'R4X_BUILD_LOG_LEVEL': gradle.startParameter.logLevel.toString(),
+        'R4X_DIR_PATH_ABSOLUTE_PROJECT': project.projectDir.toString(),
+        'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
+    ]
+    group 'react4xp'
+    inputs.dir 'node_modules/@enonic/react4xp'
+    inputs.dir 'src/main/resources'
+    outputs.dir 'build/resources/main'
 }
-jar.dependsOn 'react4xp'
+
+tasks.register('dev', Exec) {
+    commandLine './gradlew', 'deploy', '-t'
+}
+
+jar.dependsOn ( buildXpResources, react4xp )

@@ -67,7 +67,7 @@
     "babel": "^6",
     "babel-loader": "^9",
     "browser-sync": "^2",
-    "concurrently": "^8.2.1",
+    "concurrently": "^8.2.2",
     "css-loader": "^6",
     "glob": "^10",
     "mini-css-extract-plugin": "^2",

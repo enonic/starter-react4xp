@@ -15,9 +15,9 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 10
     assignees:
-      - "espen42"
+      - "ComLock"
     reviewers:
-      - "espen42"
+      - "ComLock"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

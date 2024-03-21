@@ -119,7 +119,11 @@ tasks.register('react4xp', NpmTask) {
 }
 
 tasks.register('dev', Exec) {
-    commandLine './gradlew', 'deploy', '-t'
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine 'gradlew.bat', 'deploy', '-t'
+    } else {
+        commandLine './gradlew', 'deploy', '-t'
+    }
 }
 
 jar.dependsOn ( buildXpResources, react4xp )

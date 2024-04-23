@@ -14,10 +14,6 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
-    assignees:
-      - "ComLock"
-    reviewers:
-      - "ComLock"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

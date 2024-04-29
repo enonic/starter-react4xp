@@ -61,7 +61,7 @@
     "@enonic-types/lib-value": "^7",
     "@enonic-types/lib-vhost": "^7",
     "@enonic-types/lib-websocket": "^7",
-    "@enonic/react4xp": "^5.0.2",
+    "@enonic/react4xp": "^5.0.3",
     "@swc/core": "^1",
     "@types/react": "^18",
     "babel": "^6",

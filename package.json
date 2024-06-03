@@ -61,7 +61,7 @@
     "@enonic-types/lib-value": "^7",
     "@enonic-types/lib-vhost": "^7",
     "@enonic-types/lib-websocket": "^7",
-    "@enonic/react4xp": "^5.0.3",
+    "@enonic/react4xp": "^5.0.4",
     "@swc/core": "^1",
     "@types/react": "^18",
     "babel": "^6",
@@ -102,5 +102,9 @@
     "verify:types:react4xp": "npx tsc --noEmit -p tsconfig.react4xp.json",
     "verify:types:xp": "npx tsc --noEmit -p tsconfig.xp.nashorn.json",
     "watch": "./gradlew -t deploy"
+  },
+  "engines": {
+    "node": ">= 20.13.1",
+    "npm": ">= 10.5.2"
   }
 }

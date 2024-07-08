@@ -72,7 +72,7 @@
     "glob": "^10",
     "mini-css-extract-plugin": "^2",
     "npm-run-all": "^4",
-    "rimraf": "^5",
+    "rimraf": "^6",
     "sass": "^1",
     "sass-loader": "^14",
     "tslib": "^2",

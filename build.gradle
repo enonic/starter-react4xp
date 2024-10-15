@@ -95,6 +95,7 @@ tasks.register('buildXpResources', NpmTask) {
       '**/*.sass',
       '**/*.scss',
       '**/*.svg',
+      '**/*.d.ts',
       '**/*.tsx',
       '**/*.xml'
     ])

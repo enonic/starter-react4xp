@@ -21,6 +21,7 @@ const SERVER_FILES = globSync(
 	{
 		absolute: false,
 		ignore: globSync(`${ASSETS_PATH}/**/*.${SERVER_GLOB_EXTENSIONS}`)
+			.concat(globSync(`${RESOURCES_PATH}/**/*.d.ts`))
 	}
 );
 // print(SERVER_FILES, { maxItems: Infinity });

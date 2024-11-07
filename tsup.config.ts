@@ -31,6 +31,11 @@ export default defineConfig((options: MyOptions) => {
 	if (options.d === 'build/resources/main') {
 		return {
 			entry: SERVER_FILES.map(dir => dir.replace(/\\/g,'/')),
+			// esbuildOptions(options) {
+			// 	options.alias = {
+			// 		"@enonic/react-components": "./node_modules/@enonic/react-components/dist/index.cjs",
+			// 	}
+			// },
 			external: [
 				'/lib/enonic/react4xp',
 				'/lib/guillotine',
@@ -109,7 +114,9 @@ export default defineConfig((options: MyOptions) => {
 			// You can still use the noExternal option to reinclude packages in
 			// the bundle
 			noExternal: [
-				'@enonic/js-utils'
+				/^@enonic\/js-utils/,
+				/^@enonic\/react-components/,
+				// /^entities/, // This only helps for the Enonic XP server code, not the React4xp/Graal server code.
 			],
 
 			// https://esbuild.github.io/api/#platform

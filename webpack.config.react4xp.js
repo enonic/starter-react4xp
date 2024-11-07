@@ -7,7 +7,8 @@
 //  or:
 //   https://github.com/enonic/enonic-react4xp/blob/master/examples/webpack.config.react4xp.js
 //──────────────────────────────────────────────────────────────────────────────
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const rspack = require('@rspack/core');
 
 module.exports = function(env, config) {
 
@@ -28,7 +29,8 @@ module.exports = function(env, config) {
 		{
 			test: /\.((sa|sc|c))ss$/i,
 			use: [
-				MiniCssExtractPlugin.loader,
+				// MiniCssExtractPlugin.loader,
+				rspack.CssExtractRspackPlugin.loader,
 				{
 					loader: 'css-loader',
 					options: {
@@ -45,15 +47,23 @@ module.exports = function(env, config) {
 					}
 				}
 			]
-		}
+		},
+		{
+			test: /\.(woff|woff2|eot|ttf|otf)$/i,
+			type: 'asset/resource', // ends up as auxiliaryAssets in stats.components.json
+		},
 	]
 
 	// Set up how the compiled assets are exported:
 	config.plugins = [
 		...(config.plugins || []),
-		new MiniCssExtractPlugin({
-			filename: '[name].css',
-			chunkFilename: '[id].[contenthash:9].css'
+		// new MiniCssExtractPlugin({
+		// 	filename: '[name].[contenthash:9].css',
+		// 	chunkFilename: '[id].[contenthash:9].css'
+		// }),
+		new rspack.CssExtractRspackPlugin({
+			chunkFilename: '[id].[contenthash:9].css',
+			filename: '[name].[contenthash:9].css',
 		})
 	]
 

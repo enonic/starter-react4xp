@@ -3,7 +3,7 @@ import type {
 	RichTextData
 } from '@enonic/react-components';
 
-// import './example.sass';
+import './example.sass';
 import * as React from 'react';
 import {RichText} from '@enonic/react-components';
 

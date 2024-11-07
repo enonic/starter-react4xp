@@ -1,13 +1,13 @@
-import type {DefaultPageProps} from '../../../react4xp/DefaultPage';
+import type {DefaultPageProps} from '../../../react4xp/pages/DefaultPage';
 
 
 import {ComponentRegistry} from '@enonic/react-components';
 import * as React from 'react';
 
-import {DefaultPage} from '../../../react4xp/DefaultPage';
-import {ExamplePart} from '../../../react4xp/ExamplePart';
-import {InfoPanel} from '../../../react4xp/InfoPanel';
-import {TwoColumnsLayout} from '../../../react4xp/TwoColumnsLayout';
+import {DefaultPage} from '../../../react4xp/pages/DefaultPage';
+import {ExamplePart} from '../../../react4xp/parts/ExamplePart';
+import {InfoPanel} from '../../../react4xp/macros/InfoPanel';
+import {TwoColumnsLayout} from '../../../react4xp/layouts/TwoColumnsLayout';
 
 
 const componentRegistry = new ComponentRegistry;

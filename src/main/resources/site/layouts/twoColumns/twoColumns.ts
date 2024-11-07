@@ -1,45 +1,15 @@
 import type { Enonic } from '@enonic/js-utils/types/Request';
-import type { Regions } from '@enonic/react-components';
-import { toStr } from '@enonic/js-utils/value/toStr';
+// import { toStr } from '@enonic/js-utils/value/toStr';
 import { render } from '/lib/enonic/react4xp';
-import {get as getContentByKey} from '/lib/xp/content';
-import {
-	getComponent,
-	processHtml
-} from '/lib/xp/portal';
-import {
-	getComponent as getComponentSchema,
-	listSchemas
-} from '/lib/xp/schema';
-import {ComponentProcessor} from '@enonic/react-components/processComponents';
-
-const componentProcessor = new ComponentProcessor({
-	getComponentSchema,
-	getContentByKey,
-	listSchemas,
-	processHtml
-});
-
-componentProcessor.addPart('com.enonic.app.react4xp:example', {
-	toProps: ({
-		component,
-		content,
-		processedConfig,
-		request,
-	}) => {
-		// log.info('part toProps:%s', toStr({ component, content, processedConfig, request }));
-		return {
-			data: processedConfig.anHtmlArea
-		};
-	}
-});
+import { getComponent } from '/lib/xp/portal';
+import { componentProcessor } from '/site/controllers/componentProcessor';
 
 
 export function get(request: Enonic.Xp.Http.Request) {
 	// log.debug('request:%s', toStr(request));
 
 	const component = getComponent();
-	log.info('component:%s', toStr(component));
+	// log.info('component:%s', toStr(component));
 
 	const decoratedComponent = componentProcessor.process({
 		component,
@@ -48,17 +18,7 @@ export function get(request: Enonic.Xp.Http.Request) {
 	});
 	// log.info('TwoColumn layout decoratedComponent:%s', toStr(decoratedComponent));
 
-	const props = {
-		regions: decoratedComponent.regions
-	};
-
-	// const props: Parameters<typeof Regions>[0] = {
-	// 	// componentRegistry,
-	// 	classes: true,
-	// 	names: ['left', 'right'],
-	// 	regionsData: component.regions,
-	// 	tags: 'section',
-	// };
+	const props = decoratedComponent;
 
 	return render(
 		component,

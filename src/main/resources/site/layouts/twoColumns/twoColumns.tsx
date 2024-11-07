@@ -1,12 +1,12 @@
 // import type {Region} from '@enonic-types/core';
 // import type {TwoColumnsLayoutProps} from '../../../react4xp/TwoColumnsLayout';
-import type {InfoPanelProps} from '../../../react4xp/InfoPanel';
+import type {InfoPanelProps} from '../../../react4xp/macros/InfoPanel';
 
 import {ComponentRegistry} from '@enonic/react-components';
 import * as React from 'react';
-import {ExamplePart} from '../../../react4xp/ExamplePart';
-import {InfoPanel} from '../../../react4xp/InfoPanel';
-import {TwoColumnsLayout} from '../../../react4xp/TwoColumnsLayout';
+import {ExamplePart} from '../../../react4xp/parts/ExamplePart';
+import {InfoPanel} from '../../../react4xp/macros/InfoPanel';
+import {TwoColumnsLayout} from '../../../react4xp/layouts/TwoColumnsLayout';
 
 const componentRegistry = new ComponentRegistry;
 

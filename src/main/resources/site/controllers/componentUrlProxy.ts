@@ -1,10 +1,12 @@
 import type {
+	Component,
+	// TextComponent,
 	// Controller,
 	Request,
 	Response
 } from '@enonic-types/core'
 
-// import { toStr } from '@enonic/js-utils/value/toStr';
+import { toStr } from '@enonic/js-utils/value/toStr';
 import { getIn } from '@enonic/js-utils/object/getIn';
 import { render } from '/lib/enonic/react4xp';
 import {
@@ -63,21 +65,29 @@ export function get(request: Request) {
 	const {regions} = page;
 
 	// const component = getComponent(); // ERROR: Doesn't work with site mapped component service!
-	const component = getIn(regions, componentPath);
-	// log.info('ComponentUrlProxy component:%s', toStr(component));
+	const component = getIn(regions, componentPath) as Component;
+	log.info('ComponentUrlProxy component:%s', toStr(component));
+	// const {type} = component;
 
 	const decoratedComponent = componentProcessor.process({
 		component,
 		content,
 		request
 	});
-	// log.info('ComponentUrlProxy decoratedComponent:%s', toStr(decoratedComponent));
+	log.info('ComponentUrlProxy decoratedComponent:%s', toStr(decoratedComponent));
 
 	// Props for XpComponent
-	const props = {
-		component: decoratedComponent
-	};
-	// log.info('ComponentUrlProxy props:%s', toStr(props));
+	const props: Record<string, unknown> = {};
+	// if (type === 'text') {
+	// 	props.component = component;
+	// 	// props.component.text = decoratedComponent.processedHtml;
+	// 	props.component['props'] = {
+	// 		data: decoratedComponent
+	// 	}
+	// } else {
+		props.component = decoratedComponent;
+	// }
+	log.info('ComponentUrlProxy props:%s', toStr(props));
 
 	// Props for ReactComponent (Part/Layout)
 	// const {props} = decoratedComponent;

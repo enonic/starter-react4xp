@@ -1,21 +1,18 @@
-import type {ExampleProps} from '../../../react4xp/ExamplePart';
-import type {InfoPanelProps} from '../../../react4xp/InfoPanel';
+import type {ExampleProps} from '../../../react4xp/parts/ExamplePart';
 
-import './example.sass';
+// import {XpComponent} from '@enonic/react-components';
 import * as React from 'react';
-import {ComponentRegistry} from '@enonic/react-components';
-
-import {ExamplePart} from '../../../react4xp/ExamplePart';
-import {InfoPanel} from '../../../react4xp/InfoPanel';
-
-const componentRegistry = new ComponentRegistry;
-
-componentRegistry.addMacro<InfoPanelProps>('info', {
-	View: InfoPanel
-});
+import {ExamplePart} from '../../../react4xp/parts/ExamplePart';
+import {componentRegistry} from '../../../react4xp/componentRegistry';
 
 export default (props: ExampleProps) => {
 	const propsWithComponentRegistry = props;
 	props.componentRegistry = componentRegistry;
-	return <ExamplePart {...propsWithComponentRegistry}/>;
+	return (
+		<>
+			<h1>src/main/resources/site/parts/example/example.tsx</h1>
+			<ExamplePart {...propsWithComponentRegistry}/>
+			{/* <XpComponent {...props}/> */}
+		</>
+	);
 }

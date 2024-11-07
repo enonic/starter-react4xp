@@ -3,7 +3,7 @@
 // import type {ComponentRegistry} from '@enonic/react-components';
 
 // import './default.sass'; // Create Error reference failed
-import { toStr } from '@enonic/js-utils/value/toStr';
+// import { toStr } from '@enonic/js-utils/value/toStr';
 import {
 	ComponentRegistry,
 	XpRegions

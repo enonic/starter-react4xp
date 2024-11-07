@@ -1,4 +1,4 @@
-// import { toStr } from '@enonic/js-utils/value/toStr';
+import { toStr } from '@enonic/js-utils/value/toStr';
 // import {get as getContentByKey} from '/lib/xp/content';
 // import {
 // 	getComponent as getComponentSchema,
@@ -9,8 +9,14 @@ import {
 	// processHtml,
 } from '/lib/xp/portal';
 import { render } from '/lib/enonic/react4xp';
+// import toDiffableHtml from 'diffable-html'; // requires stream
 import {componentProcessor} from '/site/controllers/componentProcessor';
+// import format from "html-format"; // SyntaxError: Unsupported RegExp flag: y
 
+// NOPE drags in entities with Uint16Array
+// import {format} from 'hast-util-format'
+// import {fromHtml} from 'hast-util-from-html'
+// import {toHtml} from 'hast-util-to-html'
 
 export function get(request) {
 	// log.info('react4xp controller request:%s', toStr(request));
@@ -83,5 +89,23 @@ export function get(request) {
 		}
 	);
 
+	const {
+		body,
+		pageContributions,
+		status,
+		...rest
+	} = output;
+	log.info('react4xp controller body:%s', body);
+	// log.info('react4xp controller body:%s', format(body, "  ", 80));
+	// log.info('react4xp controller body:%s', toDiffableHtml(body));
+
+	// NOPE drags in entities with Uint16Array
+	// const tree = fromHtml(body);
+	// format(tree);
+	// const formattedBody = toHtml(tree);
+	// log.info('react4xp controller body:%s', formattedBody);
+
+	// log.info('react4xp controller pageContributions:%s', toStr(pageContributions));
+	// log.info('react4xp controller rest:%s', toStr(rest));
 	return output;
 }

@@ -6,9 +6,10 @@
             <service>component</service>
         </mapping>
         <mapping controller="/site/controllers/react4xp.js" order="49">
-            <match>type:'base:folder'</match>
+            <pattern>/.*</pattern>
+            <!-- <match>type:'base:folder'</match> -->
         </mapping>
-        <mapping controller="/site/controllers/react4xp.js" order="49">
+        <!-- <mapping controller="/site/controllers/react4xp.js" order="49">
             <match>type:'portal:fragment'</match>
         </mapping>
         <mapping controller="/site/controllers/react4xp.js" order="49">
@@ -16,7 +17,7 @@
         </mapping>
         <mapping controller="/site/controllers/react4xp.js" order="49">
             <match>type:'portal:site'</match>
-        </mapping>
+        </mapping> -->
         <!-- <mapping controller="/site/controllers/react4xp.js" order="49">
             <match>type:'portal:template-folder'</match>
         </mapping> -->

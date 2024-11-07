@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './panel.css';
 
 export interface InfoPanelProps {
 	body: string

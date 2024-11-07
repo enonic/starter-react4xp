@@ -1,16 +1,33 @@
-import type { PageComponentProps } from './default.d';
-import React from 'react';
-import { Regions } from '@enonic/react-components';
-import dayjs from 'dayjs';
+import type {DefaultPageProps} from '../../../react4xp/DefaultPage';
 
 
-function Page (props: PageComponentProps) {
+import {ComponentRegistry} from '@enonic/react-components';
+import * as React from 'react';
+
+import {DefaultPage} from '../../../react4xp/DefaultPage';
+import {ExamplePart} from '../../../react4xp/ExamplePart';
+import {InfoPanel} from '../../../react4xp/InfoPanel';
+import {TwoColumnsLayout} from '../../../react4xp/TwoColumnsLayout';
+
+
+const componentRegistry = new ComponentRegistry;
+
+componentRegistry.addMacro('info', {
+	View: InfoPanel
+});
+
+componentRegistry.addPart('com.enonic.app.react4xp:example', {
+	View: ExamplePart
+});
+
+componentRegistry.addLayout('com.enonic.app.react4xp:twoColumns', {
+	View: TwoColumnsLayout
+});
+
+
+export default (props: DefaultPageProps) => {
+	props.componentRegistry = componentRegistry;
 	return (
-		<div className="default-page">
-			<Regions {...props} />
-			<div>Page: {dayjs().format()}</div>
-		</div>
+		<DefaultPage {...props}/>
 	);
 }
-
-export default (props: PageComponentProps) => <Page {...props}/>;

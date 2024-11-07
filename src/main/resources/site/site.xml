@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-  <form/>
-  <mappings>
-    <!--
+    <form/>
+    <mappings>
+        <mapping controller="/site/controllers/react4xp.js" order="50">
+            <match>type:'base:folder'</match>
+        </mapping>
+        <mapping controller="/site/controllers/react4xp.js" order="50">
+            <match>type:'portal:fragment'</match>
+        </mapping>
+        <mapping controller="/site/controllers/react4xp.js" order="50">
+            <match>type:'portal:page-template'</match>
+        </mapping>
+        <mapping controller="/site/controllers/react4xp.js" order="50">
+            <match>type:'portal:site'</match>
+        </mapping>
+        <!-- <mapping controller="/site/controllers/react4xp.js" order="50">
+            <match>type:'portal:template-folder'</match>
+        </mapping> -->
+        <!--
 
     Maps the path <domain/site>/api/headless up to the controller src/main/resources/headless/guillotineApi.es6 (.js after compilation),
     to open it up as a guillotine API endpoint. BEFORE DOING THIS, READ THE COMMENT IN THE CONTROLLER, ABOUT USAGE AND SECURITY.
@@ -12,6 +27,6 @@
         </mapping>
 
     -->
-  </mappings>
+    </mappings>
 
 </site>

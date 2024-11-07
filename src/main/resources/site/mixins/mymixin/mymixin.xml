@@ -1,0 +1,36 @@
+<mixin>
+    <display-name>My mixin</display-name>
+    <form>
+        <input name="anHtmlArea" type="HtmlArea">
+            <label>AnHtmlArea</label>
+        </input>
+        <item-set name="anItemSet">
+            <label i18n="anItemSet.label">AnItemSet</label>
+            <occurrences minimum="0" maximum="0"/>
+            <items>
+                <input name="anHtmlArea" type="HtmlArea">
+                    <label>AnHtmlArea</label>
+                </input>
+            </items>
+        </item-set>
+        <option-set name="anOptionSet">
+            <label>AnOptionSet</label>
+            <occurrences minimum="0" maximum="0"/>
+            <help-text>Create content with optional blocks</help-text>
+            <options minimum="1" maximum="1">
+                <option name="hr">
+                    <label>Horisontal line</label>
+                    <help-text>Adds a separator between blocks</help-text>
+                </option>
+                <option name="text">
+                    <label>Text</label>
+                    <items>
+                        <input name="anHtmlArea" type="HtmlArea">
+                            <label>AnHtmlArea</label>
+                        </input>
+                    </items>
+                </option>
+            </options>
+        </option-set>
+    </form>
+</mixin>

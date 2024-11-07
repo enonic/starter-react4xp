@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import type {ExampleProps} from '../../../react4xp/ExamplePart';
+import type {InfoPanelProps} from '../../../react4xp/InfoPanel';
+
 import './example.sass';
-import dayjs from 'dayjs';
+import * as React from 'react';
+import {ComponentRegistry} from '@enonic/react-components';
 
-// Relative to this file
-// import Hello from '../../../lib/myReactComponents/Hello';
+import {ExamplePart} from '../../../react4xp/ExamplePart';
+import {InfoPanel} from '../../../react4xp/InfoPanel';
 
-// Absolute, but resolved relative to src/main/resources
-import Hello from '/lib/myReactComponents/Hello';
+const componentRegistry = new ComponentRegistry;
 
+componentRegistry.addMacro<InfoPanelProps>('info', {
+	View: InfoPanel
+});
 
-function Example() {
-	const [count, setCount] = useState(0);
-	return <div>
-		<Hello/>
-		<div>Part: {dayjs().format()}</div>
-		<button onClick={() => setCount(prev => prev + 1)}>{count}</button>
-	</div>;
+export default (props: ExampleProps) => {
+	const propsWithComponentRegistry = props;
+	props.componentRegistry = componentRegistry;
+	return <ExamplePart {...propsWithComponentRegistry}/>;
 }
-
-export default () => <Example />;

@@ -9,99 +9,99 @@
 
 module.exports = {
 
-	//──────────────────────────────────────────────────────────────────────────
-	// ENTRIES AND CHUNKING:
-	//──────────────────────────────────────────────────────────────────────────
+    //──────────────────────────────────────────────────────────────────────────
+    // ENTRIES AND CHUNKING:
+    //──────────────────────────────────────────────────────────────────────────
 
-	// If nothing is added below, this is the default behaviour:
-	// - Default entry source folder is /site/,
-	//   that is: src/main/resources/site/ and its subfolders.
-	// - Everything under react4xp root folder (src/main/resources/react4xp/)
-	//   will be considered chunks and will be bundled by webpack into a single
-	//   dependency imported by webpack: react4xp.<contenthash>.js
-	// - Everything under the react4xp root folder
-	//   (src/main/resources/react4xp/) will be considered non-entries: added
-	//   files here can be imported by react4xp entries, but otherwise
-	//   unreachable from react4xp.
-	// - Default entryExtensions (file extensions to look for when finding
-	//   entries under OTHER entryDirs than /site/) are: jsx, js, tsx, ts, es6,
-	//   es
-
-
-	// chunkDirs are folder names where importable, non-entry code is kept.
-	//  Comma-separated list of folder names, relative to
-	//  src/main/resources/react4xp/. Each folder added here will be bundled by
-	//  webpack into a separate dependency chunk with the same name as the
-	//  folder, and a hash: <foldername>.<contenthash>.js. This is good for
-	//  grouping sets of dependencies that belong together, or will frequently
-	//  be requested from the client together in some parts of a web page but
-	//  not others, etc. The react4xp root (src/main/resources/react4xp/) is the
-	//  standard chunk 'react4xp', but you can add subfolders here to bundle
-	//  them (and their subfolders) in separate chunks. Or you can add relative
-	//  paths to the react4xp root to imported dependency code from elsewhere.
-	//  Don't overlap with entryDirs or /site/.
-	//
-	// chunkDirs: [''],
+    // If nothing is added below, this is the default behaviour:
+    // - Default entry source folder is /site/,
+    //   that is: src/main/resources/site/ and its subfolders.
+    // - Everything under react4xp root folder (src/main/resources/react4xp/)
+    //   will be considered chunks and will be bundled by webpack into a single
+    //   dependency imported by webpack: react4xp.<contenthash>.js
+    // - Everything under the react4xp root folder
+    //   (src/main/resources/react4xp/) will be considered non-entries: added
+    //   files here can be imported by react4xp entries, but otherwise
+    //   unreachable from react4xp.
+    // - Default entryExtensions (file extensions to look for when finding
+    //   entries under OTHER entryDirs than /site/) are: jsx, js, tsx, ts, es6,
+    //   es
 
 
-	// entryDirs are additional folder names where webpack will look for entry
-	// files. Comma-separated list of folder names, relative to
-	// src/main/resources/react4xp/. By default, react4xp instructs webpack to
-	// look for entries under src/main/resources/site/ (and in the
-	// react4xp-templates package). Added folders here will be kept out of
-	// bundled dependency chunks (take care to avoid directory overlaps with
-	// chunkDirs) and treated separately. Files in them will be compiled into
-	// react4xp entries, which most importantly get a jsxPath (relative to their
-	// entryDir not relative to /react4xp/) and therefore are available to
-	// react4xp overrideComponentWebpack file (see above).
-	//
-	// For compatibility with earlier versions of react4xp, add _entries here.
-	//
-	// entryDirs: [''],
+    // chunkDirs are folder names where importable, non-entry code is kept.
+    //  Comma-separated list of folder names, relative to
+    //  src/main/resources/react4xp/. Each folder added here will be bundled by
+    //  webpack into a separate dependency chunk with the same name as the
+    //  folder, and a hash: <foldername>.<contenthash>.js. This is good for
+    //  grouping sets of dependencies that belong together, or will frequently
+    //  be requested from the client together in some parts of a web page but
+    //  not others, etc. The react4xp root (src/main/resources/react4xp/) is the
+    //  standard chunk 'react4xp', but you can add subfolders here to bundle
+    //  them (and their subfolders) in separate chunks. Or you can add relative
+    //  paths to the react4xp root to imported dependency code from elsewhere.
+    //  Don't overlap with entryDirs or /site/.
+    //
+    // chunkDirs: [''],
 
 
-	// entryExtensions are filename extensions of files (comma-separated list)
-	// below the entryDirs folders that webpack should look for and turn into
-	// entries. NOTE that this doesn't apply to the default entry-folder
-	// src/main/resources/site/ (or the react4xp-templates package), where ONLY
-	// .jsx (and .tsx) files can be entries. This is to avoid mixups with XP
-	// controllers etc, which can be .js or .es6. Default value if not changed
-	// is jsx,js,tsx,ts,es6,es. Also note that tsx/ts files are NOT supported
-	// out of the box. Rules for typescript compilation must be added in your
-	// own.
-	//
-	// entryExtensions: ['jsx', 'js', 'tsx', 'ts', 'es6', 'es'],
+    // entryDirs are additional folder names where webpack will look for entry
+    // files. Comma-separated list of folder names, relative to
+    // src/main/resources/react4xp/. By default, react4xp instructs webpack to
+    // look for entries under src/main/resources/site/ (and in the
+    // react4xp-templates package). Added folders here will be kept out of
+    // bundled dependency chunks (take care to avoid directory overlaps with
+    // chunkDirs) and treated separately. Files in them will be compiled into
+    // react4xp entries, which most importantly get a jsxPath (relative to their
+    // entryDir not relative to /react4xp/) and therefore are available to
+    // react4xp overrideComponentWebpack file (see above).
+    //
+    // For compatibility with earlier versions of react4xp, add _entries here.
+    //
+    entryDirs: ['entries'],
 
-	// entryExtensionWhitelist: [
-	// 	'css',
-	// 	'd',
-	// 	'sass',
-	// 	'scss',
-	// 	'styl'
-	// ],
 
-	//────────────────────────────────────────────────────────────────────────────
-	// Globals & Externals:
-	//────────────────────────────────────────────────────────────────────────────
-	// React4xp builds a globals bundle, which MUST contain all assets NEEDED to
-	// render server-side. By default it contains react and react-dom, but more
-	// assets can be added here:
-	globals: {
-		// lodash: '_'
-	},
+    // entryExtensions are filename extensions of files (comma-separated list)
+    // below the entryDirs folders that webpack should look for and turn into
+    // entries. NOTE that this doesn't apply to the default entry-folder
+    // src/main/resources/site/ (or the react4xp-templates package), where ONLY
+    // .jsx (and .tsx) files can be entries. This is to avoid mixups with XP
+    // controllers etc, which can be .js or .es6. Default value if not changed
+    // is jsx,js,tsx,ts,es6,es. Also note that tsx/ts files are NOT supported
+    // out of the box. Rules for typescript compilation must be added in your
+    // own.
+    //
+    // entryExtensions: ['jsx', 'js', 'tsx', 'ts', 'es6', 'es'],
 
-	// By default the globals bundle is also used on the client-side, but you
-	// can provide the REQUIRED assets on your own, for example via CDN.
-	//
-	// To disable serving the globals bundle to the client-side add this line to
-	// $XP_HOME/config/appname.cfg:
-	// react4xp.serveGlobals = false
+    // entryExtensionWhitelist: [
+    // 	'css',
+    // 	'd',
+    // 	'sass',
+    // 	'scss',
+    // 	'styl'
+    // ],
 
-	// It's possible to have pure client-side rendered components in React4xp.
-	// If these components use assets which are NOT needed to render server-side
-	// you can add them here:
-	externals: {
-		// jquery: 'jQuery'
-	},
+    //────────────────────────────────────────────────────────────────────────────
+    // Globals & Externals:
+    //────────────────────────────────────────────────────────────────────────────
+    // React4xp builds a globals bundle, which MUST contain all assets NEEDED to
+    // render server-side. By default it contains react and react-dom, but more
+    // assets can be added here:
+    globals: {
+        // lodash: '_'
+    },
+
+    // By default the globals bundle is also used on the client-side, but you
+    // can provide the REQUIRED assets on your own, for example via CDN.
+    //
+    // To disable serving the globals bundle to the client-side add this line to
+    // $XP_HOME/config/appname.cfg:
+    // react4xp.serveGlobals = false
+
+    // It's possible to have pure client-side rendered components in React4xp.
+    // If these components use assets which are NOT needed to render server-side
+    // you can add them here:
+    externals: {
+        // jquery: 'jQuery'
+    },
 
 }; // module.exports

@@ -1,3 +1,4 @@
+// import { polyfillNode } from 'esbuild-plugin-polyfill-node';
 import {globSync} from 'glob';
 // import {print} from 'q-i';
 import { defineConfig, type Options } from 'tsup';
@@ -32,10 +33,74 @@ export default defineConfig((options: MyOptions) => {
 		return {
 			entry: SERVER_FILES.map(dir => dir.replace(/\\/g,'/')),
 			// esbuildOptions(options) {
-			// 	options.alias = {
-			// 		"@enonic/react-components": "./node_modules/@enonic/react-components/dist/index.cjs",
-			// 	}
+			// 	// 	options.alias = {
+			// 	// 		"@enonic/react-components": "./node_modules/@enonic/react-components/dist/index.cjs",
+			// 	// 	}
+
+			// 	// Some node modules might need globalThis
+			// 	// options.banner = {
+			// 	// 	js: `const globalThis = (1, eval)('this');` // buffer polyfill needs this
+			// 	// };
 			// },
+			esbuildPlugins: [
+				// Some node modules might need parts of Node polyfilled:
+				// polyfillNode({
+				// 	globals: {
+				// 		buffer: false,
+				// 		process: false
+				// 	},
+				// 	polyfills: {
+				// 		_stream_duplex: false,
+				// 		_stream_passthrough: false,
+				// 		_stream_readable: false,
+				// 		_stream_transform: false,
+				// 		_stream_writable: false,
+				// 		assert: false,
+				// 		'assert/strict': false,
+				// 		async_hooks: false,
+				// 		buffer: false,
+				// 		child_process: false,
+				// 		cluster: false,
+				// 		console: false,
+				// 		constants: false,
+				// 		crypto: false,
+				// 		dgram: false,
+				// 		diagnostics_channel: false,
+				// 		dns: false,
+				// 		domain: false,
+				// 		events: false,
+				// 		fs: false,
+				// 		'fs/promises': false,
+				// 		http: false,
+				// 		http2: false,
+				// 		https: false,
+				// 		module: false,
+				// 		net: false,
+				// 		os: false,
+				// 		path: false,
+				// 		perf_hooks: false,
+				// 		process: false, //"empty",
+				// 		punycode: false,
+				// 		querystring: false,
+				// 		readline: false,
+				// 		repl: false,
+				// 		stream: false,
+				// 		string_decoder: false,
+				// 		sys: false,
+				// 		timers: false,
+				// 		'timers/promises': false,
+				// 		tls: false,
+				// 		tty: false,
+				// 		url: false,
+				// 		util: false, // true,
+				// 		v8: false,
+				// 		vm: false,
+				// 		wasi: false,
+				// 		worker_threads: false,
+				// 		zlib: false,
+				// 	}
+				// }) // ReferenceError: "navigator" is not defined
+			],
 			external: [
 				'/lib/enonic/react4xp',
 				'/lib/guillotine',
@@ -66,6 +131,11 @@ export default defineConfig((options: MyOptions) => {
 				'/lib/xp/websocket',
 			],
 			format: 'cjs',
+
+			inject: [
+				// 'node_modules/core-js/stable/string/raw.js',
+				// 'node_modules/core-js/stable/object/entries.js',
+			],
 
 			// https://esbuild.github.io/api/#main-fields
 			//

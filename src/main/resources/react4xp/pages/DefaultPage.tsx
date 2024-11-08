@@ -2,17 +2,18 @@
 // import type {Region} from '@enonic-types/core';
 // import type {ComponentRegistry} from '@enonic/react-components';
 
-// import './default.sass'; // Create Error reference failed
+import './default.sass'; // Create Error reference failed
 // import { toStr } from '@enonic/js-utils/value/toStr';
 import {
 	ComponentRegistry,
-	XpRegions
+	XpPage
 } from '@enonic/react-components';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
+import * as React from 'react';
 
 
 export interface DefaultPageProps {
-	componentRegistry?: ComponentRegistry;
+	componentRegistry: ComponentRegistry;
 	// regions: Record<string, Region>;
 	regions: Record<string, unknown>;
 }
@@ -21,10 +22,15 @@ export interface DefaultPageProps {
 export function DefaultPage(props: DefaultPageProps) {
 	// console.info('DefaultPage props:', toStr(props));
 	return (
-		<div className="default-page">
-			{/* @ts-ignore */}
-			<XpRegions {...props} />
-			<div>Page: {dayjs().format()}</div>
-		</div>
+		// @ts-expect-error regions not compatible
+		<XpPage
+			as='main'
+			className="default-page"
+			{...props}
+		>
+			{/* Warning: Text content did not match. Server: "2024-11-08T09:36:59+01:00" Client: "2024-11-08T09:37:00+01:00" */}
+			{/* Uncaught Error: Text content does not match server-rendered HTML. */}
+			{/* <div>Page: {dayjs().format()}</div> */}
+		</XpPage>
 	);
 }

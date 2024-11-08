@@ -1,4 +1,6 @@
-import { toStr } from '@enonic/js-utils/value/toStr';
+import type {AppProps} from '/react4xp/entries/App';
+
+// import { toStr } from '@enonic/js-utils/value/toStr';
 // import {get as getContentByKey} from '/lib/xp/content';
 // import {
 // 	getComponent as getComponentSchema,
@@ -19,27 +21,30 @@ import {componentProcessor} from '/site/controllers/componentProcessor';
 // import {toHtml} from 'hast-util-to-html'
 
 export function get(request) {
-	// log.info('react4xp controller request:%s', toStr(request));
+	// log.info('app controller request:%s', toStr(request));
 
 	const content = getContent();
-	// log.info('react4xp controller content:%s', toStr(content));
+	// log.info('app controller content:%s', toStr(content));
 
-	const {
-		fragment,
-		page
-	} = content;
+	// const {
+	// 	fragment,
+	// 	page
+	// } = content;
 
-	const component = page || fragment;
+	// const component = page || fragment;
+	// log.info('app controller component:%s', toStr(component));
 
 	const decoratedComponent = componentProcessor.process({
-		component,
-		content,
+		// component,
+		// content,
 		request
 	});
-	// log.info('react4xp controller decoratedComponent:%s', toStr(decoratedComponent));
+	// log.info('app controller decoratedComponent:%s', toStr(decoratedComponent));
 
-	const {props} = decoratedComponent;
-	// log.info('react4xp controller props:%s', toStr(props));
+	const props: AppProps = {
+		component: decoratedComponent
+	}
+	// log.info('app controller props:%s', toStr(props));
 
 	const react4xpId = `react4xp_${content._id}`;
 
@@ -48,7 +53,7 @@ export function get(request) {
 		<meta charset="UTF-8">
 		<title>${content.displayName}</title>
 	</head>
-	<body class="xp-page" data-portal-component-type="page">
+	<body>
 		<div id="${react4xpId}"></div>
 	</body>
 </html>`;
@@ -67,8 +72,8 @@ export function get(request) {
 
 			// If your page react component doesn't use fetch or hooks you may
 			// disable hydration:
-			hydrate: false,
-			// hydrate: true, // TODO: Error: Hydration failed because the initial UI does not match what was rendered on the server.
+			// hydrate: false,
+			hydrate: true, // TODO: Error: Hydration failed because the initial UI does not match what was rendered on the server.
 
 			// Client-side rendering of page isn't fully supported yet.
 			// Therefore the default is SSR with hydration even when
@@ -89,23 +94,23 @@ export function get(request) {
 		}
 	);
 
-	const {
-		body,
-		pageContributions,
-		status,
-		...rest
-	} = output;
-	log.info('react4xp controller body:%s', body);
-	// log.info('react4xp controller body:%s', format(body, "  ", 80));
-	// log.info('react4xp controller body:%s', toDiffableHtml(body));
+	// const {
+	// 	body,
+	// 	pageContributions,
+	// 	status,
+	// 	...rest
+	// } = output;
+	// log.info('app controller body:%s', body);
+	// log.info('app controller body:%s', format(body, "  ", 80));
+	// log.info('app controller body:%s', toDiffableHtml(body));
 
 	// NOPE drags in entities with Uint16Array
 	// const tree = fromHtml(body);
 	// format(tree);
 	// const formattedBody = toHtml(tree);
-	// log.info('react4xp controller body:%s', formattedBody);
+	// log.info('app controller body:%s', formattedBody);
 
-	// log.info('react4xp controller pageContributions:%s', toStr(pageContributions));
-	// log.info('react4xp controller rest:%s', toStr(rest));
+	// log.info('app controller pageContributions:%s', toStr(pageContributions));
+	// log.info('app controller rest:%s', toStr(rest));
 	return output;
 }

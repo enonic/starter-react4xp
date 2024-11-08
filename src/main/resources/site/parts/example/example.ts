@@ -1,25 +1,25 @@
-import type { PartComponent } from '@enonic-types/core';
+// import type { PartComponent } from '@enonic-types/core';
 import type {Enonic} from '@enonic/js-utils/types/Request';
-import type {RichTextData} from '@enonic/react-components';
+// import type {RichTextData} from '@enonic/react-components';
 
 // import { toStr } from './toStr';
 import { render } from '/lib/enonic/react4xp';
-import {getComponent} from '/lib/xp/portal';
+// import {getComponent} from '/lib/xp/portal';
 
 import {componentProcessor} from '/site/controllers/componentProcessor';
 
-type ExamplePartConfig = {
-	myhtmlarea: string
-}
+// type ExamplePartConfig = {
+// 	myhtmlarea: string
+// }
 
 export function get(request: Enonic.Xp.Http.Request) {
 	// log.info('part controller request:%s', toStr(request));
 
-	const component = getComponent<PartComponent<'com.enonic.app.react4xp:example', ExamplePartConfig>>();
+	// const component = getComponent<PartComponent<'com.enonic.app.react4xp:example', ExamplePartConfig>>();
 	// log.info('part controller component:%s', toStr(component));
 
 	const decoratedComponent = componentProcessor.process({
-		component,
+		// component,
 		// content,
 		request
 	});
@@ -29,7 +29,7 @@ export function get(request: Enonic.Xp.Http.Request) {
 	// log.info('Example part props:%s', toStr(props));
 
 	const response = render(
-		component,
+		decoratedComponent,
 		props,
 		// React4xp Enforces SSR if a request object is not passed
 		// It also Enforces SSR if request.mode is 'edit' or 'inline'

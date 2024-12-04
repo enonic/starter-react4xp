@@ -8,6 +8,7 @@
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
 		"allowUmdGlobalAccess": true,
+		"esModuleInterop": true, // Allow import React from 'react';
 		"jsx": "react",
 		"lib": [
 			"DOM", // console
@@ -24,9 +25,12 @@
 		"module": "ES2015", // Graal-JS supports ESM?
 		"moduleResolution": "node",
 		"paths": {
-			"@enonic-types/core": ["../xp-comlock-9742/modules/lib/core/index.d.ts"],
-			"/lib/xp/content": ["../xp-comlock-9742/modules/lib/lib-content/src/main/resources/lib/xp/content.ts"],
-			"/lib/xp/portal": ["../xp-comlock-9742/modules/lib/lib-portal/src/main/resources/lib/xp/portal.ts"],
+			// Development: TODO Should be removed before merging to master branch!
+			"@enonic-types/core": ["../xp/modules/lib/core/index.d.ts"],
+			"@enonic/react-components/*": ["../npm-react-components/src/*.ts"],
+			"/lib/xp/content": ["../xp/modules/lib/lib-content/src/main/resources/lib/xp/content.ts"],
+			"/lib/xp/portal": ["../xp/modules/lib/lib-portal/src/main/resources/lib/xp/portal.ts"],
+			// TODO: Production: Should be commented in before merging to master branch!
 			// So one can import local files using absolute path same as
 			// * react4xp resolves during build time
 			// * and Enonic XP resolves during runtime
@@ -35,6 +39,10 @@
 
 		"noLib": false,
 		// "rootDir": ".",
+
+		// Even though the setting disables type checking for d.ts files,
+		// TypeScript still type checks the code you specifically
+		// refer to in your application's source code.
 		"skipLibCheck": true,
 
 		// As of 2023-03-15 GraalJS support ES2022
@@ -45,12 +53,6 @@
 		// client-side (modern browsers) we have to use the "lowest" supported version.
 		"target": "ES2015",
 
-		// "typeRoots": [
-		// 	"./node_modules/@types",
-		// 	"./node_modules/@enonic-types"
-		// ],
-		"types": [
-			// "@enonic-types/global"
-		],
+		// "types": [],
 	},
 }

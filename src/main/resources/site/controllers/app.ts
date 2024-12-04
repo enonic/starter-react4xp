@@ -1,48 +1,26 @@
-import type {AppProps} from '/react4xp/entries/App';
+import type { Request } from '@enonic-types/core';
+import type { AppProps } from '/types/AppProps';
 
 // import { toStr } from '@enonic/js-utils/value/toStr';
-// import {get as getContentByKey} from '/lib/xp/content';
-// import {
-// 	getComponent as getComponentSchema,
-// 	listSchemas
-// } from '/lib/xp/schema';
-import {
-	getContent,
-	// processHtml,
-} from '/lib/xp/portal';
+import { getContent } from '/lib/xp/portal';
 import { render } from '/lib/enonic/react4xp';
-// import toDiffableHtml from 'diffable-html'; // requires stream
-import {componentProcessor} from '/site/controllers/componentProcessor';
-// import format from "html-format"; // SyntaxError: Unsupported RegExp flag: y
+import { dataFetcher } from '/site/controllers/dataFetcher';
 
-// NOPE drags in entities with Uint16Array
-// import {format} from 'hast-util-format'
-// import {fromHtml} from 'hast-util-from-html'
-// import {toHtml} from 'hast-util-to-html'
-
-export function get(request) {
+export function get(request: Request) {
 	// log.info('app controller request:%s', toStr(request));
 
 	const content = getContent();
 	// log.info('app controller content:%s', toStr(content));
 
-	// const {
-	// 	fragment,
-	// 	page
-	// } = content;
-
-	// const component = page || fragment;
-	// log.info('app controller component:%s', toStr(component));
-
-	const decoratedComponent = componentProcessor.process({
-		// component,
-		// content,
+	const renderableComponent = dataFetcher.process({
+		// component, // gotten from content inside DataFetcher
+		content, // Since it's already gotten, pass it along, so DataFetcher doesn't have to get it again.
 		request
 	});
-	// log.info('app controller decoratedComponent:%s', toStr(decoratedComponent));
+	// log.info('app controller renderableComponent:%s', toStr(renderableComponent));
 
 	const props: AppProps = {
-		component: decoratedComponent
+		component: renderableComponent
 	}
 	// log.info('app controller props:%s', toStr(props));
 
@@ -70,15 +48,12 @@ export function get(request) {
 		{
 			body: htmlBody,
 
-			// If your page react component doesn't use fetch or hooks you may
-			// disable hydration:
+			// If none of your react components are interactive,
+			// you may disable hydration:
 			// hydrate: false,
-			hydrate: true, // TODO: Error: Hydration failed because the initial UI does not match what was rendered on the server.
 
-			// Client-side rendering of page isn't fully supported yet.
-			// Therefore the default is SSR with hydration even when
-			// app.config['react4xp.ssr'] === 'false'
-			// You can still try it out by disabling SSR here:
+			// If you only want client-side rendering,
+			// you can disable server-side rendering here:
 			// ssr: false,
 
 			id: react4xpId,
@@ -100,7 +75,7 @@ export function get(request) {
 	// 	status,
 	// 	...rest
 	// } = output;
-	// log.info('app controller body:%s', body);
+	// log.info('app controller body:%s', output.body);
 	// log.info('app controller body:%s', format(body, "  ", 80));
 	// log.info('app controller body:%s', toDiffableHtml(body));
 

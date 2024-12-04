@@ -19,6 +19,8 @@
   "dependencies": {
     "@enonic/js-utils": "^1",
     "@enonic/react-components": "5.0.1",
+    "clsx": "^2.1.1",
+    "core-js": "^3.39.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
     "node-fetch": "^3",
@@ -91,14 +93,15 @@
     "build": "./gradlew build",
     "build:react4xp": "npm explore @enonic/react4xp -- npm run build:react4xp",
     "build:xp:resources": "npx tsup -d build/resources/main",
+    "check": "concurrently -c auto -g --timings npm:check:types:*",
+    "check:types:guillotineRequest": "npx tsc --noEmit -p tsconfig.guillotineRequest.json",
+    "check:types:node": "npx tsc --noEmit -p tsconfig.node.json",
+    "check:types:react4xp": "npx tsc --noEmit -p tsconfig.react4xp.json",
+    "check:types:xp": "npx tsc --noEmit -p tsconfig.xp.nashorn.json",
     "clean": "rimraf build",
     "deploy": "./gradlew deploy",
     "deps": "./gradlew --refresh-dependencies",
     "rewatch": "./gradlew clean deploy && ./gradlew -t deploy",
-    "verify:types": "concurrently -r npm:verify:types:*",
-    "verify:types:guillotineRequest": "npx tsc --noEmit -p tsconfig.guillotineRequest.json",
-    "verify:types:react4xp": "npx tsc --noEmit -p tsconfig.react4xp.json",
-    "verify:types:xp": "npx tsc --noEmit -p tsconfig.xp.nashorn.json",
     "watch": "./gradlew -t deploy"
   },
   "engines": {

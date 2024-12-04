@@ -11,13 +11,13 @@ import {
 } from '@enonic/react-components';
 
 export interface ExampleProps {
-	data: RichTextData;
+	myHtmlArea: RichTextData;
 	componentRegistry?: ComponentRegistry;
 }
 
 export function ExamplePart({
 	componentRegistry,
-	data
+	myHtmlArea
 }: ExampleProps) {
 	const [text, setText] = React.useState('initial state');
 	React.useEffect(()=> {
@@ -25,7 +25,7 @@ export function ExamplePart({
 		setText('useEffect state');
 	}, [])
 	// console.info('ExamplePart data', data);
-	if (!data) {
+	if (!myHtmlArea) {
 		return <div>Example Part: Please fill in the htmlArea.</div>;
 	}
 	return (
@@ -35,7 +35,7 @@ export function ExamplePart({
 			<p>{text}</p>
 			<RichText
 				componentRegistry={componentRegistry}
-				data={data}
+				data={myHtmlArea}
 			/>
 		</XpPart>
 	);

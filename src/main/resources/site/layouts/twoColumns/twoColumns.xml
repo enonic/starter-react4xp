@@ -1,20 +1,7 @@
 <layout>
   <display-name>Two columns</display-name>
   <description>Two columns react-rendered layout controller</description>
-  <form>
-    <input name="myhtmlarea" type="HtmlArea">
-        <label>My HtmlArea</label>
-    </input>
-    <item-set name="contact_info">
-        <label i18n="contact_info.label">Contact Info</label>
-        <occurrences minimum="0" maximum="0"/>
-        <items>
-            <input name="myhtmlarea" type="HtmlArea">
-                <label>My HtmlArea</label>
-            </input>
-        </items>
-    </item-set>
-  </form>
+  <form/>
   <regions>
     <region name="left"/>
     <region name="right"/>

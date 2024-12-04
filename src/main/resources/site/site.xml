@@ -2,10 +2,14 @@
 <site>
     <form/>
     <mappings>
-        <mapping controller="/site/controllers/componentUrlProxy.js" order="48">
+        <mapping controller="/site/controllers/component.js" order="48">
             <service>component</service>
         </mapping>
+        <!-- <mapping filter="/site/controllers/component.js" order="48">
+            <service>component</service>
+        </mapping> -->
         <mapping controller="/site/controllers/app.js" order="49">
+        <!-- <mapping filter="/site/controllers/app.js" order="49"> -->
             <pattern>/.*</pattern>
             <!-- <match>type:'base:folder'</match> -->
         </mapping>

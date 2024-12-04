@@ -1,10 +1,11 @@
 import type {
 	Component,
+	Content,
 	// TextComponent,
 	// Controller,
 	Request,
 	Response
-} from '@enonic-types/core'
+} from '@enonic-types/core';
 
 import { toStr } from '@enonic/js-utils/value/toStr';
 import { getIn } from '@enonic/js-utils/object/getIn';
@@ -14,7 +15,7 @@ import {
 	// getComponent, // ERROR: Doesn't work with site mapped component service!
 	// getSite,
 } from '/lib/xp/portal';
-import { componentProcessor } from '/site/controllers/componentProcessor';
+import { dataFetcher } from '/site/controllers/dataFetcher';
 
 
 const JsonResponse = (obj: Record<string, unknown>, status = 200): Response => ({
@@ -27,14 +28,34 @@ const JsonResponse = (obj: Record<string, unknown>, status = 200): Response => (
 const JsonErrorResponse = (error: string, status = 400): Response => JsonResponse({error}, status);
 
 
+const regionPathFromRequestPath = (path: string): string => path.replace(/^.*\/_\/component\/(.+)$/,'$1')
+	.replace(/\//,'.components.')
+	.replace(/\//,'.regions.')
+	.replace(/\//,'.components.');
+
+const getComponent = ({
+	content = getContent(),
+	request,
+}: {
+	content: Content;
+	request: Request;
+}) => {
+	const {
+		path: componentPath,
+	} = request;
+	const {page} = content;
+	const regions = page['regions'] || {};
+	const regionPath = regionPathFromRequestPath(componentPath);
+	return getIn(regions, regionPath) as Component;
+}
+
 export function get(request: Request) {
-	// log.info('ComponentUrlProxy request:%s', toStr(request));
+	// log.info('ComponentUrl request:%s', toStr(request));
 	const {
 		branch,
 		// contextPath,
 		// cookies,
 		mode,
-		path,
 		// rawPath,
 		// url,
 	} = request;
@@ -42,56 +63,50 @@ export function get(request: Request) {
 
 	// NOPE rawPath doesn't start with contextPath
 	// const cleanPath = rawPath.substring(contextPath.length);
-	// log.info('ComponentUrlProxy cleanPath:%s', toStr(cleanPath));
+	// log.info('ComponentUrl cleanPath:%s', toStr(cleanPath));
 
     if (branch !== 'draft') {
-        return JsonErrorResponse('ComponentUrlProxy only available at the draft branch.');
+        return JsonErrorResponse('ComponentUrl only available at the draft branch.');
     }
 
     if (mode === 'live') {
-		return JsonErrorResponse('ComponentUrlProxy not available in live mode.');
+		return JsonErrorResponse('ComponentUrl not available in live mode.');
     }
 
-	const componentPath = path.replace(/^.*\/_\/component\/(.+)$/,'$1')
-		.replace(/\//,'.components.')
-		.replace(/\//,'.regions.')
-		.replace(/\//,'.components.');
-	// log.info('ComponentUrlProxy componentPath:%s', toStr(componentPath));
-
 	const content = getContent();
-	// log.info('ComponentUrlProxy content:%s', toStr(content));
-
-	const {page} = content;
-	const {regions} = page;
+	// log.info('ComponentUrl content:%s', toStr(content));
 
 	// const component = getComponent(); // ERROR: Doesn't work with site mapped component service!
-	const component = getIn(regions, componentPath) as Component;
-	log.info('ComponentUrlProxy component:%s', toStr(component));
+	const component = getComponent({
+		content,
+		request,
+	});
+	log.info('ComponentUrl component:%s', toStr(component));
 	// const {type} = component;
 
-	const decoratedComponent = componentProcessor.process({
+	const renderableComponent = dataFetcher.process({
 		component,
 		content,
 		request
 	});
-	log.info('ComponentUrlProxy decoratedComponent:%s', toStr(decoratedComponent));
+	log.info('ComponentUrl renderableComponent:%s', toStr(renderableComponent));
 
 	// Props for XpComponent
 	const props: Record<string, unknown> = {};
 	// if (type === 'text') {
 	// 	props.component = component;
-	// 	// props.component.text = decoratedComponent.processedHtml;
+	// 	// props.component.text = renderableComponent.processedHtml;
 	// 	props.component['props'] = {
-	// 		data: decoratedComponent
+	// 		data: renderableComponent
 	// 	}
 	// } else {
-		props.component = decoratedComponent;
+		props.component = renderableComponent;
 	// }
-	log.info('ComponentUrlProxy props:%s', toStr(props));
+	log.info('ComponentUrl props:%s', toStr(props));
 
 	// Props for ReactComponent (Part/Layout)
-	// const {props} = decoratedComponent;
-	// log.info('ComponentUrlProxy props:%s', toStr(props));
+	// const {props} = renderableComponent;
+	// log.info('ComponentUrl props:%s', toStr(props));
 
 	// const site = getSite();
 

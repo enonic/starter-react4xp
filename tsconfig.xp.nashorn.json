@@ -15,8 +15,22 @@
 		"noLib": true,
 
 		"paths": {
-			"/lib/enonic/react4xp": ["./node_modules/@enonic-types/lib-react4xp"],
+			// Development: TODO Should be removed before merging to master branch!
+			"@enonic-types/core": ["../xp/modules/lib/core/index.d.ts"],
+			"@enonic-types/lib-react4xp": ["../lib-react4xp/src/main/resources/types/index.ts"],
+			// "@enonic/react-components": ["../npm-react-components"],
+			"@enonic/react-components/*": ["../npm-react-components/src/*.ts"],
+			"@enonic/react4xp/*": ["../npm-react4xp/src/*.ts"],
+			"/lib/enonic/react4xp": ["../lib-react4xp/src/main/resources/lib/enonic/react4xp"],
+			"/lib/enonic/react4xp/*": ["../lib-react4xp/src/main/resources/lib/enonic/react4xp/*"],
+			"/lib/xp/content": ["../xp/modules/lib/lib-content/src/main/resources/lib/xp/content.ts"],
+			"/lib/xp/portal": ["../xp/modules/lib/lib-portal/src/main/resources/lib/xp/portal.ts"],
+
+			// TODO: Production: Should be commented in before merging to master branch!
+			// "/lib/enonic/react4xp": ["./node_modules/@enonic-types/lib-react4xp"],
 			"/lib/xp/*": ["./node_modules/@enonic-types/lib-*"],
+			"/react4xp": ["./src/main/resources/react4xp"],
+			"/react4xp/*": ["./src/main/resources/react4xp/*"],
 			"/*": ["./src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
 		},
 

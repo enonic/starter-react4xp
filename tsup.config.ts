@@ -102,6 +102,17 @@ export default defineConfig((options: MyOptions) => {
 				// }) // ReferenceError: "navigator" is not defined
 			],
 			external: [
+				// All these should be built to their own file and resolved at runtime, not bundled at compiletime:
+				/^\/admin\//,
+				/^\/error\//,
+				/^\/headless\//,
+				/^\/lib\//,
+				/^\/react4xp\//,
+				/^\/services\//,
+				/^\/site\//,
+				/^\/types\//,
+				/^\/webapp\//,
+				// These are not available at compiletime, so they must be external
 				'/lib/enonic/react4xp',
 				'/lib/guillotine',
 				'/lib/thymeleaf',
@@ -186,6 +197,17 @@ export default defineConfig((options: MyOptions) => {
 			noExternal: [
 				/^@enonic\/js-utils/,
 				/^@enonic\/react-components/,
+
+				// SyntaxError: Unsupported RegExp flag: y
+				// 'html-format', // requires String.raw polyfill and navigator and Object.entries
+
+				// 'diffable-html', // requires stream
+
+				// NOPE drags in entities with Uint16Array
+				// 'hast-util-format',
+				// 'hast-util-from-html',
+				// 'hast-util-to-html',
+
 				// /^entities/, // This only helps for the Enonic XP server code, not the React4xp/Graal server code.
 			],
 

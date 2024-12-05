@@ -16,7 +16,7 @@
 
 		"paths": {
 			// Development: TODO Should be removed before merging to master branch!
-			"@enonic-types/core": ["../xp/modules/lib/core/index.d.ts"],
+			// "@enonic-types/core": ["../xp/modules/lib/core/index.d.ts"],
 			"@enonic-types/lib-react4xp": ["../lib-react4xp/src/main/resources/types/index.ts"],
 			// "@enonic/react-components": ["../npm-react-components"],
 			"@enonic/react-components/*": ["../npm-react-components/src/*.ts"],

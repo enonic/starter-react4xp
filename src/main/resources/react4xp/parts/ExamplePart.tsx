@@ -38,6 +38,7 @@ export function ExamplePart(props: ExampleProps) {
 			{...autoProps}
 
 			as='part'
+			className='example-part'
 		>
 			<p>{text}</p>
 			<RichText

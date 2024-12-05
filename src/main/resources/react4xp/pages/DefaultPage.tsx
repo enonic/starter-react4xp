@@ -24,9 +24,13 @@ export function DefaultPage(props: DefaultPageProps) {
 	return (
 		// @ts-expect-error regions not compatible
 		<XpPage
+			// Needed by XpBasePage to add
+			// data-portal-component-type='page'
+			// when request.mode === 'edit'.
+			{...props}
+
 			as='main'
 			className="default-page"
-			{...props}
 		>
 			{/* Warning: Text content did not match. Server: "2024-11-08T09:36:59+01:00" Client: "2024-11-08T09:37:00+01:00" */}
 			{/* Uncaught Error: Text content does not match server-rendered HTML. */}

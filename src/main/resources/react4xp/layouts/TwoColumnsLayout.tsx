@@ -17,8 +17,12 @@ export function TwoColumnsLayout (props: TwoColumnsLayoutProps) {
 	return (
 		// @ts-expect-error regions not compatible
 		<XpLayout
-			as="layout"
+			// Needed by XpBaseLayout to add
+			// data-portal-component-type='layout'
+			// when request.mode === 'edit'.
 			{...props}
+
+			as="layout"
 			style={{
 				columnGap: '1em',
 				display: 'grid',

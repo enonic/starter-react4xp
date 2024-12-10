@@ -51,6 +51,12 @@ const getComponent = ({
 
 export function get(request: Request) {
 	// log.info('ComponentUrl request:%s', toStr(request));
+	log.info('ComponentUrl request:%s', toStr({
+		method: request.method,
+		mode: request.mode,
+		params: request.params,
+		url: request.url,
+	}));
 	const {
 		branch,
 		// contextPath,
@@ -77,19 +83,26 @@ export function get(request: Request) {
 	// log.info('ComponentUrl content:%s', toStr(content));
 
 	// const component = getComponent(); // ERROR: Doesn't work with site mapped component service!
-	const component = getComponent({
+	const origComponent = getComponent({
 		content,
 		request,
 	});
-	log.info('ComponentUrl component:%s', toStr(component));
+	log.info('ComponentUrl origComponent:%s', toStr(origComponent));
 	// const {type} = component;
 
-	const renderableComponent = dataFetcher.process({
+	const {
 		component,
+		response
+	} = dataFetcher.process({
+		component: origComponent,
 		content,
 		request
 	});
-	log.info('ComponentUrl renderableComponent:%s', toStr(renderableComponent));
+	if (response) {
+		// log.info('app controller response:%s', toStr(response));
+		return response;
+	}
+	log.info('ComponentUrl component:%s', toStr(component));
 
 	// Props for XpComponent
 	const props: Record<string, unknown> = {};
@@ -100,7 +113,7 @@ export function get(request: Request) {
 	// 		data: renderableComponent
 	// 	}
 	// } else {
-		props.component = renderableComponent;
+		props.component = component;
 	// }
 	log.info('ComponentUrl props:%s', toStr(props));
 

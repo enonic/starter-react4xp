@@ -1,4 +1,6 @@
-export const defaultPageProps = ({
+import type { PageComponentProcessorFunction } from '/lib/enonic/react4xp/DataFetcher';
+
+export const defaultPageProcessor: PageComponentProcessorFunction = ({
 	component,
 }) => {
 	// log.info('page toProps:%s', toStr({
@@ -12,10 +14,13 @@ export const defaultPageProps = ({
 	// const {mode} = request;
 	if (!regions.main) {
 		regions.main = {
-			components: []
+			components: [],
+			name: 'main',
 		};
 	}
 	return {
-		regions
+		props: {
+			regions
+		}
 	};
 }

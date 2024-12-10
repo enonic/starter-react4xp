@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ComponentRegistry } from '@enonic/react-components';
+import { BaseShortcut } from './contentTypes/BaseShortcut';
 import { PortalSite } from './contentTypes/PortalSite';
 import { DefaultPage } from './pages/DefaultPage';
 import { TwoColumnsLayout } from './layouts/TwoColumnsLayout';
@@ -15,10 +16,15 @@ import {
 export const componentRegistry = new ComponentRegistry;
 // componentRegistry.addUrlPath(/\/fisk\//, { View: FiskPage });
 
+componentRegistry.addContentType('base:shortcut', { View: BaseShortcut });
 componentRegistry.addContentType('portal:site', { View: PortalSite });
+
 componentRegistry.addPage('com.enonic.app.react4xp:default', { View: DefaultPage });
+
 componentRegistry.addLayout('com.enonic.app.react4xp:twoColumns', { View: TwoColumnsLayout });
+
 componentRegistry.addPart('com.enonic.app.react4xp:example', { View: ExamplePart });
+
 componentRegistry.addMacro('panel', { View: DefaultPanel });
 componentRegistry.addMacro('error', { View: ErrorPanel });
 componentRegistry.addMacro('info', { View: InfoPanel });

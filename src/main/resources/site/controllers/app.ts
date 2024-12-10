@@ -1,26 +1,39 @@
-import type { Request } from '@enonic-types/core';
+import type { Request, Response } from '@enonic-types/core';
 import type { AppProps } from '/types/AppProps';
 
-// import { toStr } from '@enonic/js-utils/value/toStr';
-import { getContent } from '/lib/xp/portal';
+import { toStr } from '@enonic/js-utils/value/toStr';
+import { getContent, url } from '/lib/xp/portal';
 import { render } from '/lib/enonic/react4xp';
 import { dataFetcher } from '/site/controllers/dataFetcher';
 
-export function get(request: Request) {
+export function get(request: Request): Response {
 	// log.info('app controller request:%s', toStr(request));
+	log.info('app controller request:%s', toStr({
+		method: request.method,
+		mode: request.mode,
+		params: request.params,
+		url: request.url,
+	}));
 
 	const content = getContent();
 	// log.info('app controller content:%s', toStr(content));
 
-	const renderableComponent = dataFetcher.process({
+	const {
+		component,
+		response
+	} = dataFetcher.process({
 		// component, // gotten from content inside DataFetcher
 		content, // Since it's already gotten, pass it along, so DataFetcher doesn't have to get it again.
 		request
 	});
-	// log.info('app controller renderableComponent:%s', toStr(renderableComponent));
+	if (response) {
+		// log.info('app controller response:%s', toStr(response));
+		return response; // This also handles the special case when ContentStudio needs 418.
+	}
+	// log.info('app controller component:%s', toStr(component));
 
 	const props: AppProps = {
-		component: renderableComponent
+		component
 	}
 	// log.info('app controller props:%s', toStr(props));
 

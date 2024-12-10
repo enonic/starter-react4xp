@@ -7,7 +7,7 @@ import './example.sass';
 import * as React from 'react';
 import {
 	RichText,
-	XpPart,
+	Part,
 } from '@enonic/react-components';
 
 export interface ExampleProps {
@@ -31,8 +31,8 @@ export function ExamplePart(props: ExampleProps) {
 		return <div>Example Part: Please fill in the htmlArea.</div>;
 	}
 	return (
-		<XpPart
-			// Needed by XpBasePart to add
+		<Part
+			// Needed by BasePart to add
 			// data-portal-component-type='part'
 			// when request.mode === 'edit'.
 			{...autoProps}
@@ -45,6 +45,6 @@ export function ExamplePart(props: ExampleProps) {
 				componentRegistry={componentRegistry}
 				data={myHtmlArea}
 			/>
-		</XpPart>
+		</Part>
 	);
 }

@@ -17,12 +17,6 @@ type BaseShortcutContent = Content<{
 	target: string;
 }, 'base:shortcut'>;
 
-// declare global {
-// 	interface XpContent {
-// 		'base:shortcut': BaseShortcutContent;
-// 	}
-// }
-
 export const baseShortcutProcessorWrapper = (dataFetcher): ContentTypeProcessorFunction<BaseShortcutContent> => (params) => {
 	// log.info('baseShortcutProcessor params:%s', toStr(params));
 	const {

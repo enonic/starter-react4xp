@@ -6,7 +6,7 @@ import './default.sass'; // Create Error reference failed
 // import { toStr } from '@enonic/js-utils/value/toStr';
 import {
 	ComponentRegistry,
-	XpPage
+	Page
 } from '@enonic/react-components';
 // import dayjs from 'dayjs';
 import * as React from 'react';
@@ -23,8 +23,8 @@ export function DefaultPage(props: DefaultPageProps) {
 	// console.info('DefaultPage props:', toStr(props));
 	return (
 		// @ts-expect-error regions not compatible
-		<XpPage
-			// Needed by XpBasePage to add
+		<Page
+			// Needed by BasePage to add
 			// data-portal-component-type='page'
 			// when request.mode === 'edit'.
 			{...props}
@@ -35,6 +35,6 @@ export function DefaultPage(props: DefaultPageProps) {
 			{/* Warning: Text content did not match. Server: "2024-11-08T09:36:59+01:00" Client: "2024-11-08T09:37:00+01:00" */}
 			{/* Uncaught Error: Text content does not match server-rendered HTML. */}
 			{/* <div>Page: {dayjs().format()}</div> */}
-		</XpPage>
+		</Page>
 	);
 }

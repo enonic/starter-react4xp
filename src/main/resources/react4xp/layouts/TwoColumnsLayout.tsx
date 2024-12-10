@@ -3,7 +3,7 @@
 import type {ComponentRegistry} from '@enonic/react-components';
 
 // import { toStr } from '@enonic/js-utils/value/toStr';
-import {XpLayout} from '@enonic/react-components';
+import {Layout} from '@enonic/react-components';
 import * as React from 'react';
 
 export interface TwoColumnsLayoutProps {
@@ -16,8 +16,8 @@ export function TwoColumnsLayout (props: TwoColumnsLayoutProps) {
 	// console.debug('TwoColumnsLayout props:', toStr(props));
 	return (
 		// @ts-expect-error regions not compatible
-		<XpLayout
-			// Needed by XpBaseLayout to add
+		<Layout
+			// Needed by BaseLayout to add
 			// data-portal-component-type='layout'
 			// when request.mode === 'edit'.
 			{...props}
@@ -28,6 +28,6 @@ export function TwoColumnsLayout (props: TwoColumnsLayoutProps) {
 				display: 'grid',
 				gridTemplateColumns: '1fr 1fr'
 			}}>
-		</XpLayout>
+		</Layout>
 	);
 }

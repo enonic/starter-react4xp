@@ -1,12 +1,12 @@
 import type { AppProps } from '/types/AppProps';
 
 import * as React from 'react';
-import {XpComponent} from '@enonic/react-components';
+import {BaseComponent} from '@enonic/react-components';
 import {componentRegistry} from '../componentRegistry';
 
 const App: React.FC<AppProps> = (props) => {
 	return (
-		<XpComponent componentRegistry={componentRegistry} {...props}/>
+		<BaseComponent componentRegistry={componentRegistry} {...props}/>
 	);
 }
 

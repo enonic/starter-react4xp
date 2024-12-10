@@ -104,7 +104,7 @@ export function get(request: Request) {
 	}
 	log.info('ComponentUrl component:%s', toStr(component));
 
-	// Props for XpComponent
+	// Props for BaseComponent
 	const props: Record<string, unknown> = {};
 	// if (type === 'text') {
 	// 	props.component = component;

@@ -1,3 +1,7 @@
+// import type {
+// 	LiteralUnion,
+// 	RequestMode,
+// } from '@enonic-types/core';
 import type {
 	ComponentRegistry,
 	RichTextData
@@ -10,9 +14,13 @@ import {
 	Part,
 } from '@enonic/react-components';
 
+type LiteralUnion<T extends U, U = string> = T | (U & Record<never, never>);
+type XpRequestMode = 'edit' | 'inline' | 'live' | 'preview' | 'admin';
+
 export interface ExampleProps {
-	myHtmlArea: RichTextData;
 	componentRegistry?: ComponentRegistry;
+	mode: LiteralUnion<XpRequestMode>;
+	myHtmlArea: RichTextData;
 }
 
 export function ExamplePart(props: ExampleProps) {
@@ -22,8 +30,9 @@ export function ExamplePart(props: ExampleProps) {
 		setText('useEffect state');
 	}, []);
 	const {
-		myHtmlArea,
 		componentRegistry,
+		mode,
+		myHtmlArea,
 		...autoProps
 	} = props;
 	// console.info('ExamplePart data', data);
@@ -44,6 +53,7 @@ export function ExamplePart(props: ExampleProps) {
 			<RichText
 				componentRegistry={componentRegistry}
 				data={myHtmlArea}
+				mode={mode}
 			/>
 		</Part>
 	);

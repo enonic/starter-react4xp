@@ -1,6 +1,6 @@
 import cx from 'clsx';
 import * as React from 'react';
-import './panel.css';
+// import './panel.css';
 
 interface CommonPanelProps {
 	body: string

@@ -26,10 +26,10 @@
 		"moduleResolution": "node",
 		"paths": {
 			// Development: TODO Should be removed before merging to master branch!
-			"@enonic-types/core": ["../xp/modules/lib/core/index.d.ts"],
-			"@enonic/react-components/*": ["../npm-react-components/src/*.ts"],
-			"/lib/xp/content": ["../xp/modules/lib/lib-content/src/main/resources/lib/xp/content.ts"],
-			"/lib/xp/portal": ["../xp/modules/lib/lib-portal/src/main/resources/lib/xp/portal.ts"],
+			// "@enonic-types/core": ["../xp/modules/lib/core/index.d.ts"],
+			// "@enonic/react-components/*": ["../npm-react-components/src/*.ts"],
+			// "/lib/xp/content": ["../xp/modules/lib/lib-content/src/main/resources/lib/xp/content.ts"],
+			// "/lib/xp/portal": ["../xp/modules/lib/lib-portal/src/main/resources/lib/xp/portal.ts"],
 			// TODO: Production: Should be commented in before merging to master branch!
 			// So one can import local files using absolute path same as
 			// * react4xp resolves during build time

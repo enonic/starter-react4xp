@@ -2,7 +2,8 @@ import type { Request, Response } from '@enonic-types/core';
 import type { AppProps } from '/types/AppProps';
 
 import { toStr } from '@enonic/js-utils/value/toStr';
-import { getContent, url } from '/lib/xp/portal';
+import { getContent } from '/lib/xp/portal';
+import { assetUrl } from '/lib/enonic/react4xp';
 import { render } from '/lib/enonic/react4xp';
 import { dataFetcher } from '/site/controllers/dataFetcher';
 
@@ -79,6 +80,15 @@ export function get(request: Request): Response {
 			// # react4xp.urlType = absolute
 			// # react4xp.urlType = server
 			// Or fallback to the default, which is 'server'
+
+			pageContributions: {
+				headEnd: [
+							`<link rel="stylesheet" href="${assetUrl({
+								application: 'com.enonic.app.panelmacros',
+								path: 'css/panel.css',
+							})}" type="text/css" />`.replace(/css\/panel\.css/, 'fakefingerprint/css/panel.css')
+						]
+			}
 		}
 	);
 

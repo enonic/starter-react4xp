@@ -18,15 +18,15 @@
   ],
   "dependencies": {
     "@enonic/js-utils": "^1",
-    "@enonic/react-components": "5.0.1",
+    "@enonic/react-components": "^6.0.0-B2",
     "clsx": "^2.1.1",
     "core-js": "^3.39.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
     "node-fetch": "^3",
     "prop-types": "^15",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@babel/cli": "^7",
@@ -65,7 +65,7 @@
     "@enonic-types/lib-websocket": "^7.15.0-A1",
     "@enonic/react4xp": "file:../npm-react4xp",
     "@swc/core": "^1",
-    "@types/react": "^19",
+    "@types/react": "^18",
     "babel": "^6",
     "babel-loader": "^9",
     "browser-sync": "^3",

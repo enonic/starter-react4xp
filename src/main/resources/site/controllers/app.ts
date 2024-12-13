@@ -3,8 +3,10 @@ import type { AppProps } from '/types/AppProps';
 
 import { toStr } from '@enonic/js-utils/value/toStr';
 import { getContent } from '/lib/xp/portal';
-import { assetUrl } from '/lib/enonic/asset';
-// import { assetUrl } from '/lib/enonic/react4xp';
+// import { assetUrl } from '/lib/enonic/asset';
+// @ts-expect-error no types
+import { getFingerprint } from '/lib/enonic/asset/runMode';
+import { assetUrl } from '/lib/enonic/react4xp';
 import { render } from '/lib/enonic/react4xp';
 import { dataFetcher } from '/site/controllers/dataFetcher';
 
@@ -85,11 +87,11 @@ export function get(request: Request): Response {
 			pageContributions: {
 				headEnd: [
 							`<link rel="stylesheet" href="${assetUrl({
-								// application: 'com.enonic.app.panelmacros',
+								application: 'com.enonic.app.panelmacros',
 								path: 'css/panel.css',
 							})}" type="text/css" />`
-								.replace(app.name, 'com.enonic.app.panelmacros')
-								// .replace(/css\/panel\.css/, 'fakefingerprint/css/panel.css')
+								// .replace(app.name, 'com.enonic.app.panelmacros')
+								.replace(/css\/panel\.css/, `${getFingerprint('com.enonic.app.panelmacros')}/css/panel.css`)
 						]
 			}
 		}

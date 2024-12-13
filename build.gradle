@@ -37,6 +37,7 @@ dependencies {
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
 
     // The version numbers must be here (or dependabot will fail)
+    include 'com.enonic.lib:lib-asset:1.0.1'
     include 'com.enonic.lib:lib-thymeleaf:2.1.1'
     include 'com.enonic.lib:lib-guillotine:6.2.1'
 

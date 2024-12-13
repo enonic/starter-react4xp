@@ -27,6 +27,7 @@
 			// "/lib/xp/portal": ["../xp/modules/lib/lib-portal/src/main/resources/lib/xp/portal.ts"],
 
 			// TODO: Production: Should be commented in before merging to master branch!
+			"/lib/enonic/asset": ["node_modules/@enonic-types/lib-asset"],
 			// "/lib/enonic/react4xp": ["./node_modules/@enonic-types/lib-react4xp"],
 			"/lib/xp/*": ["./node_modules/@enonic-types/lib-*"],
 			"/react4xp": ["./src/main/resources/react4xp"],

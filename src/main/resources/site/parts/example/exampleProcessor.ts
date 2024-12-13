@@ -1,7 +1,9 @@
 import type { PartComponentProcessorFunction } from '/lib/enonic/react4xp/DataFetcher';
 
 // import { toStr } from '@enonic/js-utils/value/toStr';
-// import {assetUrl} from '/lib/enonic/react4xp';
+// @ts-expect-error no types
+import { getFingerprint } from '/lib/enonic/asset/runMode';
+import {assetUrl} from '/lib/enonic/react4xp';
 
 export interface ExamplePartConfig {
 	myHtmlArea: string
@@ -23,18 +25,18 @@ export const exampleProcessor: PartComponentProcessorFunction<'com.enonic.app.re
 	const { myHtmlArea } = config;
 	const { mode } = request;
 
-	// const panelCss = assetUrl({
-	// 	application: 'com.enonic.app.panelmacros',
-	// 	path: 'css/panel.css',
-	// });
+	const panelCss = assetUrl({
+		application: 'com.enonic.app.panelmacros',
+		path: 'css/panel.css',
+	}).replace(/css\/panel\.css/, `${getFingerprint('com.enonic.app.panelmacros')}/css/panel.css`);
 	// log.info('exampleProcessor panelCss:%s', panelCss);
 
 	return {
-		// pageContributions: {
-		// 	headEnd: [
-		// 		`<link rel="stylesheet" href="${panelCss}" type="text/css" />`
-		// 	]
-		// },
+		pageContributions: {
+			headEnd: [
+				`<link rel="stylesheet" href="${panelCss}" type="text/css" />`
+			]
+		},
 		props: {
 			mode,
 			myHtmlArea

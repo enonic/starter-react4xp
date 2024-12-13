@@ -4,9 +4,9 @@ import type { AppProps } from '/types/AppProps';
 import { toStr } from '@enonic/js-utils/value/toStr';
 import { getContent } from '/lib/xp/portal';
 // import { assetUrl } from '/lib/enonic/asset';
-// @ts-expect-error no types
-import { getFingerprint } from '/lib/enonic/asset/runMode';
-import { assetUrl } from '/lib/enonic/react4xp';
+// // @ts-expect-error no types
+// import { getFingerprint } from '/lib/enonic/asset/runMode';
+// import { assetUrl } from '/lib/enonic/react4xp';
 import { render } from '/lib/enonic/react4xp';
 import { dataFetcher } from '/site/controllers/dataFetcher';
 
@@ -24,6 +24,7 @@ export function get(request: Request): Response {
 
 	const {
 		component,
+		pageContributions,
 		response
 	} = dataFetcher.process({
 		// component, // gotten from content inside DataFetcher
@@ -84,7 +85,7 @@ export function get(request: Request): Response {
 			// # react4xp.urlType = server
 			// Or fallback to the default, which is 'server'
 
-			pageContributions: {
+			pageContributions/*: {
 				headEnd: [
 							`<link rel="stylesheet" href="${assetUrl({
 								application: 'com.enonic.app.panelmacros',
@@ -93,7 +94,7 @@ export function get(request: Request): Response {
 								// .replace(app.name, 'com.enonic.app.panelmacros')
 								.replace(/css\/panel\.css/, `${getFingerprint('com.enonic.app.panelmacros')}/css/panel.css`)
 						]
-			}
+			}*/
 		}
 	);
 

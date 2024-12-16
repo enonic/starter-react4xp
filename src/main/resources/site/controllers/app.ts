@@ -12,12 +12,12 @@ import { dataFetcher } from '/site/controllers/dataFetcher';
 
 export function get(request: Request): Response {
 	// log.info('app controller request:%s', toStr(request));
-	log.info('app controller request:%s', toStr({
-		method: request.method,
-		mode: request.mode,
-		params: request.params,
-		url: request.url,
-	}));
+	// log.info('app controller request:%s', toStr({
+	// 	method: request.method,
+	// 	mode: request.mode,
+	// 	params: request.params,
+	// 	url: request.url,
+	// }));
 
 	const content = getContent();
 	// log.info('app controller content:%s', toStr(content));
@@ -29,7 +29,7 @@ export function get(request: Request): Response {
 	} = dataFetcher.process({
 		// component, // gotten from content inside DataFetcher
 		content, // Since it's already gotten, pass it along, so DataFetcher doesn't have to get it again.
-		request
+		request,
 	});
 	if (response) {
 		// log.info('app controller response:%s', toStr(response));

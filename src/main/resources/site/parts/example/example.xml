@@ -1,8 +1,0 @@
-<part>
-    <display-name>Example Part</display-name>
-    <form>
-        <input name="myHtmlArea" type="HtmlArea">
-            <label>My HtmlArea</label>
-        </input>
-    </form>
-</part>

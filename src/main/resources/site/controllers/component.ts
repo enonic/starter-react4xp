@@ -1,20 +1,14 @@
 import type {
 	Component,
 	Content,
-	// TextComponent,
-	// Controller,
 	Request,
 	Response
 } from '@enonic-types/core';
+import type { AppProps } from '/types/AppProps';
 
-import { toStr } from '@enonic/js-utils/value/toStr';
 import { getIn } from '@enonic/js-utils/object/getIn';
 import { render } from '/lib/enonic/react4xp';
-import {
-	getContent,
-	// getComponent, // ERROR: Doesn't work with site mapped component service!
-	// getSite,
-} from '/lib/xp/portal';
+import { getContent } from '/lib/xp/portal';
 import { dataFetcher } from '/site/controllers/dataFetcher';
 
 
@@ -24,9 +18,7 @@ const JsonResponse = (obj: Record<string, unknown>, status = 200): Response => (
 	status
 });
 
-
 const JsonErrorResponse = (error: string, status = 400): Response => JsonResponse({error}, status);
-
 
 const regionPathFromRequestPath = (path: string): string => path.replace(/^.*\/_\/component\/(.+)$/,'$1')
 	.replace(/\//,'.components.')
@@ -50,46 +42,21 @@ const getComponent = ({
 }
 
 export function get(request: Request) {
-	// log.info('ComponentUrl request:%s', toStr(request));
-	log.info('ComponentUrl request:%s', toStr({
-		method: request.method,
-		mode: request.mode,
-		params: request.params,
-		url: request.url,
-	}));
 	const {
 		branch,
-		// contextPath,
-		// cookies,
 		mode,
-		// rawPath,
-		// url,
 	} = request;
-	// const {JSESSIONID} = cookies;
-
-	// NOPE rawPath doesn't start with contextPath
-	// const cleanPath = rawPath.substring(contextPath.length);
-	// log.info('ComponentUrl cleanPath:%s', toStr(cleanPath));
-
     if (branch !== 'draft') {
         return JsonErrorResponse('ComponentUrl only available at the draft branch.');
     }
-
     if (mode === 'live') {
 		return JsonErrorResponse('ComponentUrl not available in live mode.');
     }
-
 	const content = getContent();
-	// log.info('ComponentUrl content:%s', toStr(content));
-
-	// const component = getComponent(); // ERROR: Doesn't work with site mapped component service!
 	const origComponent = getComponent({
 		content,
 		request,
 	});
-	log.info('ComponentUrl origComponent:%s', toStr(origComponent));
-	// const {type} = component;
-
 	const {
 		component,
 		response
@@ -99,52 +66,25 @@ export function get(request: Request) {
 		request
 	});
 	if (response) {
-		// log.info('app controller response:%s', toStr(response));
 		return response;
 	}
-	log.info('ComponentUrl component:%s', toStr(component));
-
-	// Props for BaseComponent
-	const props: Record<string, unknown> = {};
-	// if (type === 'text') {
-	// 	props.component = component;
-	// 	// props.component.text = renderableComponent.processedHtml;
-	// 	props.component['props'] = {
-	// 		data: renderableComponent
-	// 	}
-	// } else {
-		props.component = component;
-	// }
-	log.info('ComponentUrl props:%s', toStr(props));
-
-	// Props for ReactComponent (Part/Layout)
-	// const {props} = renderableComponent;
-	// log.info('ComponentUrl props:%s', toStr(props));
-
-	// const site = getSite();
-
+	const props: AppProps = {
+		component
+	}
 	const react4xpId = `react4xp_${content._id}`;
 	const output = render(
-		// src/main/resources/react4xp/entries/App.tsx
-		// build/resources/main/r4xAssets/App-{hash}.js
 		'App',
-
 		props,
-		// React4xp Enforces SSR if a request object is not passed
-		// It also Enforces SSR if request.mode is 'edit'
 		request,
 		{
 			body: `<div id="${react4xpId}"></div>`,
 
-			// If your page react component doesn't use fetch or hooks you may
-			// disable hydration:
-			hydrate: false,
-			// hydrate: true, // TODO: Error: Hydration failed because the initial UI does not match what was rendered on the server.
+			// If none of your react components are interactive,
+			// you may disable hydration:
+			// hydrate: false,
 
-			// Client-side rendering of page isn't fully supported yet.
-			// Therefore the default is SSR with hydration even when
-			// app.config['react4xp.ssr'] === 'false'
-			// You can still try it out by disabling SSR here:
+			// If you only want client-side rendering,
+			// you can disable server-side rendering here:
 			// ssr: false,
 
 			id: react4xpId,
@@ -161,8 +101,3 @@ export function get(request: Request) {
 	);
 	return output;
 }
-
-// export const all = get;
-// export const post = get;
-// export const options = get;
-// export const handleError = get;

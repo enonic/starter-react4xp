@@ -56,7 +56,7 @@
     "@enonic-types/lib-node": "^7.15.0-A2",
     "@enonic-types/lib-portal": "^7.15.0-A2",
     "@enonic-types/lib-project": "^7.15.0-A2",
-    "@enonic-types/lib-react4xp": "^4.0.0",
+    "@enonic-types/lib-react4xp": "^6.0.0-B4",
     "@enonic-types/lib-repo": "^7.15.0-A2",
     "@enonic-types/lib-scheduler": "^7.15.0-A2",
     "@enonic-types/lib-schema": "^7.15.0-A2",

@@ -15,20 +15,8 @@
 		"noLib": true,
 
 		"paths": {
-			// Development: TODO Should be removed before merging to master branch!
-			// "@enonic-types/core": ["../xp/modules/lib/core/index.d.ts"],
-			"@enonic-types/lib-react4xp": ["../lib-react4xp/src/main/resources/types/index.ts"],
-			// "@enonic/react-components": ["../npm-react-components"],
-			// "@enonic/react-components/*": ["../npm-react-components/src/*.ts"],
-			"@enonic/react4xp/*": ["../npm-react4xp/src/*.ts"],
-			"/lib/enonic/react4xp": ["../lib-react4xp/src/main/resources/lib/enonic/react4xp"],
-			"/lib/enonic/react4xp/*": ["../lib-react4xp/src/main/resources/lib/enonic/react4xp/*"],
-			// "/lib/xp/content": ["../xp/modules/lib/lib-content/src/main/resources/lib/xp/content.ts"],
-			// "/lib/xp/portal": ["../xp/modules/lib/lib-portal/src/main/resources/lib/xp/portal.ts"],
-
-			// TODO: Production: Should be commented in before merging to master branch!
 			"/lib/enonic/asset": ["./node_modules/@enonic-types/lib-asset"],
-			// "/lib/enonic/react4xp": ["./node_modules/@enonic-types/lib-react4xp"],
+			"/lib/enonic/react4xp": ["./node_modules/@enonic-types/lib-react4xp"],
 			"/lib/xp/*": ["./node_modules/@enonic-types/lib-*"],
 			"/react4xp": ["./src/main/resources/react4xp"],
 			"/react4xp/*": ["./src/main/resources/react4xp/*"],
@@ -44,23 +32,11 @@
 		// Packages in node_modules/@types of any enclosing folder are considered visible.
 		// For example, that means packages within ./node_modules/@types/,
 		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
-		// If typeRoots is specified, only packages under typeRoots will be included.
-		// "typeRoots": [
-		// 	"node_modules/@types",
-		// 	"node_modules/@enonic-types"
-		// ],
-
-		// By default all visible ”@types” packages are included in your compilation.
-		// Packages in node_modules/@types of any enclosing folder are considered visible.
-		// For example, that means packages within ./node_modules/@types/,
-		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
 		// If types is specified, only packages listed will be included in the global scope.
 		// This feature differs from typeRoots in that it is about specifying only the exact
 		// types you want included, whereas typeRoots supports saying you want particular folders.
 		"types": [
-			"@enonic-types/global", // No point, already added via typeRoots
-			// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
-			// "@enonic-types/lib-react4xp"
+			"@enonic-types/global",
 		],
 	},
 }

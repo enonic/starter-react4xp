@@ -1,5 +1,5 @@
 import type { Site } from '@enonic-types/lib-content';
-import type { ContentTypeProcessorFunction } from '/lib/enonic/react4xp/DataFetcher';
+import type { ContentTypeProcessorFunction } from '@enonic-types/lib-react4xp/DataFetcher';
 // import type { PortalSiteProps } from '/types/PortalSiteProps';
 
 // import { toStr } from '@enonic/js-utils/value/toStr';

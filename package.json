@@ -94,7 +94,6 @@
     "build:react4xp": "npm explore @enonic/react4xp -- npm run build:react4xp",
     "build:xp:resources": "npx tsup -d build/resources/main",
     "check": "concurrently -c auto -g --timings npm:check:types:*",
-    "check:types:guillotineRequest": "npx tsc --noEmit -p tsconfig.guillotineRequest.json",
     "check:types:node": "npx tsc --noEmit -p tsconfig.node.json",
     "check:types:react4xp": "npx tsc --noEmit -p tsconfig.react4xp.json",
     "check:types:xp": "npx tsc --noEmit -p tsconfig.xp.nashorn.json",

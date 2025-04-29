@@ -57,7 +57,7 @@ module.exports = {
 	//
 	// For compatibility with earlier versions of react4xp, add _entries here.
 	//
-	// entryDirs: [''],
+	entryDirs: ['entries'],
 
 
 	// entryExtensions are filename extensions of files (comma-separated list)

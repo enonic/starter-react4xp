@@ -1,0 +1,37 @@
+.footer {
+    margin: 1vh auto auto auto;
+    width: 100vw;
+    text-align: center;
+    background-color: black;
+    position: absolute;
+    left: 0;
+    font-size: 18px;
+    height: 7vh;
+    align-content: center;
+}
+
+.footer a {
+    color: #61dbfb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    color: #0892D4;
+    text-decoration: underline;
+}
+
+.footer p {
+    margin: 0;
+}
+
+.logoContainer {
+    position: absolute;
+    bottom: 1.5vh;
+    right: 1.5rem;
+}
+
+.logoContainer img {
+    max-height: 3.5vh;
+    max-width: 2.6vh;
+}

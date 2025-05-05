@@ -1,0 +1,102 @@
+.person .bio {
+    font-family: sans-serif;
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+    min-height: 1600px;
+}
+
+.person h1 {
+    margin-bottom: 0;
+}
+
+.person p {
+    margin-top: 0;
+}
+
+.flexBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.photoContainer {
+    position: relative;
+    display: flex;
+
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background-color: ghostwhite;
+    }
+}
+
+.photoGrid {
+    overflow-x: auto;
+}
+
+.photoScroll {
+    display: flex;
+    gap: 25px;
+    white-space: nowrap;
+    padding: 0;
+    margin: .5rem 0 .5rem 0;
+}
+
+.photoScroll img {
+    border-radius: 5px;
+}
+
+.photos {
+    margin-block: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 50px;
+    gap: 50px;
+}
+
+.restPhotosContainer {
+    padding: 1rem 0;
+    max-width: calc(90vw - 1rem);
+}
+
+.restPhotos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
+    gap: 5%;
+    margin-block: 1rem;
+}
+
+.photos img {
+    width: 100%;
+    height: auto; /* Ensures images scale properly */
+    border-radius: 8px;
+}
+
+.restImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: 5px;
+}
+
+
+.richText {
+    font-size: 24px;
+}
+
+
+.richText figure img {
+    border-radius: 5px;
+}
+
+.photosHeader {
+    margin-top: 0;
+    color: #EF82F0;
+}

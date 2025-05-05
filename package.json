@@ -23,8 +23,8 @@
     "dayjs": "^1.11.13",
     "node-fetch": "^3",
     "prop-types": "^15",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@babel/cli": "^7",
@@ -63,7 +63,7 @@
     "@enonic-types/lib-websocket": "^7",
     "@enonic/react4xp": "^5.0.4",
     "@swc/core": "^1",
-    "@types/react": "^19",
+    "@types/react": "^18",
     "babel": "^6",
     "babel-loader": "^10",
     "browser-sync": "^3",

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-    <form/>
-    <mappings>
-        <mapping controller="/site/app.js" order="10"> <!--1-->
-            <pattern>/.*</pattern>
-        </mapping>
-        <mapping controller="/site/component.js" order="10"> <!--2-->
-            <service>component</service>
-        </mapping>
-    </mappings>
+  <form/>
+  <mappings>
+    <mapping controller="/site/app.js" order="10"> <!--1-->
+      <pattern>/.*</pattern>
+    </mapping>
+    <mapping controller="/site/component.js" order="10"> <!--2-->
+      <service>component</service>
+    </mapping>
+  </mappings>
 </site>

@@ -42,6 +42,7 @@ Crash course, after getting this starter running:
 - Add a Site. Give it a display name and activate this starter app.
 - Select the "Default Page" page controller (and apply/save).
 
+
 ## Versions and compatibility
 
 This is version ###STARTER_VERSION###.

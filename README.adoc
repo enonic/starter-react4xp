@@ -46,6 +46,7 @@ Crash course, after getting this starter running:
 Give it a display name and activate this starter app.
 - Select the "Default Page" page controller (and apply/save).
 
+
 == Versions and compatibility
 
 This is version 2.0.0.

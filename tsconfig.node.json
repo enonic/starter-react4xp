@@ -1,0 +1,8 @@
+{
+  "include": [
+    "./tsup.config.ts"
+  ],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}

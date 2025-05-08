@@ -32,13 +32,15 @@ dependencies {
     //include "com.enonic.xp:lib-i18n:${xpVersion}"
     //include "com.enonic.xp:lib-io:${xpVersion}"
     //include "com.enonic.xp:lib-mail:${xpVersion}"
+    include "com.enonic.xp:lib-schema:${xpVersion}"
     //include "com.enonic.xp:lib-repo:${xpVersion}"
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
 
     // The version numbers must be here (or dependabot will fail)
+    include 'com.enonic.lib:lib-asset:1.0.1'
     include 'com.enonic.lib:lib-thymeleaf:2.1.1'
     include 'com.enonic.lib:lib-guillotine:6.2.1'
-    include 'com.enonic.lib:lib-react4xp:5.1.1'
+    include 'com.enonic.lib:lib-react4xp:6.0.0-SNAPSHOT'
 }
 
 sourceSets {
@@ -66,6 +68,15 @@ tasks.withType(Copy).configureEach {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+tasks.register( 'npmCheck', NpmTask ) {
+    dependsOn npmInstall
+    args = ['run',
+            'check']
+    environment = ['FORCE_COLOR': 'true',]
+}
+
+check.dependsOn npmCheck
 
 // This task takes care of XP non-react (and therefore non-react4xp) ts files
 // under src/main/resources. This is independent of react4xp, so you can replace
@@ -102,6 +113,7 @@ tasks.register('buildXpResources', NpmTask) {
 }
 
 tasks.register('react4xp', NpmTask) {
+    def envMode = project.hasProperty( 'env' ) ? ( project.property( 'env' ) == 'prod' ? 'production' : 'development' ) : 'production'
     args = [
         'run', 'build:react4xp'
     ]
@@ -111,12 +123,13 @@ tasks.register('react4xp', NpmTask) {
         'R4X_APP_NAME': "${appName}",
         'R4X_BUILD_LOG_LEVEL': gradle.startParameter.logLevel.toString(),
         'R4X_DIR_PATH_ABSOLUTE_PROJECT': project.projectDir.toString(),
-        'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
+        'NODE_ENV': envMode
     ]
     group 'react4xp'
     inputs.dir 'node_modules/@enonic/react4xp'
     inputs.dir 'src/main/resources'
     outputs.dir 'build/resources/main'
+    println "Environment set to: $envMode"
 }
 
 tasks.register('buildAssets', NpmTask) {
@@ -131,9 +144,9 @@ tasks.register('buildAssets', NpmTask) {
 
 tasks.register('dev', Exec) {
     if (System.getProperty('os.name').toLowerCase().contains('windows')) {
-        commandLine 'gradlew.bat', 'deploy', '-t'
+        commandLine 'gradlew.bat', 'deploy', '-Penv=dev', '-t'
     } else {
-        commandLine './gradlew', 'deploy', '-t'
+        commandLine './gradlew', 'deploy', '-Penv=dev', '-t'
     }
 }
 

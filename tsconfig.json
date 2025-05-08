@@ -1,74 +1,14 @@
-// This file is used by your code editor so it must be permissive to support
-// * Enonic XP serverside files running on Nashorn
-// * React4xp files running both on Graal-JS and in the browser
-// * Potential assets running in the browser only
-{ // https://www.typescriptlang.org/tsconfig
-	"compilerOptions": {
-		//──────────────────────────────────────────────────────────────────────
-		// Modules
-		//──────────────────────────────────────────────────────────────────────
-		"allowUmdGlobalAccess": true,
-		"baseUrl": ".",
-
-		"paths": {
-			"/lib/enonic/react4xp": ["node_modules/@enonic-types/lib-react4xp"],
-			"/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
-			// So one can import local files using absolute path same as
-			// * react4xp resolves during build time
-			// * and Enonic XP resolves during runtime
-			"/*": ["src/main/resources/*"], // For some reason this doesn't work in Visual Studio Code :(
+{
+	"files": [],
+	"references": [
+		{
+			"path": "tsconfig.node.json"
 		},
-
-		// By default all visible ”@types” packages are included in your compilation.
-		// Packages in node_modules/@types of any enclosing folder are considered visible.
-		// For example, that means packages within ./node_modules/@types/,
-		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
-		// If typeRoots is specified, only packages under typeRoots will be included.
-		"typeRoots": [
-			"node_modules/@types",
-			"node_modules/@enonic-types"
-		],
-
-		// By default all visible ”@types” packages are included in your compilation.
-		// Packages in node_modules/@types of any enclosing folder are considered visible.
-		// For example, that means packages within ./node_modules/@types/,
-		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
-		// If types is specified, only packages listed will be included in the global scope.
-		// This feature differs from typeRoots in that it is about specifying only the exact
-		// types you want included, whereas typeRoots supports saying you want particular folders.
-		"types": [
-			"@enonic-types/global", // No point, already added via typeRoots
-			// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
-			// "@enonic-types/lib-react4xp"
-		],
-
-		//──────────────────────────────────────────────────────────────────────
-		// Interop Constraints
-		//──────────────────────────────────────────────────────────────────────
-		"esModuleInterop": true, // Allow import React from 'react';
-
-		//──────────────────────────────────────────────────────────────────────
-		// Language and Environment
-		//──────────────────────────────────────────────────────────────────────
-		"jsx": "react", // Support jsx and tsx
-		"lib": [
-			// Keep in mind that DOM doesn't exist serverside, so only use it
-			// in clientSide assets or pure clientSide React4xp components.
-			"DOM",
-
-			"ES2015"
-		],
-
-		//──────────────────────────────────────────────────────────────────────
-		// Completeness
-		//──────────────────────────────────────────────────────────────────────
-		// Even though the setting disables type checking for d.ts files,
-		// TypeScript still type checks the code you specifically
-		// refer to in your application's source code.
-		"skipLibCheck": true, // Disable type checking for node_modules
-	},
-	"include": [
-		"src/main/resources/**/*.ts",
-		"src/main/resources/**/*.tsx"
+		{
+			"path": "tsconfig.react4xp.json"
+		},
+		{
+			"path": "tsconfig.xp.nashorn.json"
+		}
 	]
 }

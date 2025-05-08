@@ -1,0 +1,39 @@
+.helloContainer {
+  padding: 2.5rem 5rem 2.5rem 5rem;
+  justify-items: center;
+  background-color: #071622;
+  box-shadow: 0 0 8px #071622;
+  border-radius: 8px;
+  width: fit-content;
+  margin: 1rem auto;
+
+  h1 {
+    font-size: 3rem;
+    color: #61DBFB;
+    margin: 0 0 2.5rem 0;
+    padding: 0;
+  }
+
+  button {
+    background-color: #61DBFB;
+    color: #071622;
+    font-size: 2.5rem;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #61DBFB;
+    box-shadow: 0 0 4px #61DBFB;
+    padding: .5rem 1rem;
+  }
+
+  button:hover {
+    box-shadow: 0 0 16px #61DBFB;
+    transition: .5s;
+  }
+
+  button:active {
+    background-color: #EF82F0;
+    box-shadow: 0 0 8px #EF82F0;
+    border-color: #EF82F0;
+    transition: 0s;
+  }
+}

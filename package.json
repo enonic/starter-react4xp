@@ -8,8 +8,8 @@
     "Christian Andreas Westgaard <cwe@enonic.com>"
   ],
   "dependencies": {
-    "@enonic/react-components": "5.0.1",
-    "dayjs": "^1.11.13",
+    "@enonic/js-utils": "^1",
+    "@enonic/react-components": "^6.0.0-B4",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -32,7 +32,7 @@
     "@enonic-types/lib-node": "^7",
     "@enonic-types/lib-portal": "^7",
     "@enonic-types/lib-project": "^7",
-    "@enonic-types/lib-react4xp": "^4.0.0",
+    "@enonic-types/lib-react4xp": "^6.0.0-B7",
     "@enonic-types/lib-repo": "^7",
     "@enonic-types/lib-scheduler": "^7",
     "@enonic-types/lib-schema": "^7",
@@ -40,9 +40,10 @@
     "@enonic-types/lib-value": "^7",
     "@enonic-types/lib-vhost": "^7",
     "@enonic-types/lib-websocket": "^7",
-    "@enonic/react4xp": "^5.0.4",
+    "@enonic/react4xp": "^6.0.0-B2",
     "@eslint/js": "^9.31.0",
     "@swc/core": "^1",
+    "@types/css-modules": "^1",
     "@types/react": "^18",
     "browser-sync": "^3",
     "concurrently": "^9.2.0",
@@ -59,6 +60,7 @@
     "tsup": "^8",
     "typescript": "^5",
     "typescript-eslint": "^8.37.0",
+    "typescript-plugin-css-modules": "^5",
     "webpack": "^5",
     "webpack-cli": "^5"
   },
@@ -77,13 +79,14 @@
     "build:xp:resources": "npx tsup -d build/resources/main",
     "check": "concurrently -c auto -g --timings npm:check:types npm:lint",
     "check:types": "concurrently -g -r --timings npm:check:types:*",
-    "check:types:guillotineRequest": "npx tsc --noEmit -p tsconfig.guillotineRequest.json",
     "check:types:react4xp": "npx tsc --noEmit -p tsconfig.react4xp.json",
     "check:types:xp": "npx tsc --noEmit -p tsconfig.xp.nashorn.json",
     "clean": "rimraf build",
     "deploy": "./gradlew deploy",
+    "deps": "./gradlew --refresh-dependencies",
     "lint": "eslint --cache",
     "test": "jest --no-cache",
+    "rewatch": "./gradlew clean deploy && ./gradlew -t deploy",
     "watch": "./gradlew -t deploy"
   },
   "engines": {

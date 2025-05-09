@@ -1,0 +1,180 @@
+.moviePage {
+  line-height: 1.6;
+  margin-inline: auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.featuredImage {
+  display: block;
+  margin: 0 auto 2.5rem auto;
+  border: solid 1px #61DBFB;
+  box-shadow: 0 0 4px #61DBFB;
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+
+.photoImg {
+  margin-right: 25px;
+  max-width: 100%;
+  border-radius: 8px;
+  margin-block: 5px;
+}
+
+.director a {
+  overflow: visible;
+  margin-top: -1rem;
+}
+
+.directorImg {
+  width: calc(100% - 2px);
+  border: solid 1px #61DBFB;
+  box-shadow: 0 0 4px #61DBFB;
+  border-radius: 8px;
+}
+
+.photos {
+  padding: 1rem 0;
+  background: #000121;
+  position: relative;
+  width: 100vw;
+  display: flex;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  overflow-x: auto;
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: ghostwhite;
+  }
+}
+
+.photoGrid {
+  max-width: 1400px;
+  margin: 1rem auto 1rem auto;
+  width: 95%;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.photoScroll {
+  display: flex;
+  gap: 25px;
+  white-space: nowrap;
+}
+
+.cast h2 {
+  color: #EF82F0
+}
+
+.cast ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cast li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cast h3 {
+  color: #EF82F0;
+}
+
+.cast img {
+  width: 75px;
+  height: 75px;
+  margin-right: 10px;
+  border: 1px solid #61DBFB;
+  box-shadow: 0 0 4px #61DBFB;
+  border-radius: 8px;
+}
+
+.cast a {
+  overflow: unset;
+}
+
+.flexy {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+
+.blocky {
+  display: block;
+  width: 400px;
+  max-width: 100%;
+  margin-top: -.8rem;
+}
+
+.blocky h2 {
+  margin-top: 0;
+}
+
+.sneakyLink {
+  text-decoration: none;
+  display: inline-block;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.website {
+  margin-top: -1rem;
+  max-width: 100%;
+}
+
+.sneakyLink H3 {
+  margin-inline: 0;
+  margin-top: 0;
+}
+
+.sneakyTitle {
+  text-decoration: none;
+  color: #0892D4;
+}
+
+.sneakyCastLink {
+  text-decoration: none;
+  color: ghostwhite;
+  font-size: 18px;
+  display: flex;
+}
+
+.date {
+  font-size: 24px;
+  margin-top: -1rem;
+}
+
+@media screen and (max-width: 1150px) {
+  .blocky {
+    display: flex;
+    width: 800px;
+    max-width: 90vw;
+    justify-content: space-between;
+    gap: 25px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .blocky {
+    display: block;
+  }
+}

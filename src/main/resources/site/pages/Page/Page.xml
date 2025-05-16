@@ -1,0 +1,8 @@
+<page>
+  <display-name>Upgraded page</display-name>
+  <description>Upgraded page component</description>
+  <form/>
+  <regions>
+    <region name="main"/>
+  </regions>
+</page>

@@ -1,0 +1,15 @@
+.section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.section :global(> div) {
+  flex: 1;
+  min-width: 200px;
+}
+
+.section :global(.xp-page-editor-region-placeholder) {
+  margin-bottom: 0;
+}

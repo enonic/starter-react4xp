@@ -11,3 +11,4 @@ dataFetcher.addPage('com.enonic.app.hmdb:main', {processor: pageProcessor});
 dataFetcher.addPart('com.enonic.app.react4xp:example', {processor: partProcessor});
 dataFetcher.addLayout('com.enonic.app.hmdb:2-column', {processor: layoutProcessor});
 dataFetcher.addPage('com.enonic.app.react4xp:Page', {processor: pageProcessor});
+dataFetcher.addLayout('com.enonic.app.react4xp:TwoColumns', {processor: layoutProcessor});

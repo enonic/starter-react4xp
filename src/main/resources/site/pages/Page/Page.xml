@@ -1,6 +1,6 @@
 <page>
   <display-name>Upgraded page</display-name>
-  <description>Upgraded page component</description>
+  <description>Upgraded page controller</description>
   <form/>
   <regions>
     <region name="main"/>

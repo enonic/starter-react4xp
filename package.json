@@ -1,14 +1,5 @@
 {
   "author": "Enonic AS",
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-object-rest-spread",
-      "@babel/plugin-transform-arrow-functions"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/enonic/starter-react4xp/issues"
   },

@@ -1,7 +1,7 @@
 import {
     createSchema,
     execute,
-    //@ts-ignore // no types
+    //@ts-expect-error // no types
 } from '/lib/guillotine';
 
 const CORS_HEADERS = {
@@ -45,7 +45,7 @@ export const executeQuery = (query, variables) => execute({
  * These will be run through the guillotine engine and JSON data will be returned.
  */
 export const post = req => {
-    var body = JSON.parse(req.body);
+    const body = JSON.parse(req.body);
 
     const output = {
         contentType: 'application/json',
@@ -68,7 +68,7 @@ export const post = req => {
     }
 };
 
-export const options = req => ({
+export const options = () => ({
     contentType: 'text/plain;charset=utf-8',
     headers: CORS_HEADERS
 });

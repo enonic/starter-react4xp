@@ -4,14 +4,12 @@
  *          rendered XP components inside regions in a thymeleaf-rendered page controller (or hardcoded, etc) is
  *          perfectly fine. This is just a demo of how to do it if you need to make the page controller in react4xp.
  */
-import type { Enonic } from '@enonic/js-utils/types/Request';
 import type { PageComponentProps } from './default.d';
-import { toStr } from '@enonic/js-utils/value/toStr';
 import { getContent } from '/lib/xp/portal';
 import { render } from '/lib/enonic/react4xp';
+import type { Request } from '@enonic-types/core'
 
-
-export function get(request: Enonic.Xp.Http.Request) {
+export function get(request: Request) {
 	const content = getContent();
 	// log.debug('content:%s', toStr(content));
 

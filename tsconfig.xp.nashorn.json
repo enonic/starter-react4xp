@@ -5,6 +5,7 @@
 		//──────────────────────────────────────────────────────────────────────
 		"allowUmdGlobalAccess": true,
 		"baseUrl": ".",
+		"esModuleInterop": true,
 
 		"paths": {
 			"/lib/enonic/react4xp": ["node_modules/@enonic-types/lib-react4xp"],
@@ -21,19 +22,6 @@
 			"node_modules/@types",
 			"node_modules/@enonic-types"
 		],
-
-		// By default all visible ”@types” packages are included in your compilation.
-		// Packages in node_modules/@types of any enclosing folder are considered visible.
-		// For example, that means packages within ./node_modules/@types/,
-		// ../node_modules/@types/, ../../node_modules/@types/, and so on.
-		// If types is specified, only packages listed will be included in the global scope.
-		// This feature differs from typeRoots in that it is about specifying only the exact
-		// types you want included, whereas typeRoots supports saying you want particular folders.
-		"types": [
-			"@enonic-types/global", // No point, already added via typeRoots
-			// "@enonic-types/lib-event" // No point, since it doesn't affect global scope
-			// "@enonic-types/lib-react4xp"
-		],
 		//──────────────────────────────────────────────────────────────────────
 		// Language and Environment
 		//──────────────────────────────────────────────────────────────────────
@@ -49,7 +37,8 @@
 	},
 	"exclude": [
 		"src/main/resources/**/*.tsx",
-		"src/main/resources/headless/guillotineRequest.ts"
+		"src/main/resources/headless/**/*.ts",
+		"node_modules/@enonic/react-components/**/*.*"
 	],
 	"include": [
 		// Make sure default types matches Nashorn

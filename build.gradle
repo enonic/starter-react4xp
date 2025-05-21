@@ -6,12 +6,12 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    xp.enonicRepo('dev')
+    xp.enonicRepo()
 }
 
 node {
     download = true
-    version = '20.13.1'
+    version = '22.15.1'
 }
 
 app {
@@ -119,6 +119,16 @@ tasks.register('react4xp', NpmTask) {
     outputs.dir 'build/resources/main'
 }
 
+tasks.register('buildAssets', NpmTask) {
+    dependsOn( npmInstall )
+    args = ['run', 'build:assets']
+    group 'enonic xp'
+    description 'tsup transpile client-side assets'
+    outputs.dir 'build/resources/main/assets'
+    // This is just so gradle is able to do incremental builds:
+    inputs.files fileTree(dir: 'src/main/resources/assets')
+}
+
 tasks.register('dev', Exec) {
     if (System.getProperty('os.name').toLowerCase().contains('windows')) {
         commandLine 'gradlew.bat', 'deploy', '-t'
@@ -127,4 +137,33 @@ tasks.register('dev', Exec) {
     }
 }
 
-jar.dependsOn ( buildXpResources, react4xp )
+tasks.register('npmCheck', NpmTask) {
+    dependsOn npmInstall
+    args = [
+        'run',
+        'check'
+    ]
+    environment = [
+        'FORCE_COLOR': 'true',
+    ]
+}
+
+check.dependsOn npmCheck
+
+tasks.register('npmTest', NpmTask) {
+    args = [
+        'run',
+        'test'
+    ]
+    dependsOn npmInstall
+    environment = [
+        'FORCE_COLOR': 'true',
+    ]
+    inputs.dir 'src/jest'
+    outputs.dir 'coverage'
+    outputs.upToDateWhen { false }
+}
+
+test.dependsOn npmTest
+
+jar.dependsOn ( buildXpResources, react4xp, buildAssets )

@@ -1,15 +1,18 @@
-import type { Enonic } from '@enonic/js-utils/types/Request';
+import type { Request } from '@enonic-types/core';
 import type { Regions } from '@enonic/react-components';
-// import { toStr } from '@enonic/js-utils/value/toStr';
 import { render } from '/lib/enonic/react4xp';
 import { getComponent } from '/lib/xp/portal';
 
 
-export function get(request: Enonic.Xp.Http.Request) {
+export function get(request: Request) {
 	// log.debug('request:%s', toStr(request));
 
 	const component = getComponent();
 	// log.debug('component:%s', toStr(component));
+
+	if (component.type !== 'layout') {
+		throw new Error(`Expected a layout component, but got ${component.type}`);
+	}
 
 	const props: Parameters<typeof Regions>[0] = {
 		classes: true,

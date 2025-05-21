@@ -1,18 +1,17 @@
-import type {Enonic} from '@enonic/js-utils/types/Request';
-import { toStr } from './toStr';
+import type { Request } from '@enonic-types/core';
 import { render } from '/lib/enonic/react4xp';
 import { getComponent } from '/lib/xp/portal';
 
 
-export function get(request: Enonic.Xp.Http.Request) {
+export function get(request: Request) {
 	// log.debug('request:%s', toStr(request));
 
 	const component = getComponent();
-	log.debug('component:%s', toStr(component));
+	// log.debug('component:%s', toStr(component));
 
 	const props = {};
 
-	const response = render(
+	return render(
 		component,
 		props,
 		// React4xp Enforces SSR if a request object is not passed
@@ -44,7 +43,4 @@ export function get(request: Enonic.Xp.Http.Request) {
 			// Or fallback to the default, which is 'server'
 		}
 	);
-	// log.debug('response:%s', toStr(response));
-
-	return response;
 }

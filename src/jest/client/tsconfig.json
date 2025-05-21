@@ -1,0 +1,38 @@
+{
+  "extends": "../../main/resources/assets/tsconfig.json",
+
+  "include": [
+    "./**/*.spec.ts",
+    "./**/*.spec.tsx",
+    "./**/*.test.ts",
+    "./**/*.test.tsx",
+  ],
+
+  "compilerOptions": {
+    // "baseUrl": ".",
+
+    // A series of entries which re-map imports to lookup locations relative
+    // to the baseUrl if set, or to the tsconfig file itself otherwise.
+    "paths": {
+      "/assets/*": ["../../main/resources/assets/*"],
+    },
+
+    "sourceMap": true, // Important to get correct line numbers when running coverage tests
+
+    // By default all visible ”@types” packages are included in your
+    // compilation. Packages in node_modules/@types of any enclosing folder
+    // are considered visible. For example, that means packages within
+    // ./node_modules/@types/, ../node_modules/@types/,
+    // ../../node_modules/@types/, and so on.
+    // If types is specified, only packages listed will be included in the
+    // global scope.
+    // This feature differs from typeRoots in that it is about specifying
+    // only the exact types you want included, whereas typeRoots supports
+    // saying you want particular folders.
+    // "types": [
+      // "jest", // Doesn't even work for test files in this folder?
+    // ],
+
+  }, // compilerOptions
+
+}

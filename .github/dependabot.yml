@@ -9,6 +9,7 @@ updates:
       - "rymsha"
     reviewers:
       - "rymsha"
+    target-branch: "next"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -21,6 +22,7 @@ updates:
         versions: [ ">=19" ]
       - dependency-name: "@types/react"
         versions: [ ">=19" ]
+    target-branch: "next"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -30,3 +32,4 @@ updates:
       - "rymsha"
     reviewers:
       - "rymsha"
+    target-branch: "next"

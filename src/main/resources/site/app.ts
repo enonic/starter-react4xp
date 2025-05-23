@@ -1,41 +1,47 @@
 import {render} from '/lib/enonic/react4xp';
-import {type Content, get as getContentByKey} from '/lib/xp/content';
-import {getContent, pageUrl} from '/lib/xp/portal';
+import {getContent} from '/lib/xp/portal';
 import {dataFetcher} from '/react4xp/dataFetcher';
-import type {AppProps} from '/types/AppProps';
 import type {Request, Response} from '@enonic-types/core';
+import {handlePermissions, handleShortcut} from '/react4xp/utils/requestUtils';
 
 export function get(request: Request): Response {
-    let content = getContent();
-    if (content.type == "base:shortcut") {
-        const targetId: string = content.data.target as string
-        if (targetId) {
-            content = getContentByKey<Content>({key: targetId});
-            if (content) {
-                return {
-                    status: 302,
-                    redirect: pageUrl({path: content._path})
-                };
-            }
-        }
-        return {
-            status: 404
-        }
+
+    // Check content access and handle shortcuts
+    const content = getContent();
+    if (!content) {
+        return handlePermissions(request);
+    } else if (content.type == "base:shortcut") {
+        return handleShortcut(content);
     }
-    const component = dataFetcher.process({
-        content, // Since it's already gotten, pass it along, so DataFetcher doesn't have to get it again.
+
+    // Fetch and process content data
+    const data = dataFetcher.process({
+        content,
         request,
     });
 
-    const props: AppProps = {
-        component
-    }
-    const react4xpId = `react4xp_${content._id}`;
-    const htmlBody = `<!DOCTYPE html>
+    // Create HTML template
+    const id = `react4xp_${content._id}`;
+    const body = createHtmlTemplate(id, content.displayName);
+
+    // Render page
+    return render(
+        'App',
+        data,
+        request,
+        {
+            body,
+            id,
+        }
+    );
+}
+
+function createHtmlTemplate(react4xpId: string, displayName: string) {
+    return `<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8">
-			<title>${content.displayName}</title>
+			<title>${displayName}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="This page is a home movie database developed with React4XP 6.">
 		</head>
@@ -43,16 +49,5 @@ export function get(request: Request): Response {
 			<div id="${react4xpId}" class="contentContainer"></div>
 		</body>
 	</html>`;
-
-    const output = render(
-        'App',
-        props,
-        request,
-        {
-            body: htmlBody,
-            id: react4xpId,
-        }
-    );
-
-    return output;
 }
+

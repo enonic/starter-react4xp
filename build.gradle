@@ -26,9 +26,9 @@ dependencies {
     implementation "com.enonic.xp:core-api:${xpVersion}"
     implementation "com.enonic.xp:portal-api:${xpVersion}"
     include "com.enonic.xp:lib-content:${xpVersion}"
+    include "com.enonic.xp:lib-context:${xpVersion}"
     include "com.enonic.xp:lib-portal:${xpVersion}"
     //include "com.enonic.xp:lib-auth:${xpVersion}"
-    //include "com.enonic.xp:lib-context:${xpVersion}"
     //include "com.enonic.xp:lib-i18n:${xpVersion}"
     //include "com.enonic.xp:lib-io:${xpVersion}"
     //include "com.enonic.xp:lib-mail:${xpVersion}"
@@ -40,7 +40,7 @@ dependencies {
     include 'com.enonic.lib:lib-asset:1.0.1'
     include 'com.enonic.lib:lib-thymeleaf:2.1.1'
     include 'com.enonic.lib:lib-guillotine:6.2.1'
-    include 'com.enonic.lib:lib-react4xp:6.0.0-SNAPSHOT'
+    include 'com.enonic.lib:lib-react4xp:6.0.0-B10'
 }
 
 sourceSets {

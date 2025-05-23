@@ -3,6 +3,7 @@ import {helloProcessor} from './components/hello/HelloProcessor';
 import {layoutProcessor} from './components/layouts/TwoColumnProcessor';
 import {pageProcessor} from './components/page/PageProcessor';
 import {partProcessor} from './components/parts/example/exampleProcessor';
+import {commonProcessor} from '/react4xp/components/common/CommonProcessor';
 
 export const dataFetcher = new DataFetcher();
 
@@ -12,3 +13,4 @@ dataFetcher.addPart('com.enonic.app.react4xp:example', {processor: partProcessor
 dataFetcher.addLayout('com.enonic.app.hmdb:2-column', {processor: layoutProcessor});
 dataFetcher.addPage('com.enonic.app.react4xp:Page', {processor: pageProcessor});
 dataFetcher.addLayout('com.enonic.app.react4xp:TwoColumns', {processor: layoutProcessor});
+dataFetcher.addCommon({processor: commonProcessor});

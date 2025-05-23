@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part>
-  <display-name>Example part</display-name>
-  <description>React4xp 5 Example part</description>
+  <display-name>Example</display-name>
+  <description>Sample React part rendered by XP</description>
+  <form/>
 </part>

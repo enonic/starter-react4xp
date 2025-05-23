@@ -1,18 +1,17 @@
 import {render} from '/lib/enonic/react4xp';
 import {getComponent} from '/lib/xp/portal';
 import {Request} from '@enonic-types/core';
-import {toStr} from './toStr';
 
 
 export function get(request: Request) {
     // log.debug('request:%s', toStr(request));
 
     const component = getComponent();
-    log.debug('component:%s', toStr(component));
+    //log.debug('component:%s', toStr(component));
 
     const props = {};
 
-    const response = render(
+    return render(
         component,
         props,
         // React4xp Enforces SSR if a request object is not passed
@@ -44,7 +43,4 @@ export function get(request: Request) {
             // Or fallback to the default, which is 'server'
         }
     );
-    // log.debug('response:%s', toStr(response));
-
-    return response;
 }

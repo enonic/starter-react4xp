@@ -1,5 +1,3 @@
-import type {RenderableComponent} from '@enonic/react-components';
+import type {ProcessResult} from '@enonic-types/lib-react4xp/DataFetcher';
 
-export interface AppProps {
-    component: RenderableComponent
-}
+export type AppProps = ProcessResult;

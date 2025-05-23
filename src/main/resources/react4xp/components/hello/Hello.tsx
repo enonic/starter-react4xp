@@ -1,9 +1,9 @@
 import type {HelloProps} from '/types/HelloProps';
-import * as React from 'react';
+import React, {useState} from 'react';
 import styles from './Hello.module.css';
 
 export const Hello = ({title, initialCount}: HelloProps) => {
-    const [count, setCount] = React.useState(initialCount);
+    const [count, setCount] = useState(initialCount);
 
     return (
         <div>

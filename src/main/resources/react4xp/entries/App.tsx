@@ -6,7 +6,7 @@ import {componentRegistry} from '../componentRegistry';
 const App: React.FC<AppProps> = (props) => {
     return (
         <>
-            <BaseComponent componentRegistry={componentRegistry} {...props}/>
+            <BaseComponent componentRegistry={componentRegistry} data={props}/>
         </>
     );
 }

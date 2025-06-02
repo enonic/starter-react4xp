@@ -41,7 +41,7 @@
     "@enonic-types/lib-vhost": "^7",
     "@enonic-types/lib-websocket": "^7",
     "@enonic/react4xp": "^5.0.4",
-    "@eslint/js": "^9.27.0",
+    "@eslint/js": "^9.28.0",
     "@swc/core": "^1",
     "@types/react": "^18",
     "browser-sync": "^3",

@@ -1,9 +1,0 @@
-<layout>
-  <display-name>Two columns</display-name>
-  <description>Upgraded Two columns controller</description>
-  <form/>
-  <regions>
-    <region name="left"/>
-    <region name="right"/>
-  </regions>
-</layout>

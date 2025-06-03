@@ -2,10 +2,10 @@
 <site>
   <form/>
   <mappings>
-    <mapping controller="/site/app.js" order="10"> <!--1-->
+    <mapping controller="/site/app.js" order="10">
       <pattern invert="true">/r4xp5.*</pattern>
     </mapping>
-    <mapping controller="/site/component.js" order="10"> <!--2-->
+    <mapping controller="/site/component.js" order="10">
       <service>component</service>
     </mapping>
   </mappings>

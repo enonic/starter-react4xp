@@ -6,12 +6,14 @@ import type {ComponentProcessorFunction} from '@enonic-types/lib-react4xp/DataFe
 
 function fetchAdditionalPhotos(photoIds: string[]) {
     return photoIds.map(photoId => {
-        const photoContent = getContentByKey<Content>({key: photoId});
-        return {
-            _id: photoContent._id,
-            title: photoContent.displayName,
-            imageUrl: imageUrl({id: photoContent._id, scale: 'block(340, 220)'}) // Image scaled for remaining photos
-        };
+        if (photoId) {
+            const photoContent = getContentByKey<Content>({key: photoId});
+            return {
+                _id: photoContent._id,
+                title: photoContent.displayName,
+                imageUrl: imageUrl({id: photoContent._id, scale: 'block(340, 220)'}) // Image scaled for remaining photos
+            };
+        }
     });
 }
 
@@ -22,15 +24,16 @@ export const movieProcessor: ComponentProcessorFunction<'com.enonic.app.hmdb:mov
     const firstPhotoId = photos[0] || ''; // First photo ID
     const remainingPhotoIds: string[] = photos.slice(1); // Remaining photo IDs
 
-    const firstPhotoContent = getContentByKey<Content>({key: firstPhotoId});
-    const firstPhoto = firstPhotoContent
-                       ? {
-            _id: firstPhotoContent._id,
-            title: firstPhotoContent.displayName,
-            imageUrl: imageUrl({id: firstPhotoContent._id, scale: 'block(800, 1200)'}), // Larger scale for first photo
-            id: firstPhotoContent._id
-        }
-                       : null;
+    let firstPhoto = null;
+    if (firstPhotoId) {
+        const photoContent = getContentByKey<Content>({key: firstPhotoId});
+        firstPhoto = {
+            _id: photoContent._id,
+            title: photoContent.displayName,
+            imageUrl: imageUrl({id: photoContent._id, scale: 'block(800, 1200)'}), // Larger scale for first photo
+            id: photoContent._id
+        };
+    }
 
     const restphotos = fetchAdditionalPhotos(remainingPhotoIds);
 
@@ -83,4 +86,3 @@ export const movieProcessor: ComponentProcessorFunction<'com.enonic.app.hmdb:mov
         director
     };
 };
-

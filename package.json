@@ -4,8 +4,10 @@
     "url": "https://github.com/enonic/starter-react4xp/issues"
   },
   "contributors": [
-    "Espen Norderud",
-    "Christian Andreas Westgaard <cwe@enonic.com>"
+    "Mathias Skjulestad",
+    "Pavel Milkevich",
+    "Christian Andreas Westgaard",
+    "Espen Norderud"
   ],
   "dependencies": {
     "@enonic/js-utils": "^1",

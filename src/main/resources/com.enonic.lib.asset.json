@@ -1,5 +1,4 @@
 {
-  "root": "/react4xp/public",
   "cacheControl": "public, max-age=31536000, immutable",
   "staticCompress": true,
   "cacheBust": true

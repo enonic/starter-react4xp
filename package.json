@@ -53,7 +53,7 @@
     "mini-css-extract-plugin": "^2",
     "sass": "^1",
     "sass-loader": "^16",
-    "ts-jest": "^29.3.4",
+    "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "tslib": "^2",
     "tsup": "^8",

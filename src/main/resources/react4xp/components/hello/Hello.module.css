@@ -1,8 +1,8 @@
 .helloContainer {
   padding: 2.5rem 5rem 2.5rem 5rem;
-  justify-items: center;
   width: fit-content;
   margin: 1rem auto;
+  display: grid;
 
   h1 {
     font-size: 3rem;
@@ -13,8 +13,10 @@
   button {
     font-size: 2.5rem;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: .5rem 1rem;
+    border: 2px solid #000000;
+    justify-self: center;
   }
 
   button:hover {

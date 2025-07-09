@@ -1,8 +1,8 @@
 import {render} from '/lib/enonic/react4xp';
 import {getContent} from '/lib/xp/portal';
 import {dataFetcher} from '/react4xp/dataFetcher';
-import type {Request, Response} from '@enonic-types/core';
 import {handlePermissions, handleShortcut} from '/react4xp/utils/requestUtils';
+import type {Request, Response} from '@enonic-types/core';
 
 export function get(request: Request): Response {
 
@@ -19,6 +19,12 @@ export function get(request: Request): Response {
         content,
         request,
     });
+
+    if (data.component.type === "page" && !data.component.descriptor) {
+        return {
+            status: 418
+        };
+    }
 
     // Create HTML template
     const id = `react4xp_${content._id}`;
@@ -50,4 +56,3 @@ function createHtmlTemplate(react4xpId: string, displayName: string) {
 		</body>
 	</html>`;
 }
-

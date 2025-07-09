@@ -1,9 +1,10 @@
 import {PageDescriptor} from '@enonic-types/core';
-import type {ComponentProcessorFunction} from '@enonic-types/lib-react4xp/DataFetcher';
+import type {ComponentProcessor} from '@enonic-types/lib-react4xp/DataFetcher';
 
-export const helloProcessor: ComponentProcessorFunction<PageDescriptor> = (params) => {
+export const helloProcessor: ComponentProcessor<PageDescriptor> = (params) => {
+    const title = params.content?.displayName || params.content._name || 'Display name not set';
     return {
-        title: `${params.content.displayName}`,
+        title: title,
         initialCount: 0,
     };
 };

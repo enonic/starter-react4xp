@@ -1,12 +1,15 @@
-import type {AppProps} from '/types/AppProps';
+import {AppProps} from '/types/AppProps';
+import type {MetaData} from '@enonic/react-components';
 import {BaseComponent} from '@enonic/react-components';
 import * as React from 'react';
 import {componentRegistry} from '../componentRegistry';
 
-const App: React.FC<AppProps> = (props) => {
+const App: React.FC<AppProps> = ({component, data, common, meta}) => {
+    const compMeta: MetaData = meta as MetaData;
+    compMeta.componentRegistry = componentRegistry;
     return (
         <>
-            <BaseComponent componentRegistry={componentRegistry} data={props}/>
+            <BaseComponent component={component} data={data} common={common} meta={compMeta}/>
         </>
     );
 }
@@ -14,3 +17,4 @@ const App: React.FC<AppProps> = (props) => {
 App.displayName = 'App';
 
 export default App;
+

@@ -1,4 +1,4 @@
-import {ComponentProps} from '@enonic/react-components';
+import type {ComponentProps} from '@enonic/react-components';
 import * as React from 'react';
 import styles from './Hello.module.css';
 

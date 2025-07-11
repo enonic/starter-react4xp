@@ -11,7 +11,7 @@ XP.
 A simple example XP part with React rendering and a barebone page controller is included.
 
 **See [the react4xp introduction](https://developer.enonic.com/docs/react4xp/stable)** for a tutorial and more comprehensive documentation
-or check out the [developer portal](https://developer.enonic.com/) to learn more about the enonic environment.
+or check out the [developer portal](https://developer.enonic.com/) to learn more about the enonic ecosystem.
 
 Requires: installed [Enonic XP 7.15.1](https://developer.enonic.com/)
 with [Gradle](https://docs.gradle.org/current/userguide/getting_started_eng.html) and Node/NPM.

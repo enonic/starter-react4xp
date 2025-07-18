@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "@enonic/js-utils": "^1",
-    "@enonic/react-components": "^6.0.0-RC3",
+    "@enonic/react-components": "^6.0.0-RC4",
     "clsx": "^2.1.1",
     "core-js": "^3.39.0",
     "cross-env": "^7.0.3",
@@ -58,7 +58,7 @@
     "@enonic-types/lib-node": "^7.15.0",
     "@enonic-types/lib-portal": "^7.15.0",
     "@enonic-types/lib-project": "^7.15.0",
-    "@enonic-types/lib-react4xp": "^6.0.0-RC3",
+    "@enonic-types/lib-react4xp": "^6.0.0-RC4",
     "@enonic-types/lib-repo": "^7.15.0",
     "@enonic-types/lib-scheduler": "^7.15.0",
     "@enonic-types/lib-schema": "^7.15.0",

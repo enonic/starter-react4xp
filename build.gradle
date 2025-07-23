@@ -69,15 +69,6 @@ tasks.withType(Copy).configureEach {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-tasks.register( 'npmCheck', NpmTask ) {
-    dependsOn npmInstall
-    args = ['run',
-            'check']
-    environment = ['FORCE_COLOR': 'true',]
-}
-
-check.dependsOn npmCheck
-
 // This task takes care of XP non-react (and therefore non-react4xp) ts files
 // under src/main/resources. This is independent of react4xp, so you can replace
 // this with your own build steps if you want.

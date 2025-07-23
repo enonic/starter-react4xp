@@ -10,8 +10,8 @@
     "Espen Norderud"
   ],
   "dependencies": {
-    "@enonic/react-components": "^6.0.0-RC3",
-    "dayjs": "^1.11.13",
+    "@enonic/js-utils": "^1",
+    "@enonic/react-components": "^6.0.0-RC4",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -35,7 +35,7 @@
     "@enonic-types/lib-node": "^7",
     "@enonic-types/lib-portal": "^7",
     "@enonic-types/lib-project": "^7",
-    "@enonic-types/lib-react4xp": "^6.0.0-B12",
+    "@enonic-types/lib-react4xp": "^6.0.0-RC4",
     "@enonic-types/lib-repo": "^7",
     "@enonic-types/lib-scheduler": "^7",
     "@enonic-types/lib-schema": "^7",

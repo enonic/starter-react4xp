@@ -1,3 +1,4 @@
+import '@enonic/react-components/utils/initPublicPath'
 import {AppProps} from '/types/AppProps';
 import type {MetaData} from '@enonic/react-components';
 import {BaseComponent} from '@enonic/react-components';

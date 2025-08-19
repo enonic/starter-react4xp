@@ -1,6 +1,7 @@
+// import { polyfillNode } from 'esbuild-plugin-polyfill-node';
 import {globSync} from 'glob';
 // import {print} from 'q-i';
-import { defineConfig, type Options } from 'tsup';
+import {defineConfig, type Options} from 'tsup';
 
 
 interface MyOptions extends Options {
@@ -31,7 +32,87 @@ export default defineConfig((options: MyOptions) => {
 	if (options.d === 'build/resources/main') {
 		return {
 			entry: SERVER_FILES.map(dir => dir.replace(/\\/g,'/')),
+			// esbuildOptions(options) {
+			// 	// 	options.alias = {
+			// 	// 		"@enonic/react-components": "./node_modules/@enonic/react-components/dist/index.cjs",
+			// 	// 	}
+
+			// 	// Some node modules might need globalThis
+			// 	// options.banner = {
+			// 	// 	js: `const globalThis = (1, eval)('this');` // buffer polyfill needs this
+			// 	// };
+			// },
+			esbuildPlugins: [
+				// Some node modules might need parts of Node polyfilled:
+				// polyfillNode({
+				// 	globals: {
+				// 		buffer: false,
+				// 		process: false
+				// 	},
+				// 	polyfills: {
+				// 		_stream_duplex: false,
+				// 		_stream_passthrough: false,
+				// 		_stream_readable: false,
+				// 		_stream_transform: false,
+				// 		_stream_writable: false,
+				// 		assert: false,
+				// 		'assert/strict': false,
+				// 		async_hooks: false,
+				// 		buffer: false,
+				// 		child_process: false,
+				// 		cluster: false,
+				// 		console: false,
+				// 		constants: false,
+				// 		crypto: false,
+				// 		dgram: false,
+				// 		diagnostics_channel: false,
+				// 		dns: false,
+				// 		domain: false,
+				// 		events: false,
+				// 		fs: false,
+				// 		'fs/promises': false,
+				// 		http: false,
+				// 		http2: false,
+				// 		https: false,
+				// 		module: false,
+				// 		net: false,
+				// 		os: false,
+				// 		path: false,
+				// 		perf_hooks: false,
+				// 		process: false, //"empty",
+				// 		punycode: false,
+				// 		querystring: false,
+				// 		readline: false,
+				// 		repl: false,
+				// 		stream: false,
+				// 		string_decoder: false,
+				// 		sys: false,
+				// 		timers: false,
+				// 		'timers/promises': false,
+				// 		tls: false,
+				// 		tty: false,
+				// 		url: false,
+				// 		util: false, // true,
+				// 		v8: false,
+				// 		vm: false,
+				// 		wasi: false,
+				// 		worker_threads: false,
+				// 		zlib: false,
+				// 	}
+				// }) // ReferenceError: "navigator" is not defined
+			],
 			external: [
+				// All these should be built to their own file and resolved at runtime, not bundled at compiletime:
+				/^\/admin\//,
+				/^\/error\//,
+				/^\/headless\//,
+				/^\/lib\//,
+				/^\/react4xp\//,
+				/^\/services\//,
+				/^\/site\//,
+				/^\/types\//,
+				/^\/webapp\//,
+				// These are not available at compiletime, so they must be external
 				'/lib/enonic/react4xp',
 				'/lib/guillotine',
 				'/lib/thymeleaf',
@@ -61,6 +142,11 @@ export default defineConfig((options: MyOptions) => {
 				'/lib/xp/websocket',
 			],
 			format: 'cjs',
+
+			inject: [
+				// 'node_modules/core-js/stable/string/raw.js',
+				// 'node_modules/core-js/stable/object/entries.js',
+			],
 
 			// https://esbuild.github.io/api/#main-fields
 			//
@@ -109,7 +195,20 @@ export default defineConfig((options: MyOptions) => {
 			// You can still use the noExternal option to reinclude packages in
 			// the bundle
 			noExternal: [
-				'@enonic/js-utils'
+				/^@enonic\/js-utils/,
+				/^@enonic\/react-components/,
+
+				// SyntaxError: Unsupported RegExp flag: y
+				// 'html-format', // requires String.raw polyfill and navigator and Object.entries
+
+				// 'diffable-html', // requires stream
+
+				// NOPE drags in entities with Uint16Array
+				// 'hast-util-format',
+				// 'hast-util-from-html',
+				// 'hast-util-to-html',
+
+				// /^entities/, // This only helps for the Enonic XP server code, not the React4xp/Graal server code.
 			],
 
 			// https://esbuild.github.io/api/#platform

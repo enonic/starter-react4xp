@@ -7,11 +7,27 @@
 		"baseUrl": ".",
 		"esModuleInterop": true,
 
-		"paths": {
-			"/lib/enonic/react4xp": ["node_modules/@enonic-types/lib-react4xp"],
-			"/lib/xp/*": ["node_modules/@enonic-types/lib-*"],
-			"/*": ["src/main/resources/*"], // So one can import local files using absolute path (same as Enonic does during runtime).
-		},
+        "paths": {
+          "/lib/enonic/asset": [
+            "./node_modules/@enonic-types/lib-asset"
+          ],
+          "/lib/enonic/react4xp": [
+            "./node_modules/@enonic-types/lib-react4xp"
+          ],
+          "/lib/xp/*": [
+            "./node_modules/@enonic-types/lib-*"
+          ],
+          "/react4xp": [
+            "./src/main/resources/react4xp"
+          ],
+          "/react4xp/*": [
+            "./src/main/resources/react4xp/*"
+          ],
+          "/*": [
+            "./src/main/resources/*"
+          ]
+          // So one can import local files using absolute path (same as Enonic does during runtime).
+        },
 
 		// By default all visible ”@types” packages are included in your compilation.
 		// Packages in node_modules/@types of any enclosing folder are considered visible.
@@ -37,13 +53,11 @@
 	},
 	"exclude": [
 		"src/main/resources/**/*.tsx",
-		"src/main/resources/headless/**/*.ts",
 		"node_modules/@enonic/react-components/**/*.*"
 	],
 	"include": [
 		// Make sure default types matches Nashorn
 		"node_modules/typescript/lib/lib.es5.d.ts",
-
 		"src/main/resources/**/*.ts"
 	]
 }

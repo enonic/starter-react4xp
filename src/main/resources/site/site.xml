@@ -2,16 +2,11 @@
 <site>
   <form/>
   <mappings>
-    <!--
-
-    Maps the path <domain/site>/api/headless up to the controller src/main/resources/headless/guillotineApi.es6 (.js after compilation),
-    to open it up as a guillotine API endpoint. BEFORE DOING THIS, READ THE COMMENT IN THE CONTROLLER, ABOUT USAGE AND SECURITY.
-
-        <mapping controller="/headless/guillotineApi.js" order="50">
-            <pattern>/api/headless</pattern>
-        </mapping>
-
-    -->
+    <mapping controller="/site/app.js" order="10">
+      <pattern invert="true">/r4xp5.*</pattern>
+    </mapping>
+    <mapping controller="/site/component.js" order="10">
+      <service>component</service>
+    </mapping>
   </mappings>
-
 </site>

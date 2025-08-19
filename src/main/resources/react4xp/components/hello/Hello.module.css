@@ -1,0 +1,32 @@
+.helloContainer {
+  padding: 2.5rem 5rem 2.5rem 5rem;
+  width: fit-content;
+  margin: 1rem auto;
+  display: grid;
+
+  h1 {
+    font-size: 3rem;
+    margin: 0 0 2.5rem 0;
+    padding: 0;
+  }
+
+  button {
+    font-size: 2.5rem;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: .5rem 1rem;
+    border: 2px solid #000000;
+    justify-self: center;
+  }
+
+  button:hover {
+    box-shadow: 0 0 16px #000000;
+    transition: .5s;
+  }
+
+  button:active {
+    background-color: #000000;
+    color: #FFFFFF;
+    transition: 0s;
+  }
+}

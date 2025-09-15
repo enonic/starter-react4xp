@@ -58,7 +58,7 @@
     "rimraf": "^6",
     "sass": "^1",
     "sass-loader": "^16",
-    "ts-jest": "^29.4.1",
+    "ts-jest": "^29.4.2",
     "ts-node": "^10.9.2",
     "tslib": "^2",
     "tsup": "^8",

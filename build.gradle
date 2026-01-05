@@ -32,7 +32,7 @@ dependencies {
     //include "com.enonic.xp:lib-i18n:${xpVersion}"
     //include "com.enonic.xp:lib-io:${xpVersion}"
     //include "com.enonic.xp:lib-mail:${xpVersion}"
-    include "com.enonic.xp:lib-schema:${xpVersion}"
+    //include "com.enonic.xp:lib-schema:${xpVersion}"
     //include "com.enonic.xp:lib-repo:${xpVersion}"
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
 
@@ -40,7 +40,7 @@ dependencies {
     include 'com.enonic.lib:lib-asset:1.0.3'
     include 'com.enonic.lib:lib-thymeleaf:2.1.1'
     include 'com.enonic.lib:lib-guillotine:6.2.1'
-    include 'com.enonic.lib:lib-react4xp:6.0.1'
+    include 'com.enonic.lib:lib-react4xp:6.1.0-B1'
 }
 
 sourceSets {

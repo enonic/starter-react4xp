@@ -1,0 +1,11 @@
+kind: "Site"
+mappings:
+  - controller: "/cms/app.js"
+    order: 10
+    pattern: "/r4xp5.*"
+    invertPattern: true
+  - controller: "/cms/component.js"
+    service: "component"
+    order: 10
+apis:
+  - "asset"

@@ -1,5 +1,5 @@
 plugins {
-    id 'com.enonic.xp.app' version '3.6.2'
+    id 'com.enonic.xp.app'
     id "com.github.node-gradle.node" version "7.1.0"
 }
 
@@ -14,33 +14,21 @@ node {
     version = '22.15.1'
 }
 
-app {
-    name = "${appName}"
-    displayName = "${appDisplayName}"
-    vendorName = "${vendorName}"
-    vendorUrl = "${vendorUrl}"
-    systemVersion = "${xpVersion}"
-}
-
 dependencies {
-    implementation "com.enonic.xp:core-api:${xpVersion}"
-    implementation "com.enonic.xp:portal-api:${xpVersion}"
-    include "com.enonic.xp:lib-content:${xpVersion}"
-    include "com.enonic.xp:lib-context:${xpVersion}"
-    include "com.enonic.xp:lib-portal:${xpVersion}"
-    //include "com.enonic.xp:lib-auth:${xpVersion}"
-    //include "com.enonic.xp:lib-i18n:${xpVersion}"
-    //include "com.enonic.xp:lib-io:${xpVersion}"
-    //include "com.enonic.xp:lib-mail:${xpVersion}"
-    //include "com.enonic.xp:lib-schema:${xpVersion}"
-    //include "com.enonic.xp:lib-repo:${xpVersion}"
-    //include "com.enonic.xp:lib-websocket:${xpVersion}"
+    include xplibs.content
+    include xplibs.context
+    include xplibs.portal
+    include xplibs.auth
+    //include xplibs.i18n
+    //include xplibs.io
+    //include xplibs.mail
+    //include xplibs.schema
+    //include xplibs.repo
+    //include xplibs.websocket
 
     // The version numbers must be here (or dependabot will fail)
-    include 'com.enonic.lib:lib-asset:1.0.3'
-    include 'com.enonic.lib:lib-thymeleaf:2.1.1'
-    include 'com.enonic.lib:lib-guillotine:6.2.1'
-    include 'com.enonic.lib:lib-react4xp:6.1.0'
+    include 'com.enonic.lib:lib-asset:2.0.0-B1'
+    include 'com.enonic.lib:lib-react4xp:7.0.0-B1'
 }
 
 sourceSets {
@@ -131,14 +119,6 @@ tasks.register('buildAssets', NpmTask) {
     outputs.dir 'build/resources/main/assets'
     // This is just so gradle is able to do incremental builds:
     inputs.files fileTree(dir: 'src/main/resources/assets')
-}
-
-tasks.register('dev', Exec) {
-    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
-        commandLine 'gradlew.bat', 'deploy', '-Penv=dev', '-t'
-    } else {
-        commandLine './gradlew', 'deploy', '-Penv=dev', '-t'
-    }
 }
 
 tasks.register('npmCheck', NpmTask) {

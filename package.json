@@ -18,7 +18,7 @@
   "devDependencies": {
     "@enonic-types/global": "^8",
     "@enonic-types/lib-admin": "^7",
-    "@enonic-types/lib-app": "^7",
+    "@enonic-types/lib-app": "^8",
     "@enonic-types/lib-asset": "^1",
     "@enonic-types/lib-auditlog": "^8",
     "@enonic-types/lib-auth": "^7",

@@ -32,7 +32,7 @@
     "@enonic-types/lib-i18n": "^7",
     "@enonic-types/lib-io": "^8",
     "@enonic-types/lib-mail": "^7",
-    "@enonic-types/lib-node": "^7",
+    "@enonic-types/lib-node": "^8",
     "@enonic-types/lib-portal": "^7",
     "@enonic-types/lib-project": "^8",
     "@enonic-types/lib-react4xp": "^6.1.1",

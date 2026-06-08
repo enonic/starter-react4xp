@@ -36,7 +36,7 @@
     "@enonic-types/lib-portal": "^7",
     "@enonic-types/lib-project": "^8",
     "@enonic-types/lib-react4xp": "^6.1.1",
-    "@enonic-types/lib-repo": "^7",
+    "@enonic-types/lib-repo": "^8",
     "@enonic-types/lib-scheduler": "^8",
     "@enonic-types/lib-schema": "^7",
     "@enonic-types/lib-task": "^7",

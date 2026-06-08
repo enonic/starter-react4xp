@@ -29,7 +29,7 @@
     "@enonic-types/lib-event": "^7",
     "@enonic-types/lib-export": "^8",
     "@enonic-types/lib-grid": "^7",
-    "@enonic-types/lib-i18n": "^7",
+    "@enonic-types/lib-i18n": "^8",
     "@enonic-types/lib-io": "^8",
     "@enonic-types/lib-mail": "^7",
     "@enonic-types/lib-node": "^8",

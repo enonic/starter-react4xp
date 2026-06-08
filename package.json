@@ -26,7 +26,7 @@
     "@enonic-types/lib-common": "^8",
     "@enonic-types/lib-content": "^8",
     "@enonic-types/lib-context": "^8",
-    "@enonic-types/lib-event": "^7",
+    "@enonic-types/lib-event": "^8",
     "@enonic-types/lib-export": "^8",
     "@enonic-types/lib-grid": "^7",
     "@enonic-types/lib-i18n": "^8",

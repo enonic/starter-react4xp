@@ -10,7 +10,7 @@
     "Espen Norderud"
   ],
   "dependencies": {
-    "@enonic/js-utils": "^1",
+    "@enonic/js-utils": "^2",
     "@enonic/react-components": "^6.1.1",
     "react": "^19",
     "react-dom": "^19"

@@ -11,7 +11,7 @@ repositories {
 
 node {
     download = true
-    version = '22.15.1'
+    version = '24.16.0'
 }
 
 dependencies {
@@ -27,8 +27,8 @@ dependencies {
     //include xplibs.websocket
 
     // The version numbers must be here (or dependabot will fail)
-    include 'com.enonic.lib:lib-asset:2.0.0-B1'
-    include 'com.enonic.lib:lib-react4xp:7.0.0-B1'
+    include 'com.enonic.lib:lib-asset:2.0.0'
+    include 'com.enonic.lib:lib-react4xp:7.0.0'
 }
 
 sourceSets {

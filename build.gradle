@@ -1,6 +1,6 @@
 plugins {
     id 'com.enonic.xp.app'
-    id "com.github.node-gradle.node" version "7.1.0"
+    id 'com.github.node-gradle.node' version '7.1.0'
 }
 
 repositories {
@@ -31,72 +31,39 @@ dependencies {
     include 'com.enonic.lib:lib-react4xp:7.0.0'
 }
 
-sourceSets {
-  main {
-    resources {
-      ['.gitkeep','*.es6','*.jsx','*.scss','*.tsx'].each { ext ->
-        exclude "**/$ext"
-      }
-    }
-  }
-}
-
 processResources {
-  // Files that are simply copied by gradle: png svg xml
-  exclude '**/.gitkeep'
-  exclude '**/*.jsx' // handled by @enonic/react4xp gradle files
-  exclude '**/*.sass' // handled by @enonic/react4xp gradle files
-  exclude '**/*.scss' // handled by @enonic/react4xp gradle files
-  exclude '**/*.tsx' // handled by @enonic/react4xp gradle files
-  exclude '**/*.ts' // handled by tsup
+    exclude '**/.gitkeep'
+    exclude '**/*.json'
+    exclude '**/*.ts'
+    exclude '**/*.tsx'
+    exclude '**/*.jsx'
+    exclude '**/*.scss'
+    exclude '**/*.sass'
 }
 
 tasks.withType(Copy).configureEach {
     includeEmptyDirs = false
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// This task takes care of XP non-react (and therefore non-react4xp) ts files
-// under src/main/resources. This is independent of react4xp, so you can replace
-// this with your own build steps if you want.
-// IMPORTANT:
-// This task only handles .ts files under src/main/resources.
-// If you use your own logic to compile non-react XP files
-// (i.e. replace this task or add more to it),
-// you should usually make it ignore .tsx and .jsx files,
-// to ensure that those are handled only by the react4xp build
-// (node_modules/@enonic/react4xp/react4xp.gradle, aka. react4xpGradlePath)
-// and not compiled twice.
-tasks.register('buildXpResources', NpmTask) {
-    dependsOn( npmInstall )
-    args = ['run', 'build:xp:resources']
-    group 'enonic xp'
-    description 'tsup transpile Enonic XP TypeScript source files (important: ignoring TSX/JSX components since they are left to react4xp)'
+// tsdown: server .ts + client assets (NOT .tsx — those are react4xp's).
+tasks.register('npmBuild', NpmTask) {
+    args = ['run', '--silent', 'build']
+    dependsOn npmInstall
+    environment = [
+        'FORCE_COLOR': 'true',
+        'LOG_LEVEL_FROM_GRADLE': gradle.startParameter.logLevel.toString(),
+        'NODE_ENV': project.hasProperty('dev') || project.hasProperty('development') ? 'development' : 'production'
+    ]
+    inputs.dir 'src/main/resources'
     outputs.dir 'build/resources/main'
-    // This is just so gradle is able to do incremental builds:
-    inputs.files fileTree(dir: 'src/main/resources', exclude: [
-      '**/.gitkeep',
-      '**/*.cjs',
-      '**/*.es',
-      '**/*.jsx',
-      '**/*.html',
-      '**/*.png',
-      '**/*.sass',
-      '**/*.scss',
-      '**/*.svg',
-      '**/*.d.ts',
-      '**/*.tsx',
-      '**/*.xml'
-    ])
+    outputs.upToDateWhen { false }
 }
 
+// @enonic/react4xp's own tsup+rspack pipeline for .tsx components and entries.
 tasks.register('react4xp', NpmTask) {
-    def envMode = project.hasProperty( 'env' ) ? ( project.property( 'env' ) == 'prod' ? 'production' : 'development' ) : 'production'
-    args = [
-        'run', 'build:react4xp'
-    ]
-    dependsOn( npmInstall )
+    def envMode = project.hasProperty('env') ? (project.property('env') == 'prod' ? 'production' : 'development') : 'production'
+    args = ['run', 'build:react4xp']
+    dependsOn npmInstall
     description 'Compile react4xp resources'
     environment = [
         'R4X_APP_NAME': "${appName}",
@@ -108,46 +75,26 @@ tasks.register('react4xp', NpmTask) {
     inputs.dir 'node_modules/@enonic/react4xp'
     inputs.dir 'src/main/resources'
     outputs.dir 'build/resources/main'
-    println "Environment set to: $envMode"
+    outputs.upToDateWhen { false }
 }
 
-tasks.register('buildAssets', NpmTask) {
-    dependsOn( npmInstall )
-    args = ['run', 'build:assets']
-    group 'enonic xp'
-    description 'tsup transpile client-side assets'
-    outputs.dir 'build/resources/main/assets'
-    // This is just so gradle is able to do incremental builds:
-    inputs.files fileTree(dir: 'src/main/resources/assets')
-}
+jar.dependsOn(npmBuild, react4xp)
 
 tasks.register('npmCheck', NpmTask) {
     dependsOn npmInstall
-    args = [
-        'run',
-        'check'
-    ]
-    environment = [
-        'FORCE_COLOR': 'true',
-    ]
+    args = ['run', 'check']
+    environment = ['FORCE_COLOR': 'true']
 }
 
 check.dependsOn npmCheck
 
 tasks.register('npmTest', NpmTask) {
-    args = [
-        'run',
-        'test'
-    ]
+    args = ['run', 'test']
     dependsOn npmInstall
-    environment = [
-        'FORCE_COLOR': 'true',
-    ]
+    environment = ['FORCE_COLOR': 'true']
     inputs.dir 'src/jest'
     outputs.dir 'coverage'
     outputs.upToDateWhen { false }
 }
 
 test.dependsOn npmTest
-
-jar.dependsOn ( buildXpResources, react4xp, buildAssets )

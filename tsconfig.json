@@ -1,14 +1,11 @@
 {
-	"files": [],
-	"references": [
-		{
-			"path": "tsconfig.node.json"
-		},
-		{
-			"path": "tsconfig.react4xp.json"
-		},
-		{
-			"path": "tsconfig.xp.nashorn.json"
-		}
-	]
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.d.ts", "src/**/*.*"],
+  "compilerOptions": {
+    "lib": ["es2023"],
+    "types": ["node"],
+    "skipLibCheck": true,
+    "module": "preserve",
+    "moduleResolution": "bundler"
+  }
 }

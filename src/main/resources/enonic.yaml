@@ -1,4 +1,5 @@
 kind: "Application"
 title: "React4xp Starter"
+description: "Edit app description at src/main/resources/enonic.yaml"
 vendorName: "Enonic"
 vendorUrl: "https://enonic.com"

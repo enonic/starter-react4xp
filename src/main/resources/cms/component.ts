@@ -6,10 +6,8 @@ import {handlePermissions, jsonError, getComponent} from '/react4xp/utils/reques
 
 
 export function get(request: Request) {
-    const {
-        branch,
-        mode,
-    } = request;
+    const branch = request.branch;
+    const mode = request.mode;
 
     // Check request mode and branch
     if (branch !== 'draft') {

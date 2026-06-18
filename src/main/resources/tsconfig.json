@@ -1,0 +1,15 @@
+{
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.d.ts", "assets/**/*.*", "**/*.tsx"],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "paths": {
+      "/lib/xp/*": ["../../../node_modules/@enonic-types/lib-*"],
+      "/lib/enonic/asset": ["../../../node_modules/@enonic-types/lib-asset"],
+      "/lib/enonic/react4xp": ["../../../node_modules/@enonic-types/lib-react4xp"],
+      "/*": ["./*"]
+    },
+    "skipLibCheck": true,
+    "types": ["@enonic-types/global"]
+  }
+}

@@ -52,15 +52,14 @@ export function notFound(text?: string): Response {
     });
 }
 
-export function jsonError(text: string, status: number = 400): Response {
+export function jsonError(text: string, status?: number): Response {
     return newResponse({
-        status,
+        status: status === undefined ? 400 : status,
         contentType: 'application/json',
         body: JSON.stringify({
             error: text
         })
     });
-
 }
 
 export function getContentPath(request): string {
@@ -69,10 +68,10 @@ export function getContentPath(request): string {
 }
 
 function isContentExists(path: string): boolean {
-    const {repository, branch} = getContext();
+    const context = getContext();
     return runContext({
-        repository,
-        branch,
+        repository: context.repository,
+        branch: context.branch,
         principals: ["role:system.admin"]
     }, () => {
         return exists({
@@ -81,18 +80,14 @@ function isContentExists(path: string): boolean {
     });
 }
 
-export function getComponent({
-                                 content = getContent(),
-                                 request,
-                             }: {
-                                 content: Content;
-                                 request: Request;
-                             }
-) {
-    const {
-        path: componentPath,
-    } = request;
-    const {page} = content;
+export function getComponent(params: {
+    content: Content;
+    request: Request;
+}) {
+    const content = params.content || getContent();
+    const request = params.request;
+    const componentPath = request.path;
+    const page = content.page;
     const regions = page['regions'] || {};
     const regionPath = regionPathFromRequestPath(componentPath);
     return getIn(regions, regionPath) as Component;

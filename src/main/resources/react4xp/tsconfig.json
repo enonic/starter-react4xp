@@ -1,0 +1,18 @@
+{
+  "include": ["./**/*.tsx"],
+  "exclude": ["./**/*.d.ts"],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": ["DOM", "ES2015"],
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "paths": {
+      "/lib/xp/*": ["../../../../node_modules/@enonic-types/lib-*"],
+      "/*": ["../*"]
+    },
+    "skipLibCheck": true,
+    "target": "ES2015"
+  }
+}

@@ -81,10 +81,13 @@ function isContentExists(path: string): boolean {
 }
 
 export function getComponent(params: {
-    content: Content;
+    content?: Content;
     request: Request;
 }) {
     const content = params.content || getContent();
+    if (!content) {
+        throw new Error('getComponent: no content available');
+    }
     const request = params.request;
     const componentPath = request.path;
     const page = content.page;

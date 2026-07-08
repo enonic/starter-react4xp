@@ -1,12 +1,13 @@
 import type {Request, Response, Component} from '@enonic-types/core';
 import {getUser} from '/lib/xp/auth';
 import {Content, get as getContentByKey, exists} from '/lib/xp/content';
-import {pageUrl, getContent} from '/lib/xp/portal';
+import {pageUrl, getContent, getSite} from '/lib/xp/portal';
 import {get as getContext, run as runContext} from '/lib/xp/context';
 import {getIn} from '@enonic/js-utils/object/getIn';
 
 export function handlePermissions(request: Request): Response {
-    if (isContentExists(getContentPath(request))) {
+    const path = getContentPath(request);
+    if (path && isContentExists(path)) {
 
         if (!getUser()) {
             return newResponse({
@@ -62,12 +63,24 @@ export function jsonError(text: string, status?: number): Response {
     });
 }
 
-export function getContentPath(request): string {
-    const basePath = request.contextPath.substring(0, request.contextPath.lastIndexOf('/'));
-    return request.path.substring(basePath.length);
+export function getContentPath(request: Request): string {
+    const site = getSite();
+    if (!site) {
+        return request.path;
+    }
+
+    const siteBase = pageUrl({path: site._path}).replace(/\/+$/, '');
+    const tail = request.path.indexOf(siteBase) === 0
+        ? request.path.substring(siteBase.length)
+        : request.path;
+
+    return (site._path + tail).replace(/\/+$/, '') || '/';
 }
 
 function isContentExists(path: string): boolean {
+    if (!path) {
+        return false;
+    }
     const context = getContext();
     return runContext({
         repository: context.repository,

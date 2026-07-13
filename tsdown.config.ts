@@ -1,3 +1,4 @@
+import {transform} from '@swc/core';
 import {globSync} from 'glob';
 import {defineConfig} from 'tsdown';
 
@@ -42,6 +43,27 @@ const external = [
   /^\/lib\/xp\//,
 ];
 
+// Nashorn (XP's server-side JS engine) lacks ES2015 destructuring, but Oxc —
+// tsdown's transformer — can't target below es2015. Re-lower the bundled server
+// output to es5 with SWC after bundling, so force-bundled deps are covered too.
+const nashornEs5 = {
+  name: 'nashorn-es5',
+  async renderChunk(code: string) {
+    const out = await transform(code, {
+      jsc: {
+        parser: {syntax: 'ecmascript'},
+        target: 'es5',
+        loose: true,
+        externalHelpers: false,
+      },
+      isModule: false,
+      minify: false,
+      sourceMaps: false,
+    });
+    return {code: out.code, map: null};
+  },
+};
+
 export default defineConfig([
   ...(Object.keys(serverEntry).length ? [{
     entry: serverEntry,
@@ -54,6 +76,7 @@ export default defineConfig([
     minify: false,
     sourcemap: false,
     logLevel,
+    plugins: [nashornEs5],
     tsconfig: `${SRC}/tsconfig.json`,
     // @enonic/js-utils is a runtime dependency used by server code (requestUtils.ts).
     // tsdown externalizes dependencies by default, so force it to be bundled.

@@ -35,7 +35,7 @@ Then add a site in Content Studio with this application enabled. The [tutorial](
 | Ref | React4XP | Enonic XP | React |
 |---|---|---|---|
 | `master` branch | 7.x | 8.0.1 or later | 19 |
-| `xp7` branch | 6.1.0 | 7.16.1 or later | 19 |
+| `6.x` branch | 6.1.0 | 7.16.1 or later | 19 |
 | `v5.1.0` tag | 5.1.0 | 7.13.3 or later | 18 |
 
 The 6.x and 7.x lines are maintained as branches and were never tagged. `v5.1.0` is the last tagged release; it predates the `componentRegistry`/`dataFetcher` model and uses Guillotine, so treat it as legacy reference only.

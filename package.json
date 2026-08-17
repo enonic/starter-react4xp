@@ -61,7 +61,7 @@
     "tsdown": "^0.22.14",
     "tslib": "^2",
     "typescript": "^5",
-    "typescript-eslint": "^8.66.0",
+    "typescript-eslint": "^8.67.0",
     "typescript-plugin-css-modules": "^5"
   },
   "homepage": "https://github.com/enonic/starter-react4xp#readme",

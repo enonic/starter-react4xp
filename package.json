@@ -52,7 +52,7 @@
     "concurrently": "^10.0.5",
     "eslint": "^10.11.0",
     "glob": "^13",
-    "jest-environment-jsdom": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.2",
     "rimraf": "^6",
     "sass": "^1",
     "sass-loader": "^17",

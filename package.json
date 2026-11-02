@@ -51,7 +51,7 @@
     "browser-sync": "^3",
     "concurrently": "^10.0.6",
     "eslint": "^10.13.0",
-    "glob": "^13",
+    "glob": "^14",
     "jest-environment-jsdom": "^30.5.2",
     "rimraf": "^6",
     "sass": "^1",

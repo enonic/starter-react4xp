@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "@enonic/js-utils": "^2",
-    "@enonic/react-components": "^7.0.0",
+    "@enonic/react-components": "^7.1.0",
     "react": "^19",
     "react-dom": "^19"
   },
